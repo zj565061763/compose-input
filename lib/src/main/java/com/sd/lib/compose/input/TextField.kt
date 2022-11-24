@@ -143,11 +143,13 @@ fun FTextField(
     CompositionLocalProvider(
         LocalFTextFieldInfo provides state.info
     ) {
-        Box {
+        Box(
+            modifier = modifier
+                .fillMaxWidth()
+                .defaultMinSize(minHeight = 50.dp),
+        ) {
             Row(
-                modifier = modifier
-                    .fillMaxWidth()
-                    .defaultMinSize(minHeight = 50.dp),
+                modifier = Modifier.matchParentSize(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 leadingIcon?.invoke()
