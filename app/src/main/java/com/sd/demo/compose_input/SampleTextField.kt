@@ -79,20 +79,29 @@ private fun SampleClearText(
             FTextFieldLabel(labelText)
         },
         trailingIcon = {
-            val info = checkNotNull(LocalFTextFieldInfo.current)
-            if (info.isFocused && info.value.isNotEmpty()) {
-                IconButton(
-                    onClick = { value = "" },
-                    modifier = Modifier.size(30.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Clear,
-                        contentDescription = "clear",
-                        modifier = Modifier.size(15.dp)
-                    )
-                }
-            }
+            TextFieldClear()
         },
         modifier = modifier,
     )
+}
+
+@Composable
+private fun TextFieldClear(
+    modifier: Modifier = Modifier,
+) {
+    val info = checkNotNull(LocalFTextFieldInfo.current)
+    if (info.isFocused && info.value.isNotEmpty()) {
+        IconButton(
+            onClick = {
+                info.notifyValue("")
+            },
+            modifier = modifier
+        ) {
+            Icon(
+                imageVector = Icons.Default.Clear,
+                contentDescription = "clear",
+                modifier = Modifier.size(15.dp)
+            )
+        }
+    }
 }

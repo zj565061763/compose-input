@@ -39,6 +39,8 @@ interface FTextFieldInfo {
     val isFocused: Boolean
 
     val colors: FTextFieldColors
+
+    fun notifyValue(value: String)
 }
 
 data class FTextFieldColors(
@@ -112,6 +114,8 @@ fun FTextField(
 ) {
     val state = remember { FTextFieldState() }.apply {
         this.colors = colors
+        this.onValueChange = onValueChange
+        this.onFieldValueChange = onFieldValueChange
     }
 
     /** 内部保存的值 */
@@ -162,11 +166,7 @@ fun FTextField(
                     value = finalFieldValue,
                     onValueChange = {
                         internalFieldValue = it
-                        if (onFieldValueChange != null) {
-                            onFieldValueChange(it)
-                        } else {
-                            onValueChange(it.text)
-                        }
+                        state.notifyValueChange(it)
                     },
                     enabled = enabled,
                     readOnly = readOnly,
@@ -204,8 +204,8 @@ fun FTextField(
 fun FTextFieldLabel(
     label: String,
     labelPrefix: String = LocalContext.current.resources.getString(R.string.lib_compose_input_please_input),
-    fontSize: TextUnit = 13.sp,
-    fontSizeFocused: TextUnit = 10.sp,
+    fontSize: TextUnit = 14.sp,
+    fontSizeFocused: TextUnit = 12.sp,
 ) {
     val info = checkNotNull(LocalFTextFieldInfo.current)
     val finalLabel = if (!info.isFocused && info.value.isNotEmpty()) label else labelPrefix + label
@@ -267,10 +267,11 @@ object FTextFieldDefaults {
 
 private class FTextFieldState {
     var fieldValue: TextFieldValue by mutableStateOf(TextFieldValue())
-
     var isFocused: Boolean by mutableStateOf(false)
-
     var colors: FTextFieldColors by mutableStateOf(FTextFieldColors.Empty)
+
+    var onValueChange: ((String) -> Unit)? = null
+    var onFieldValueChange: ((TextFieldValue) -> Unit)? = null
 
     val focusRequester = FocusRequester()
 
@@ -287,6 +288,10 @@ private class FTextFieldState {
 
         override val colors: FTextFieldColors
             get() = this@FTextFieldState.colors
+
+        override fun notifyValue(value: String) {
+            this@FTextFieldState.notifyValueChange(TextFieldValue())
+        }
     }
 
     fun requestFocus() {
@@ -296,6 +301,14 @@ private class FTextFieldState {
     fun freeFocus() {
         if (isFocused) {
             focusRequester.freeFocus()
+        }
+    }
+
+    fun notifyValueChange(fieldValue: TextFieldValue) {
+        if (onFieldValueChange != null) {
+            onFieldValueChange?.invoke(fieldValue)
+        } else if (onValueChange != null) {
+            onValueChange?.invoke(fieldValue.text)
         }
     }
 }
