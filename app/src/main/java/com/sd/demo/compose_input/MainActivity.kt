@@ -47,7 +47,7 @@ private fun Content(
                 activity.startActivity(Intent(activity, SampleTextField::class.java))
             }
         ) {
-            Text(text = "button")
+            Text(text = "SampleTextField")
         }
     }
 }
