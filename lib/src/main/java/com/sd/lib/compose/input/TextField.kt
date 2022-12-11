@@ -218,12 +218,16 @@ fun FTextFieldLabel(
     labelPrefix: String = LocalContext.current.resources.getString(R.string.lib_compose_input_please_input),
     fontSize: TextUnit = 14.sp,
     fontSizeFocused: TextUnit = 12.sp,
+    textFieldInfo: FTextFieldInfo = checkNotNull(LocalFTextFieldInfo.current),
 ) {
-    val info = checkNotNull(LocalFTextFieldInfo.current)
-    val finalLabel = if (!info.isFocused && info.value.isNotEmpty()) label else labelPrefix + label
+    val finalLabel = if (!textFieldInfo.isFocused && textFieldInfo.value.isNotEmpty()) {
+        label
+    } else {
+        labelPrefix + label
+    }
 
     val density = LocalDensity.current
-    val targetValue = if (info.isFocused || info.value.isNotEmpty()) {
+    val targetValue = if (textFieldInfo.isFocused || textFieldInfo.value.isNotEmpty()) {
         with(density) { fontSizeFocused.toPx() }
     } else {
         with(density) { fontSize.toPx() }
