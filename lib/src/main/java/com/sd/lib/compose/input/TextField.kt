@@ -203,7 +203,7 @@ fun FTextField(
             }
 
             Box(modifier = Modifier.matchParentSize()) {
-                TextFieldUnderlineIndicator(
+                FTextFieldUnderlineIndicator(
                     modifier = Modifier.align(Alignment.BottomCenter)
                 )
                 overlay(state.info)
@@ -241,11 +241,16 @@ fun FTextFieldLabel(
 }
 
 @Composable
-private fun TextFieldUnderlineIndicator(
+fun FTextFieldUnderlineIndicator(
     modifier: Modifier = Modifier,
+    textFieldInfo: FTextFieldInfo = checkNotNull(LocalFTextFieldInfo.current),
 ) {
-    val info = checkNotNull(LocalFTextFieldInfo.current)
-    val color = if (info.isFocused) info.colors.focusedLabelColor else info.colors.unfocusedIndicatorColor
+    val color = if (textFieldInfo.isFocused) {
+        textFieldInfo.colors.focusedLabelColor
+    } else {
+        textFieldInfo.colors.unfocusedIndicatorColor
+    }
+
     Box(
         modifier = modifier
             .fillMaxWidth()
