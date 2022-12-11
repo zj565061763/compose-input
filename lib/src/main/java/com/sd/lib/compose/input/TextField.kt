@@ -29,7 +29,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
 
-val LocalFTextFieldInfo = staticCompositionLocalOf<FTextFieldInfo?> { null }
 
 interface FTextFieldInfo {
     val value: String
@@ -157,7 +156,7 @@ fun FTextField(
     }
 
     CompositionLocalProvider(
-        LocalFTextFieldInfo provides state.info
+        LocalTextFieldInfo provides state.info
     ) {
         Box(
             modifier = modifier
@@ -212,13 +211,20 @@ fun FTextField(
     }
 }
 
+private val LocalTextFieldInfo = staticCompositionLocalOf<FTextFieldInfo?> { null }
+
+@Composable
+fun fTextFieldInfo(): FTextFieldInfo {
+    return checkNotNull(LocalTextFieldInfo.current)
+}
+
 @Composable
 fun FTextFieldLabel(
     label: String,
     labelPrefix: String = LocalContext.current.resources.getString(R.string.lib_compose_input_please_input),
     fontSize: TextUnit = 14.sp,
     fontSizeFocused: TextUnit = 12.sp,
-    textFieldInfo: FTextFieldInfo = checkNotNull(LocalFTextFieldInfo.current),
+    textFieldInfo: FTextFieldInfo = fTextFieldInfo(),
 ) {
     val finalLabel = if (!textFieldInfo.isFocused && textFieldInfo.value.isNotEmpty()) {
         label
@@ -243,7 +249,7 @@ fun FTextFieldLabel(
 @Composable
 fun FTextFieldUnderlineIndicator(
     modifier: Modifier = Modifier,
-    textFieldInfo: FTextFieldInfo = checkNotNull(LocalFTextFieldInfo.current),
+    textFieldInfo: FTextFieldInfo = fTextFieldInfo(),
 ) {
     val color = if (textFieldInfo.isFocused) {
         textFieldInfo.colors.focusedLabelColor

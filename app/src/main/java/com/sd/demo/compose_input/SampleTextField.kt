@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.sd.demo.compose_input.ui.theme.AppTheme
 import com.sd.lib.compose.input.FTextField
 import com.sd.lib.compose.input.FTextFieldLabel
-import com.sd.lib.compose.input.LocalFTextFieldInfo
+import com.sd.lib.compose.input.fTextFieldInfo
 
 class SampleTextField : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -89,7 +89,7 @@ private fun SampleClearText(
 private fun TextFieldClear(
     modifier: Modifier = Modifier,
 ) {
-    val info = checkNotNull(LocalFTextFieldInfo.current)
+    val info = fTextFieldInfo()
     if (info.isFocused && info.value.isNotEmpty()) {
         IconButton(
             onClick = {
