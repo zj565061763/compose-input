@@ -15,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sd.demo.compose_input.ui.theme.AppTheme
 
@@ -35,7 +36,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 private fun Content(
-    activity: Activity
+    activity: Activity?
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -44,10 +45,18 @@ private fun Content(
     ) {
         Button(
             onClick = {
-                activity.startActivity(Intent(activity, SampleTextField::class.java))
+                activity?.let {
+                    it.startActivity(Intent(it, SampleTextField::class.java))
+                }
             }
         ) {
             Text(text = "SampleTextField")
         }
     }
+}
+
+@Preview
+@Composable
+private fun PreviewContent() {
+    Content(null)
 }
