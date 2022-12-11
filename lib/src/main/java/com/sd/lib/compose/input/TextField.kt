@@ -261,19 +261,10 @@ private class FTextFieldState {
     val focusRequester = FocusRequester()
 
     val info: FTextFieldInfo = object : FTextFieldInfo {
-
-        override val value: String
-            get() = this@FTextFieldState.fieldValue.text
-
-        override val fieldValue: TextFieldValue
-            get() = this@FTextFieldState.fieldValue
-
-        override val isFocused: Boolean
-            get() = this@FTextFieldState.isFocused
-
-        override val colors: FTextFieldColors
-            get() = this@FTextFieldState.colors
-
+        override val value: String get() = this@FTextFieldState.fieldValue.text
+        override val fieldValue: TextFieldValue get() = this@FTextFieldState.fieldValue
+        override val isFocused: Boolean get() = this@FTextFieldState.isFocused
+        override val colors: FTextFieldColors get() = this@FTextFieldState.colors
         override fun notifyValue(value: String) {
             this@FTextFieldState.notifyValueChange(TextFieldValue(value))
         }
