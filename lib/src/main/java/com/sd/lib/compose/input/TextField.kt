@@ -66,23 +66,6 @@ data class FTextFieldColors(
 
     internal val selectionColors: TextSelectionColors
         @Composable get() = textSelectionColors
-
-    companion object {
-        internal val Empty = FTextFieldColors(
-            textColor = Color.Transparent,
-            cursorColor = Color.Transparent,
-            containerColor = Color.Transparent,
-            placeholderColor = Color.Transparent,
-            unfocusedLabelColor = Color.Transparent,
-            focusedLabelColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent,
-            focusedIndicatorColor = Color.Transparent,
-            textSelectionColors = TextSelectionColors(
-                handleColor = Color.Transparent,
-                backgroundColor = Color.Transparent,
-            ),
-        )
-    }
 }
 
 object FTextFieldDefaults {
@@ -270,7 +253,7 @@ private fun TextFieldUnderlineIndicator(
 private class FTextFieldState {
     var fieldValue: TextFieldValue by mutableStateOf(TextFieldValue())
     var isFocused: Boolean by mutableStateOf(false)
-    var colors: FTextFieldColors by mutableStateOf(FTextFieldColors.Empty)
+    var colors: FTextFieldColors by mutableStateOf(EmptyColors)
 
     var onValueChange: ((String) -> Unit)? = null
     var onFieldValueChange: ((TextFieldValue) -> Unit)? = null
@@ -312,5 +295,22 @@ private class FTextFieldState {
         } else if (onValueChange != null) {
             onValueChange?.invoke(fieldValue.text)
         }
+    }
+
+    companion object {
+        private val EmptyColors = FTextFieldColors(
+            textColor = Color.Transparent,
+            cursorColor = Color.Transparent,
+            containerColor = Color.Transparent,
+            placeholderColor = Color.Transparent,
+            unfocusedLabelColor = Color.Transparent,
+            focusedLabelColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent,
+            focusedIndicatorColor = Color.Transparent,
+            textSelectionColors = TextSelectionColors(
+                handleColor = Color.Transparent,
+                backgroundColor = Color.Transparent,
+            ),
+        )
     }
 }
