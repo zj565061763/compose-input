@@ -50,7 +50,7 @@ internal fun InternalTextField(
     }
     val mergedTextStyle = textStyle.merge(TextStyle(color = textColor))
 
-    CompositionLocalProvider(LocalTextSelectionColors provides colors.textSelectionColors) {
+    CompositionLocalProvider(LocalTextSelectionColors provides colors.selectionColors) {
         @OptIn(ExperimentalMaterial3Api::class)
         BasicTextField(
             value = value,

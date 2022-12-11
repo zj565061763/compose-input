@@ -64,6 +64,9 @@ data class FTextFieldColors(
         return rememberUpdatedState(if (isError) cursorColor else cursorColor)
     }
 
+    internal val selectionColors: TextSelectionColors
+        @Composable get() = textSelectionColors
+
     companion object {
         internal val Empty = FTextFieldColors(
             textColor = Color.Transparent,
