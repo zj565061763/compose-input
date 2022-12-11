@@ -41,7 +41,9 @@ internal fun InternalTextField(
     maxLines: Int = Int.MAX_VALUE,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     shape: Shape = TextFieldDefaults.filledShape,
+    // modify
     colors: FTextFieldColors = FTextFieldDefaults.textFieldColors(),
+    // modify
     contentPadding: PaddingValues = PaddingValues(horizontal = 10.dp, vertical = 2.dp),
 ) {
     // If color is not provided via the text style, use content color as a default
@@ -86,6 +88,7 @@ internal fun InternalTextField(
                     enabled = enabled,
                     isError = isError,
                     interactionSource = interactionSource,
+                    // modify
                     colors = TextFieldDefaults.textFieldColors(
                         textColor = colors.textColor,
                         cursorColor = colors.cursorColor,
@@ -96,6 +99,7 @@ internal fun InternalTextField(
                         unfocusedIndicatorColor = Color.Transparent,
                         focusedIndicatorColor = Color.Transparent,
                     ),
+                    // modify
                     contentPadding = contentPadding
                 )
             }
