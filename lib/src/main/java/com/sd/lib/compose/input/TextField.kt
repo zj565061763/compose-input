@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
 
-val LocalFTextFieldInfo = compositionLocalOf<FTextFieldInfo?> { null }
+val LocalFTextFieldInfo = staticCompositionLocalOf<FTextFieldInfo?> { null }
 
 interface FTextFieldInfo {
     val value: String
@@ -78,6 +78,32 @@ data class FTextFieldColors(
                 handleColor = Color.Transparent,
                 backgroundColor = Color.Transparent,
             ),
+        )
+    }
+}
+
+object FTextFieldDefaults {
+    private val _textColor: Color
+        @Composable get() = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f)
+
+    private val _placeHolderColor: Color
+        @Composable get() = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f)
+
+    @Composable
+    fun textFieldColors(): FTextFieldColors {
+        return FTextFieldColors(
+            textColor = _textColor,
+            cursorColor = MaterialTheme.colorScheme.primary,
+            containerColor = Color.Transparent,
+            placeholderColor = _placeHolderColor,
+            unfocusedLabelColor = _placeHolderColor,
+            focusedLabelColor = MaterialTheme.colorScheme.primary,
+            unfocusedIndicatorColor = _placeHolderColor,
+            focusedIndicatorColor = MaterialTheme.colorScheme.primary,
+            textSelectionColors = TextSelectionColors(
+                handleColor = MaterialTheme.colorScheme.primary,
+                backgroundColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.4f)
+            )
         )
     }
 }
@@ -238,33 +264,6 @@ private fun TextFieldUnderlineIndicator(
     )
 }
 
-object FTextFieldDefaults {
-
-    private val _textColor: Color
-        @Composable get() = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f)
-
-    private val _placeHolderColor: Color
-        @Composable get() = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f)
-
-    @Composable
-    fun textFieldColors(): FTextFieldColors {
-        return FTextFieldColors(
-            textColor = _textColor,
-            cursorColor = MaterialTheme.colorScheme.primary,
-            containerColor = Color.Transparent,
-            placeholderColor = _placeHolderColor,
-            unfocusedLabelColor = _placeHolderColor,
-            focusedLabelColor = MaterialTheme.colorScheme.primary,
-            unfocusedIndicatorColor = _placeHolderColor,
-            focusedIndicatorColor = MaterialTheme.colorScheme.primary,
-            textSelectionColors = TextSelectionColors(
-                handleColor = MaterialTheme.colorScheme.primary,
-                backgroundColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.4f)
-            )
-        )
-    }
-}
-
 private class FTextFieldState {
     var fieldValue: TextFieldValue by mutableStateOf(TextFieldValue())
     var isFocused: Boolean by mutableStateOf(false)
@@ -290,7 +289,7 @@ private class FTextFieldState {
             get() = this@FTextFieldState.colors
 
         override fun notifyValue(value: String) {
-            this@FTextFieldState.notifyValueChange(TextFieldValue())
+            this@FTextFieldState.notifyValueChange(TextFieldValue(value))
         }
     }
 

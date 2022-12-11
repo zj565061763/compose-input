@@ -102,22 +102,3 @@ internal fun InternalTextField(
         )
     }
 }
-
-@Composable
-private fun TextFieldColors.textColorHook(enabled: Boolean): State<Color> {
-    val color: Color = if (enabled) fieldValue("textColor") else fieldValue("disabledTextColor")
-    return rememberUpdatedState(color)
-}
-
-@Composable
-private fun TextFieldColors.cursorColorHook(isError: Boolean): State<Color> {
-    val color: Color = if (isError) fieldValue("errorCursorColor") else fieldValue("cursorColor")
-    return rememberUpdatedState(color)
-}
-
-private fun <T> TextFieldColors.fieldValue(fieldName: String): T {
-    val field = TextFieldColors::class.java.getField(fieldName).apply {
-        this.isAccessible = true
-    }
-    return field.get(this) as T
-}
