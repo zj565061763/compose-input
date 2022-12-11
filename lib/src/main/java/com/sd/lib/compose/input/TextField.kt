@@ -122,7 +122,7 @@ fun FTextField(
     shape: Shape = RoundedCornerShape(0.dp),
     colors: FTextFieldColors = FTextFieldDefaults.textFieldColors(),
     contentPadding: PaddingValues = PaddingValues(horizontal = 10.dp, vertical = 2.dp),
-    scope: @Composable BoxScope.(FTextFieldInfo) -> Unit = {}
+    overlay: @Composable BoxScope.(FTextFieldInfo) -> Unit = {}
 ) {
     val state = remember { FTextFieldState() }.apply {
         this.colors = colors
@@ -206,7 +206,7 @@ fun FTextField(
                 TextFieldUnderlineIndicator(
                     modifier = Modifier.align(Alignment.BottomCenter)
                 )
-                scope(state.info)
+                overlay(state.info)
             }
         }
     }
