@@ -17,7 +17,6 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
@@ -224,7 +223,7 @@ fun fTextFieldInfo(): FTextFieldInfo {
 @Composable
 fun FTextFieldLabel(
     label: String,
-    labelPrefix: String = LocalContext.current.resources.getString(R.string.lib_compose_input_please_input),
+    labelPrefix: String = "",
     fontSize: TextUnit = 14.sp,
     fontSizeFocused: TextUnit = 12.sp,
     textFieldInfo: FTextFieldInfo = fTextFieldInfo(),
