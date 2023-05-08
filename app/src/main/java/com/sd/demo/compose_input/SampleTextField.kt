@@ -25,9 +25,7 @@ class SampleTextField : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AppTheme {
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    Content()
-                }
+                Content()
             }
         }
     }
