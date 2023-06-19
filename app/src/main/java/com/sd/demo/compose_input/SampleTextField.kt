@@ -16,6 +16,7 @@ import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -49,6 +50,7 @@ private fun Content() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(5.dp),
     ) {
+        SampleDefault()
         SampleNormal(
             modifier = Modifier
                 .height(40.dp)
@@ -57,6 +59,19 @@ private fun Content() {
         SampleClearText(labelText = "用户名")
         SampleClearText(labelText = "密码")
     }
+}
+
+@Composable
+private fun SampleDefault(
+    modifier: Modifier = Modifier,
+) {
+    var value by remember { mutableStateOf("") }
+
+    TextField(
+        value = value,
+        onValueChange = { value = it },
+        modifier = modifier.fillMaxWidth(),
+    )
 }
 
 @Composable

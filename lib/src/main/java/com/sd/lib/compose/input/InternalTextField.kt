@@ -90,10 +90,10 @@ internal fun InternalTextField(
                     interactionSource = interactionSource,
                     // modify
                     colors = TextFieldDefaults.textFieldColors(
-                        textColor = colors.textColor,
+//                        textColor = colors.textColor,
                         cursorColor = colors.cursorColor,
                         containerColor = colors.containerColor,
-                        placeholderColor = colors.placeholderColor,
+//                        placeholderColor = colors.placeholderColor,
                         unfocusedLabelColor = colors.unfocusedLabelColor,
                         focusedLabelColor = colors.focusedLabelColor,
                         unfocusedIndicatorColor = Color.Transparent,
