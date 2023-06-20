@@ -87,7 +87,7 @@ fun FTextField(
     indicator: @Composable BoxScope.() -> Unit = {
         FTextFieldIndicatorUnderline(modifier = Modifier.align(Alignment.BottomCenter))
     },
-    overlay: @Composable BoxScope.(FTextFieldInfo) -> Unit = {}
+    overlay: @Composable BoxScope.() -> Unit = {}
 ) {
     val onValueChangeUpdated by rememberUpdatedState(newValue = onValueChange)
 
@@ -161,7 +161,7 @@ fun FTextField(
     indicator: @Composable BoxScope.() -> Unit = {
         FTextFieldIndicatorUnderline(modifier = Modifier.align(Alignment.BottomCenter))
     },
-    overlay: @Composable BoxScope.(FTextFieldInfo) -> Unit = {}
+    overlay: @Composable BoxScope.() -> Unit = {}
 ) {
     val state = remember { FTextFieldState() }.apply {
         this.enabled = enabled
@@ -239,7 +239,7 @@ fun FTextField(
 
             Box(modifier = Modifier.matchParentSize()) {
                 indicator()
-                overlay(state.info)
+                overlay()
             }
         }
     }
