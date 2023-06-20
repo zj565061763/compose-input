@@ -79,7 +79,11 @@ fun FTextField(
     // modify
     focus: Boolean? = null,
     colors: FTextFieldColors = FTextFieldDefaults.colors(),
-    contentPadding: PaddingValues = PaddingValues(horizontal = 10.dp, vertical = 2.dp),
+    contentPadding: PaddingValues = PaddingValues(
+        top = 1.dp, bottom = 1.dp,
+        start = if (leadingIcon != null) 0.dp else 10.dp,
+        end = if (trailingIcon != null) 0.dp else 10.dp,
+    ),
     indicator: @Composable BoxScope.() -> Unit = {
         FTextFieldIndicatorUnderline(modifier = Modifier.align(Alignment.BottomCenter))
     },
@@ -149,7 +153,11 @@ fun FTextField(
     // modify
     focus: Boolean? = null,
     colors: FTextFieldColors = FTextFieldDefaults.colors(),
-    contentPadding: PaddingValues = PaddingValues(horizontal = 10.dp, vertical = 2.dp),
+    contentPadding: PaddingValues = PaddingValues(
+        top = 1.dp, bottom = 1.dp,
+        start = if (leadingIcon != null) 0.dp else 10.dp,
+        end = if (trailingIcon != null) 0.dp else 10.dp,
+    ),
     indicator: @Composable BoxScope.() -> Unit = {
         FTextFieldIndicatorUnderline(modifier = Modifier.align(Alignment.BottomCenter))
     },

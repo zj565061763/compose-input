@@ -6,7 +6,6 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -117,6 +116,5 @@ private fun Sample(
         trailingIcon = {
             FTextFieldIconClear()
         },
-        contentPadding = PaddingValues(start = 10.dp, top = 2.dp, bottom = 2.dp)
     )
 }
