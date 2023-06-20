@@ -30,7 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.sd.demo.compose_input.ui.theme.AppTheme
 import com.sd.lib.compose.input.FTextField
-import com.sd.lib.compose.input.FTextFieldClear
+import com.sd.lib.compose.input.FTextFieldIconClear
 
 class SampleTextField : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -115,7 +115,7 @@ private fun Sample(
             Text(text = labelText)
         },
         trailingIcon = {
-            FTextFieldClear()
+            FTextFieldIconClear()
         },
         contentPadding = PaddingValues(start = 10.dp, top = 2.dp, bottom = 2.dp)
     )

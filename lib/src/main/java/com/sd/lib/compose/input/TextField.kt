@@ -185,7 +185,7 @@ fun FTextField(
         ) {
             Row(
                 modifier = Modifier.matchParentSize(),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 leadingIcon?.let { leading ->
                     Decoration(contentColor = state.info.leadingIconColor().value) {
@@ -282,7 +282,7 @@ fun FTextFieldLabel(
 
     Text(
         text = finalLabel,
-        fontSize = with(density) { animateValue.toSp() }
+        fontSize = with(density) { animateValue.toSp() },
     )
 }
 
@@ -300,7 +300,7 @@ fun FTextFieldIndicatorUnderline(
 }
 
 @Composable
-fun FTextFieldClear(
+fun FTextFieldIconClear(
     modifier: Modifier = Modifier,
     size: Dp = 30.dp,
     padding: PaddingValues = PaddingValues(5.dp),
@@ -315,19 +315,15 @@ fun FTextFieldClear(
     val info = fTextFieldInfo()
     val showIcon = info.isFocused && info.value.text.isNotEmpty()
 
-    Box(
-        modifier = modifier
-            .padding(padding)
-            .size(size)
-            .clip(CircleShape)
-            .let {
-                if (showIcon) {
-                    it.clickable { info.notifyValue("") }
-                } else {
-                    it
-                }
-            },
-        contentAlignment = Alignment.Center,
+    FTextFieldIcon(
+        modifier = modifier,
+        size = size,
+        padding = padding,
+        onClick = if (showIcon) {
+            {
+                info.notifyValue("")
+            }
+        } else null,
     ) {
         if (showIcon) {
             icon()
@@ -336,15 +332,41 @@ fun FTextFieldClear(
 }
 
 @Composable
+fun FTextFieldIcon(
+    modifier: Modifier = Modifier,
+    size: Dp = 30.dp,
+    padding: PaddingValues = PaddingValues(5.dp),
+    onClick: (() -> Unit)?,
+    icon: @Composable () -> Unit,
+) {
+    Box(
+        modifier = modifier
+            .padding(padding)
+            .size(size)
+            .clip(CircleShape)
+            .let {
+                if (onClick != null) {
+                    it.clickable { onClick() }
+                } else {
+                    it
+                }
+            },
+        contentAlignment = Alignment.Center,
+    ) {
+        icon()
+    }
+}
+
+@Composable
 internal fun Decoration(
     contentColor: Color,
     typography: TextStyle? = null,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     val contentWithColor: @Composable () -> Unit = @Composable {
         CompositionLocalProvider(
             LocalContentColor provides contentColor,
-            content = content
+            content = content,
         )
     }
     if (typography != null) ProvideTextStyle(typography, contentWithColor) else contentWithColor()
