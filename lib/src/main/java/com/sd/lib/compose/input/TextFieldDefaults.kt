@@ -144,38 +144,35 @@ data class FTextFieldColors internal constructor(
     val errorSuffixColor: Color,
 ) {
     @Composable
-    internal fun textColor(
+    internal fun leadingIconColor(
         enabled: Boolean,
         isError: Boolean,
         focused: Boolean,
     ): State<Color> {
-        val targetValue = when {
-            !enabled -> disabledTextColor
-            isError -> errorTextColor
-            focused -> focusedTextColor
-            else -> unfocusedTextColor
-        }
-        return rememberUpdatedState(targetValue)
+        return rememberUpdatedState(
+            when {
+                !enabled -> disabledLeadingIconColor
+                isError -> errorLeadingIconColor
+                focused -> focusedLeadingIconColor
+                else -> unfocusedLeadingIconColor
+            }
+        )
     }
 
     @Composable
-    internal fun containerColor(
+    internal fun trailingIconColor(
         enabled: Boolean,
         isError: Boolean,
-        focused: Boolean,
+        focused: Boolean
     ): State<Color> {
-        val targetValue = when {
-            !enabled -> disabledContainerColor
-            isError -> errorContainerColor
-            focused -> focusedContainerColor
-            else -> unfocusedContainerColor
-        }
-        return animateColorAsState(targetValue, tween(durationMillis = AnimationDuration))
-    }
-
-    @Composable
-    internal fun cursorColor(isError: Boolean): State<Color> {
-        return rememberUpdatedState(if (isError) errorCursorColor else cursorColor)
+        return rememberUpdatedState(
+            when {
+                !enabled -> disabledTrailingIconColor
+                isError -> errorTrailingIconColor
+                focused -> focusedTrailingIconColor
+                else -> unfocusedTrailingIconColor
+            }
+        )
     }
 
     @Composable
@@ -195,6 +192,41 @@ data class FTextFieldColors internal constructor(
         } else {
             rememberUpdatedState(targetValue)
         }
+    }
+
+    @Composable
+    internal fun containerColor(
+        enabled: Boolean,
+        isError: Boolean,
+        focused: Boolean,
+    ): State<Color> {
+        val targetValue = when {
+            !enabled -> disabledContainerColor
+            isError -> errorContainerColor
+            focused -> focusedContainerColor
+            else -> unfocusedContainerColor
+        }
+        return animateColorAsState(targetValue, tween(durationMillis = AnimationDuration))
+    }
+
+    @Composable
+    internal fun textColor(
+        enabled: Boolean,
+        isError: Boolean,
+        focused: Boolean,
+    ): State<Color> {
+        val targetValue = when {
+            !enabled -> disabledTextColor
+            isError -> errorTextColor
+            focused -> focusedTextColor
+            else -> unfocusedTextColor
+        }
+        return rememberUpdatedState(targetValue)
+    }
+
+    @Composable
+    internal fun cursorColor(isError: Boolean): State<Color> {
+        return rememberUpdatedState(if (isError) errorCursorColor else cursorColor)
     }
 }
 

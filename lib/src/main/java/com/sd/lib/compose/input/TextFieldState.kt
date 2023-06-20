@@ -53,3 +53,21 @@ fun FTextFieldInfo.indicatorColor(): State<Color> {
         focused = isFocused,
     )
 }
+
+@Composable
+fun FTextFieldInfo.leadingIconColor(): State<Color> {
+    return colors.leadingIconColor(
+        enabled = enabled,
+        isError = isError,
+        focused = isFocused,
+    )
+}
+
+@Composable
+fun FTextFieldInfo.trailingIconColor(): State<Color> {
+    return colors.trailingIconColor(
+        enabled = enabled,
+        isError = isError,
+        focused = isFocused,
+    )
+}

@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -29,8 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.sd.demo.compose_input.ui.theme.AppTheme
 import com.sd.lib.compose.input.FTextField
-import com.sd.lib.compose.input.FTextFieldLabel
-import com.sd.lib.compose.input.fTextFieldInfo
+import com.sd.lib.compose.input.FTextFieldClear
 
 class SampleTextField : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,9 +53,12 @@ private fun Content() {
         verticalArrangement = Arrangement.spacedBy(5.dp),
     ) {
         SampleDefault()
-        SampleNormal()
-        SampleClearText(labelText = "用户名")
-        SampleClearText(labelText = "密码")
+        Sample(
+            modifier = Modifier.background(MaterialTheme.colorScheme.surfaceVariant),
+            labelText = "label",
+        )
+        Sample(labelText = "用户名")
+        Sample(labelText = "密码")
     }
 }
 
@@ -98,22 +101,7 @@ private fun SampleDefault(
 }
 
 @Composable
-private fun SampleNormal(
-    modifier: Modifier = Modifier,
-) {
-    var value by remember { mutableStateOf("") }
-
-    FTextField(
-        value = value,
-        onValueChange = { value = it },
-        modifier = modifier
-            .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.surfaceVariant),
-    )
-}
-
-@Composable
-private fun SampleClearText(
+private fun Sample(
     labelText: String,
     modifier: Modifier = Modifier,
 ) {
@@ -124,31 +112,15 @@ private fun SampleClearText(
         value = value,
         onValueChange = { value = it },
         label = {
-            FTextFieldLabel(labelText)
+            Text(text = labelText)
         },
         trailingIcon = {
-            TextFieldClear()
-        },
-    )
-}
-
-@Composable
-private fun TextFieldClear(
-    modifier: Modifier = Modifier,
-) {
-    val info = fTextFieldInfo()
-    if (info.isFocused && info.value.text.isNotEmpty()) {
-        IconButton(
-            onClick = {
-                info.notifyValue("")
-            },
-            modifier = modifier
-        ) {
-            Icon(
-                imageVector = Icons.Default.Clear,
-                contentDescription = "clear",
-                modifier = Modifier.size(15.dp)
+            FTextFieldClear(
+                modifier = Modifier
+                    .padding(5.dp)
+                    .size(30.dp)
             )
-        }
-    }
+        },
+        contentPadding = PaddingValues(start = 10.dp, top = 2.dp, bottom = 2.dp)
+    )
 }
