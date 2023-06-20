@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -43,6 +44,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -185,7 +187,11 @@ fun FTextField(
                 modifier = Modifier.matchParentSize(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                leadingIcon?.invoke()
+                leadingIcon?.let { leading ->
+                    Decoration(contentColor = state.info.leadingIconColor().value) {
+                        leading()
+                    }
+                }
 
                 InternalTextField(
                     modifier = Modifier
@@ -216,7 +222,11 @@ fun FTextField(
                     contentPadding = contentPadding,
                 )
 
-                trailingIcon?.invoke()
+                trailingIcon?.let { trailing ->
+                    Decoration(contentColor = state.info.trailingIconColor().value) {
+                        trailing()
+                    }
+                }
             }
 
             Box(modifier = Modifier.matchParentSize()) {
@@ -292,6 +302,8 @@ fun FTextFieldIndicatorUnderline(
 @Composable
 fun FTextFieldClear(
     modifier: Modifier = Modifier,
+    size: Dp = 30.dp,
+    padding: PaddingValues = PaddingValues(5.dp),
     icon: @Composable () -> Unit = {
         Icon(
             modifier = Modifier.size(15.dp),
@@ -301,13 +313,23 @@ fun FTextFieldClear(
     },
 ) {
     val info = fTextFieldInfo()
-    if (info.isFocused && info.value.text.isNotEmpty()) {
-        Box(
-            modifier = modifier
-                .clip(CircleShape)
-                .clickable { info.notifyValue("") },
-            contentAlignment = Alignment.Center,
-        ) {
+    val showIcon = info.isFocused && info.value.text.isNotEmpty()
+
+    Box(
+        modifier = modifier
+            .padding(padding)
+            .size(size)
+            .clip(CircleShape)
+            .let {
+                if (showIcon) {
+                    it.clickable { info.notifyValue("") }
+                } else {
+                    it
+                }
+            },
+        contentAlignment = Alignment.Center,
+    ) {
+        if (showIcon) {
             icon()
         }
     }

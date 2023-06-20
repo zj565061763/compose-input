@@ -115,11 +115,7 @@ private fun Sample(
             Text(text = labelText)
         },
         trailingIcon = {
-            FTextFieldClear(
-                modifier = Modifier
-                    .padding(5.dp)
-                    .size(30.dp)
-            )
+            FTextFieldClear()
         },
         contentPadding = PaddingValues(start = 10.dp, top = 2.dp, bottom = 2.dp)
     )
