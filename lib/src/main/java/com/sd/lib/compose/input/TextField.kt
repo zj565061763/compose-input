@@ -3,19 +3,29 @@ package com.sd.lib.compose.input
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.text.selection.TextSelectionColors
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextRange
@@ -28,125 +38,119 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
 
-
-interface FTextFieldInfo {
-    val value: String
-
-    val fieldValue: TextFieldValue
-
-    val isFocused: Boolean
-
-    val colors: FTextFieldColors
-
-    fun notifyValue(value: String)
-}
-
-data class FTextFieldColors(
-    val textColor: Color,
-    val cursorColor: Color,
-    val containerColor: Color,
-    val placeholderColor: Color,
-    val unfocusedLabelColor: Color,
-    val focusedLabelColor: Color,
-    val unfocusedIndicatorColor: Color,
-    val focusedIndicatorColor: Color,
-    val textSelectionColors: TextSelectionColors,
-) {
-    @Composable
-    internal fun textColor(enabled: Boolean): State<Color> {
-        return rememberUpdatedState(if (enabled) textColor else textColor)
-    }
-
-    @Composable
-    internal fun cursorColor(isError: Boolean): State<Color> {
-        return rememberUpdatedState(if (isError) cursorColor else cursorColor)
-    }
-
-    internal val selectionColors: TextSelectionColors
-        @Composable get() = textSelectionColors
-}
-
-object FTextFieldDefaults {
-    private val _textColor: Color
-        @Composable get() = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f)
-
-    private val _placeHolderColor: Color
-        @Composable get() = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f)
-
-    @Composable
-    fun textFieldColors(): FTextFieldColors {
-        return FTextFieldColors(
-            textColor = _textColor,
-            cursorColor = MaterialTheme.colorScheme.primary,
-            containerColor = Color.Transparent,
-            placeholderColor = _placeHolderColor,
-            unfocusedLabelColor = _placeHolderColor,
-            focusedLabelColor = MaterialTheme.colorScheme.primary,
-            unfocusedIndicatorColor = _placeHolderColor,
-            focusedIndicatorColor = MaterialTheme.colorScheme.primary,
-            textSelectionColors = TextSelectionColors(
-                handleColor = MaterialTheme.colorScheme.primary,
-                backgroundColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.4f)
-            )
-        )
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FTextField(
     value: String,
     onValueChange: (String) -> Unit,
-    fieldValue: TextFieldValue? = null,
-    onFieldValueChange: ((TextFieldValue) -> Unit)? = null,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     readOnly: Boolean = false,
-    focus: Boolean? = null,
-    textStyle: TextStyle = LocalTextStyle.current.copy(fontSize = 16.sp),
+    textStyle: TextStyle = LocalTextStyle.current,
     label: @Composable (() -> Unit)? = null,
     placeholder: @Composable (() -> Unit)? = null,
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
+    prefix: @Composable (() -> Unit)? = null,
+    suffix: @Composable (() -> Unit)? = null,
+    supportingText: @Composable (() -> Unit)? = null,
     isError: Boolean = false,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default.copy(
         imeAction = ImeAction.Next
     ),
-    keyboardActions: KeyboardActions = KeyboardActions(),
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
     singleLine: Boolean = true,
-    maxLines: Int = Int.MAX_VALUE,
+    maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
+    minLines: Int = 1,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     shape: Shape = RoundedCornerShape(0.dp),
-    colors: FTextFieldColors = FTextFieldDefaults.textFieldColors(),
+    // modify
+    focus: Boolean? = null,
+    colors: FTextFieldColors = FTextFieldDefaults.colors(),
     contentPadding: PaddingValues = PaddingValues(horizontal = 10.dp, vertical = 2.dp),
     indicator: @Composable BoxScope.() -> Unit = {
-        FTextFieldUnderlineIndicator(
-            modifier = Modifier.align(Alignment.BottomCenter)
-        )
+        FTextFieldIndicatorUnderline(modifier = Modifier.align(Alignment.BottomCenter))
+    },
+    overlay: @Composable BoxScope.(FTextFieldInfo) -> Unit = {}
+) {
+    val onValueChangeUpdated by rememberUpdatedState(newValue = onValueChange)
+
+    FTextField(
+        value = TextFieldValue(text = value, selection = TextRange(value.length)),
+        onValueChange = {
+            onValueChangeUpdated(it.text)
+        },
+        modifier = modifier,
+        enabled = enabled,
+        readOnly = readOnly,
+        textStyle = textStyle,
+        label = label,
+        placeholder = placeholder,
+        leadingIcon = leadingIcon,
+        trailingIcon = trailingIcon,
+        prefix = prefix,
+        suffix = suffix,
+        supportingText = supportingText,
+        isError = isError,
+        visualTransformation = visualTransformation,
+        keyboardOptions = keyboardOptions,
+        keyboardActions = keyboardActions,
+        singleLine = singleLine,
+        maxLines = maxLines,
+        minLines = minLines,
+        interactionSource = interactionSource,
+        shape = shape,
+        colors = colors,
+        focus = focus,
+        contentPadding = contentPadding,
+        indicator = indicator,
+        overlay = overlay,
+    )
+}
+
+@Composable
+fun FTextField(
+    value: TextFieldValue,
+    onValueChange: (TextFieldValue) -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    readOnly: Boolean = false,
+    textStyle: TextStyle = LocalTextStyle.current,
+    label: @Composable (() -> Unit)? = null,
+    placeholder: @Composable (() -> Unit)? = null,
+    leadingIcon: @Composable (() -> Unit)? = null,
+    trailingIcon: @Composable (() -> Unit)? = null,
+    prefix: @Composable (() -> Unit)? = null,
+    suffix: @Composable (() -> Unit)? = null,
+    supportingText: @Composable (() -> Unit)? = null,
+    isError: Boolean = false,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default.copy(
+        imeAction = ImeAction.Next
+    ),
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
+    singleLine: Boolean = true,
+    maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
+    minLines: Int = 1,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    shape: Shape = RoundedCornerShape(0.dp),
+    // modify
+    focus: Boolean? = null,
+    colors: FTextFieldColors = FTextFieldDefaults.colors(),
+    contentPadding: PaddingValues = PaddingValues(horizontal = 10.dp, vertical = 2.dp),
+    indicator: @Composable BoxScope.() -> Unit = {
+        FTextFieldIndicatorUnderline(modifier = Modifier.align(Alignment.BottomCenter))
     },
     overlay: @Composable BoxScope.(FTextFieldInfo) -> Unit = {}
 ) {
     val state = remember { FTextFieldState() }.apply {
+        this.enabled = enabled
+        this.isError = isError
+        this.isFocused = interactionSource.collectIsFocusedAsState().value
         this.colors = colors
+        this.value = value
         this.onValueChange = onValueChange
-        this.onFieldValueChange = onFieldValueChange
     }
-
-    /** 内部保存的值 */
-    var internalFieldValue by remember {
-        val initValue = TextFieldValue(text = value, selection = TextRange(value.length))
-        mutableStateOf(initValue)
-    }
-
-    /** 最终传递进去的值 */
-    val finalFieldValue = fieldValue
-        ?: if (internalFieldValue.text == value) {
-            internalFieldValue
-        } else {
-            internalFieldValue.copy(text = value)
-        }
-    state.fieldValue = finalFieldValue
 
     if (focus != null) {
         LaunchedEffect(focus) {
@@ -176,13 +180,9 @@ fun FTextField(
                 InternalTextField(
                     modifier = Modifier
                         .weight(1f)
-                        .focusRequester(state.focusRequester)
-                        .onFocusChanged { state.isFocused = it.isFocused },
-                    value = finalFieldValue,
-                    onValueChange = {
-                        internalFieldValue = it
-                        state.notifyValueChange(it)
-                    },
+                        .focusRequester(state.focusRequester),
+                    value = value,
+                    onValueChange = onValueChange,
                     enabled = enabled,
                     readOnly = readOnly,
                     textStyle = textStyle,
@@ -190,12 +190,16 @@ fun FTextField(
                     placeholder = placeholder,
                     leadingIcon = null,
                     trailingIcon = null,
+                    prefix = prefix,
+                    suffix = suffix,
+                    supportingText = supportingText,
                     isError = isError,
                     visualTransformation = visualTransformation,
                     keyboardOptions = keyboardOptions,
                     keyboardActions = keyboardActions,
                     singleLine = singleLine,
                     maxLines = maxLines,
+                    minLines = minLines,
                     interactionSource = interactionSource,
                     shape = shape,
                     colors = colors,
@@ -215,6 +219,20 @@ fun FTextField(
 
 private val LocalTextFieldInfo = staticCompositionLocalOf<FTextFieldInfo?> { null }
 
+interface FTextFieldInfo {
+    val enabled: Boolean
+
+    val isError: Boolean
+
+    val isFocused: Boolean
+
+    val colors: FTextFieldColors
+
+    val value: TextFieldValue
+
+    fun notifyValue(value: String)
+}
+
 @Composable
 fun fTextFieldInfo(): FTextFieldInfo {
     return checkNotNull(LocalTextFieldInfo.current)
@@ -226,16 +244,16 @@ fun FTextFieldLabel(
     labelPrefix: String = "",
     fontSize: TextUnit = 14.sp,
     fontSizeFocused: TextUnit = 12.sp,
-    textFieldInfo: FTextFieldInfo = fTextFieldInfo(),
 ) {
-    val finalLabel = if (!textFieldInfo.isFocused && textFieldInfo.value.isNotEmpty()) {
+    val textFieldInfo = fTextFieldInfo()
+    val finalLabel = if (!textFieldInfo.isFocused && textFieldInfo.value.text.isNotEmpty()) {
         label
     } else {
         labelPrefix + label
     }
 
     val density = LocalDensity.current
-    val targetValue = if (textFieldInfo.isFocused || textFieldInfo.value.isNotEmpty()) {
+    val targetValue = if (textFieldInfo.isFocused || textFieldInfo.value.text.isNotEmpty()) {
         with(density) { fontSizeFocused.toPx() }
     } else {
         with(density) { fontSize.toPx() }
@@ -249,76 +267,14 @@ fun FTextFieldLabel(
 }
 
 @Composable
-fun FTextFieldUnderlineIndicator(
+fun FTextFieldIndicatorUnderline(
     modifier: Modifier = Modifier,
-    textFieldInfo: FTextFieldInfo = fTextFieldInfo(),
 ) {
-    val color = if (textFieldInfo.isFocused) {
-        textFieldInfo.colors.focusedLabelColor
-    } else {
-        textFieldInfo.colors.unfocusedIndicatorColor
-    }
-
+    val indicatorColor by fTextFieldInfo().indicatorColor()
     Box(
         modifier = modifier
             .fillMaxWidth()
             .height(1.dp)
-            .background(color)
+            .background(indicatorColor)
     )
-}
-
-private class FTextFieldState {
-    var fieldValue: TextFieldValue by mutableStateOf(TextFieldValue())
-    var isFocused: Boolean by mutableStateOf(false)
-    var colors: FTextFieldColors by mutableStateOf(EmptyColors)
-
-    var onValueChange: ((String) -> Unit)? = null
-    var onFieldValueChange: ((TextFieldValue) -> Unit)? = null
-
-    val focusRequester = FocusRequester()
-
-    val info: FTextFieldInfo = object : FTextFieldInfo {
-        override val value: String get() = this@FTextFieldState.fieldValue.text
-        override val fieldValue: TextFieldValue get() = this@FTextFieldState.fieldValue
-        override val isFocused: Boolean get() = this@FTextFieldState.isFocused
-        override val colors: FTextFieldColors get() = this@FTextFieldState.colors
-        override fun notifyValue(value: String) {
-            this@FTextFieldState.notifyValueChange(TextFieldValue(value))
-        }
-    }
-
-    fun requestFocus() {
-        focusRequester.requestFocus()
-    }
-
-    fun freeFocus() {
-        if (isFocused) {
-            focusRequester.freeFocus()
-        }
-    }
-
-    fun notifyValueChange(fieldValue: TextFieldValue) {
-        if (onFieldValueChange != null) {
-            onFieldValueChange?.invoke(fieldValue)
-        } else if (onValueChange != null) {
-            onValueChange?.invoke(fieldValue.text)
-        }
-    }
-
-    companion object {
-        private val EmptyColors = FTextFieldColors(
-            textColor = Color.Transparent,
-            cursorColor = Color.Transparent,
-            containerColor = Color.Transparent,
-            placeholderColor = Color.Transparent,
-            unfocusedLabelColor = Color.Transparent,
-            focusedLabelColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent,
-            focusedIndicatorColor = Color.Transparent,
-            textSelectionColors = TextSelectionColors(
-                handleColor = Color.Transparent,
-                backgroundColor = Color.Transparent,
-            ),
-        )
-    }
 }

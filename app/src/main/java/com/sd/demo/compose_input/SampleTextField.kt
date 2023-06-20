@@ -8,14 +8,16 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -51,11 +53,7 @@ private fun Content() {
         verticalArrangement = Arrangement.spacedBy(5.dp),
     ) {
         SampleDefault()
-        SampleNormal(
-            modifier = Modifier
-                .height(40.dp)
-                .background(MaterialTheme.colorScheme.surfaceVariant)
-        )
+        SampleNormal()
         SampleClearText(labelText = "用户名")
         SampleClearText(labelText = "密码")
     }
@@ -71,6 +69,31 @@ private fun SampleDefault(
         value = value,
         onValueChange = { value = it },
         modifier = modifier.fillMaxWidth(),
+        label = { Text(text = "label") },
+        leadingIcon = {
+            IconButton(
+                onClick = {},
+                modifier = modifier
+            ) {
+                Icon(
+                    modifier = Modifier.width(20.dp),
+                    imageVector = Icons.Outlined.Search,
+                    contentDescription = "Search",
+                )
+            }
+        },
+        trailingIcon = {
+            IconButton(
+                onClick = {},
+                modifier = modifier
+            ) {
+                Icon(
+                    modifier = Modifier.size(15.dp),
+                    imageVector = Icons.Default.Clear,
+                    contentDescription = "Clear"
+                )
+            }
+        },
     )
 }
 
@@ -83,7 +106,9 @@ private fun SampleNormal(
     FTextField(
         value = value,
         onValueChange = { value = it },
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.surfaceVariant),
     )
 }
 
@@ -95,6 +120,7 @@ private fun SampleClearText(
     var value by remember { mutableStateOf("") }
 
     FTextField(
+        modifier = modifier,
         value = value,
         onValueChange = { value = it },
         label = {
@@ -103,7 +129,6 @@ private fun SampleClearText(
         trailingIcon = {
             TextFieldClear()
         },
-        modifier = modifier,
     )
 }
 
@@ -112,7 +137,7 @@ private fun TextFieldClear(
     modifier: Modifier = Modifier,
 ) {
     val info = fTextFieldInfo()
-    if (info.isFocused && info.value.isNotEmpty()) {
+    if (info.isFocused && info.value.text.isNotEmpty()) {
         IconButton(
             onClick = {
                 info.notifyValue("")

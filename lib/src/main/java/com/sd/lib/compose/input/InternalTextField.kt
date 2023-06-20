@@ -1,16 +1,22 @@
 package com.sd.lib.compose.input
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.selection.LocalTextSelectionColors
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.takeOrElse
@@ -19,7 +25,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 
-@ExperimentalMaterial3Api
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun InternalTextField(
     value: TextFieldValue,
@@ -32,28 +38,33 @@ internal fun InternalTextField(
     placeholder: @Composable (() -> Unit)? = null,
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
+    prefix: @Composable (() -> Unit)? = null,
+    suffix: @Composable (() -> Unit)? = null,
     supportingText: @Composable (() -> Unit)? = null,
     isError: Boolean = false,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     singleLine: Boolean = false,
-    maxLines: Int = Int.MAX_VALUE,
+    maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
+    minLines: Int = 1,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    shape: Shape = TextFieldDefaults.filledShape,
+    shape: Shape = TextFieldDefaults.shape,
     // modify
-    colors: FTextFieldColors = FTextFieldDefaults.textFieldColors(),
-    // modify
+    colors: FTextFieldColors = FTextFieldDefaults.colors(),
     contentPadding: PaddingValues = PaddingValues(horizontal = 10.dp, vertical = 2.dp),
 ) {
     // If color is not provided via the text style, use content color as a default
     val textColor = textStyle.color.takeOrElse {
-        colors.textColor(enabled).value
+        colors.textColor(
+            enabled = enabled,
+            isError = isError,
+            focused = interactionSource.collectIsFocusedAsState().value,
+        ).value
     }
     val mergedTextStyle = textStyle.merge(TextStyle(color = textColor))
 
     CompositionLocalProvider(LocalTextSelectionColors provides colors.selectionColors) {
-        @OptIn(ExperimentalMaterial3Api::class)
         BasicTextField(
             value = value,
             modifier = modifier
@@ -72,9 +83,10 @@ internal fun InternalTextField(
             interactionSource = interactionSource,
             singleLine = singleLine,
             maxLines = maxLines,
+            minLines = minLines,
             decorationBox = @Composable { innerTextField ->
                 // places leading icon, text field with label and placeholder, trailing icon
-                TextFieldDefaults.TextFieldDecorationBox(
+                TextFieldDefaults.DecorationBox(
                     value = value.text,
                     visualTransformation = visualTransformation,
                     innerTextField = innerTextField,
@@ -82,6 +94,8 @@ internal fun InternalTextField(
                     label = label,
                     leadingIcon = leadingIcon,
                     trailingIcon = trailingIcon,
+                    prefix = prefix,
+                    suffix = suffix,
                     supportingText = supportingText,
                     shape = shape,
                     singleLine = singleLine,
@@ -89,18 +103,20 @@ internal fun InternalTextField(
                     isError = isError,
                     interactionSource = interactionSource,
                     // modify
-                    colors = TextFieldDefaults.textFieldColors(
-//                        textColor = colors.textColor,
-                        cursorColor = colors.cursorColor,
-                        containerColor = colors.containerColor,
-//                        placeholderColor = colors.placeholderColor,
-                        unfocusedLabelColor = colors.unfocusedLabelColor,
-                        focusedLabelColor = colors.focusedLabelColor,
-                        unfocusedIndicatorColor = Color.Transparent,
-                        focusedIndicatorColor = Color.Transparent,
-                    ),
-                    // modify
-                    contentPadding = contentPadding
+                    colors = colors.toTextFieldColors(),
+                    contentPadding = contentPadding,
+                    container = {
+                        Box(
+                            Modifier.background(
+                                color = colors.containerColor(
+                                    enabled = enabled,
+                                    isError = isError,
+                                    focused = interactionSource.collectIsFocusedAsState().value,
+                                ).value,
+                                shape = shape,
+                            )
+                        )
+                    }
                 )
             }
         )
