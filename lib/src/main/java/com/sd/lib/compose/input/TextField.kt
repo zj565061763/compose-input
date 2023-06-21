@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -187,12 +186,10 @@ fun FTextField(
         LocalTextFieldInfo provides state.info
     ) {
         Box(
-            modifier = modifier
-                .fillMaxWidth()
-                .defaultMinSize(minHeight = 50.dp),
+            modifier = modifier.fillMaxWidth(),
         ) {
             Row(
-                modifier = Modifier.matchParentSize(),
+                modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 leadingIcon?.let { leading ->
