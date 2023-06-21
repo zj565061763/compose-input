@@ -279,6 +279,7 @@ fun FTextFieldIndicatorUnderline(
 @Composable
 fun FTextFieldIconClear(
     modifier: Modifier = Modifier,
+    textFieldInfo: FTextFieldInfo = fTextFieldInfo(),
     size: Dp = 30.dp,
     padding: PaddingValues = PaddingValues(5.dp),
     icon: @Composable () -> Unit = {
@@ -289,7 +290,7 @@ fun FTextFieldIconClear(
         )
     },
 ) {
-    val info = fTextFieldInfo()
+    val info by rememberUpdatedState(textFieldInfo)
     val showIcon = info.isFocused && info.value.text.isNotEmpty()
 
     FTextFieldIcon(
