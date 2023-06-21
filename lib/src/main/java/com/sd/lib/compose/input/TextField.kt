@@ -86,7 +86,7 @@ fun FTextField(
     indicator: @Composable BoxScope.() -> Unit = {
         FTextFieldIndicatorUnderline(modifier = Modifier.align(Alignment.BottomCenter))
     },
-    overlay: @Composable BoxScope.() -> Unit = {}
+    overlay: @Composable BoxScope.() -> Unit = {},
 ) {
     val onValueChangeUpdated by rememberUpdatedState(newValue = onValueChange)
 

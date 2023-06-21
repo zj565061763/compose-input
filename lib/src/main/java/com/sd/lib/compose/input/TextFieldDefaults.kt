@@ -13,76 +13,131 @@ import androidx.compose.ui.graphics.Color
 
 object FTextFieldDefaults {
     @Composable
-    fun colors(): FTextFieldColors {
-        val textColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f)
-        val disabledTextColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f)
-        val errorTextColor = MaterialTheme.colorScheme.error
+    fun colors(
+        focusedTextColor: Color? = null,
+        unfocusedTextColor: Color? = null,
+        disabledTextColor: Color? = null,
+        errorTextColor: Color? = null,
 
-        val containerColor = Color.Transparent
+        focusedContainerColor: Color? = null,
+        unfocusedContainerColor: Color? = null,
+        disabledContainerColor: Color? = null,
+        errorContainerColor: Color? = null,
 
-        val cursorColor = MaterialTheme.colorScheme.primary
+        cursorColor: Color? = null,
+        errorCursorColor: Color? = null,
 
-        val indicatorColor = MaterialTheme.colorScheme.primary
-        val placeHolderColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f)
+        selectionColors: TextSelectionColors? = null,
+
+        focusedIndicatorColor: Color? = null,
+        unfocusedIndicatorColor: Color? = null,
+        disabledIndicatorColor: Color? = null,
+        errorIndicatorColor: Color? = null,
+
+        focusedLeadingIconColor: Color? = null,
+        unfocusedLeadingIconColor: Color? = null,
+        disabledLeadingIconColor: Color? = null,
+        errorLeadingIconColor: Color? = null,
+
+        focusedTrailingIconColor: Color? = null,
+        unfocusedTrailingIconColor: Color? = null,
+        disabledTrailingIconColor: Color? = null,
+        errorTrailingIconColor: Color? = null,
+
+        focusedLabelColor: Color? = null,
+        unfocusedLabelColor: Color? = null,
+        disabledLabelColor: Color? = null,
+        errorLabelColor: Color? = null,
+
+        focusedPlaceholderColor: Color? = null,
+        unfocusedPlaceholderColor: Color? = null,
+        disabledPlaceholderColor: Color? = null,
+        errorPlaceholderColor: Color? = null,
+
+        focusedSupportingTextColor: Color? = null,
+        unfocusedSupportingTextColor: Color? = null,
+        disabledSupportingTextColor: Color? = null,
+        errorSupportingTextColor: Color? = null,
+
+        focusedPrefixColor: Color? = null,
+        unfocusedPrefixColor: Color? = null,
+        disabledPrefixColor: Color? = null,
+        errorPrefixColor: Color? = null,
+
+        focusedSuffixColor: Color? = null,
+        unfocusedSuffixColor: Color? = null,
+        disabledSuffixColor: Color? = null,
+        errorSuffixColor: Color? = null,
+    ): FTextFieldColors {
+        val tTextColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f)
+        val tDisabledTextColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f)
+        val tErrorTextColor = MaterialTheme.colorScheme.error
+
+        val tContainerColor = Color.Transparent
+
+        val tCursorColor = MaterialTheme.colorScheme.primary
+
+        val tIndicatorColor = MaterialTheme.colorScheme.primary
+        val tPlaceHolderColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f)
 
         return FTextFieldColors(
-            focusedTextColor = textColor,
-            unfocusedTextColor = textColor,
-            disabledTextColor = disabledTextColor,
-            errorTextColor = errorTextColor,
+            focusedTextColor = focusedTextColor ?: tTextColor,
+            unfocusedTextColor = unfocusedTextColor ?: tTextColor,
+            disabledTextColor = disabledTextColor ?: tDisabledTextColor,
+            errorTextColor = errorTextColor ?: tErrorTextColor,
 
-            focusedContainerColor = containerColor,
-            unfocusedContainerColor = containerColor,
-            disabledContainerColor = containerColor,
-            errorContainerColor = containerColor,
+            focusedContainerColor = focusedContainerColor ?: tContainerColor,
+            unfocusedContainerColor = unfocusedContainerColor ?: tContainerColor,
+            disabledContainerColor = disabledContainerColor ?: tContainerColor,
+            errorContainerColor = errorContainerColor ?: tContainerColor,
 
-            cursorColor = cursorColor,
-            errorCursorColor = errorTextColor,
+            cursorColor = cursorColor ?: tCursorColor,
+            errorCursorColor = errorCursorColor ?: tErrorTextColor,
 
-            selectionColors = TextSelectionColors(
-                handleColor = indicatorColor,
-                backgroundColor = indicatorColor.copy(alpha = 0.4f)
+            selectionColors = selectionColors ?: TextSelectionColors(
+                handleColor = tIndicatorColor,
+                backgroundColor = tIndicatorColor.copy(alpha = 0.4f)
             ),
 
-            focusedIndicatorColor = indicatorColor,
-            unfocusedIndicatorColor = placeHolderColor,
-            disabledIndicatorColor = disabledTextColor,
-            errorIndicatorColor = errorTextColor,
+            focusedIndicatorColor = focusedIndicatorColor ?: tIndicatorColor,
+            unfocusedIndicatorColor = unfocusedIndicatorColor ?: tPlaceHolderColor,
+            disabledIndicatorColor = disabledIndicatorColor ?: tDisabledTextColor,
+            errorIndicatorColor = errorIndicatorColor ?: tErrorTextColor,
 
-            focusedLeadingIconColor = textColor,
-            unfocusedLeadingIconColor = textColor,
-            disabledLeadingIconColor = disabledTextColor,
-            errorLeadingIconColor = errorTextColor,
+            focusedLeadingIconColor = focusedLeadingIconColor ?: tTextColor,
+            unfocusedLeadingIconColor = unfocusedLeadingIconColor ?: tTextColor,
+            disabledLeadingIconColor = disabledLeadingIconColor ?: tDisabledTextColor,
+            errorLeadingIconColor = errorLeadingIconColor ?: tErrorTextColor,
 
-            focusedTrailingIconColor = textColor,
-            unfocusedTrailingIconColor = textColor,
-            disabledTrailingIconColor = disabledTextColor,
-            errorTrailingIconColor = errorTextColor,
+            focusedTrailingIconColor = focusedTrailingIconColor ?: tTextColor,
+            unfocusedTrailingIconColor = unfocusedTrailingIconColor ?: tTextColor,
+            disabledTrailingIconColor = disabledTrailingIconColor ?: tDisabledTextColor,
+            errorTrailingIconColor = errorTrailingIconColor ?: tErrorTextColor,
 
-            focusedLabelColor = indicatorColor,
-            unfocusedLabelColor = placeHolderColor,
-            disabledLabelColor = disabledTextColor,
-            errorLabelColor = errorTextColor,
+            focusedLabelColor = focusedLabelColor ?: tIndicatorColor,
+            unfocusedLabelColor = unfocusedLabelColor ?: tPlaceHolderColor,
+            disabledLabelColor = disabledLabelColor ?: tDisabledTextColor,
+            errorLabelColor = errorLabelColor ?: tErrorTextColor,
 
-            focusedPlaceholderColor = placeHolderColor,
-            unfocusedPlaceholderColor = placeHolderColor,
-            disabledPlaceholderColor = placeHolderColor,
-            errorPlaceholderColor = placeHolderColor,
+            focusedPlaceholderColor = focusedPlaceholderColor ?: tPlaceHolderColor,
+            unfocusedPlaceholderColor = unfocusedPlaceholderColor ?: tPlaceHolderColor,
+            disabledPlaceholderColor = disabledPlaceholderColor ?: tPlaceHolderColor,
+            errorPlaceholderColor = errorPlaceholderColor ?: tPlaceHolderColor,
 
-            focusedSupportingTextColor = textColor,
-            unfocusedSupportingTextColor = placeHolderColor,
-            disabledSupportingTextColor = disabledTextColor,
-            errorSupportingTextColor = errorTextColor,
+            focusedSupportingTextColor = focusedSupportingTextColor ?: tTextColor,
+            unfocusedSupportingTextColor = unfocusedSupportingTextColor ?: tPlaceHolderColor,
+            disabledSupportingTextColor = disabledSupportingTextColor ?: tDisabledTextColor,
+            errorSupportingTextColor = errorSupportingTextColor ?: tErrorTextColor,
 
-            focusedPrefixColor = textColor,
-            unfocusedPrefixColor = textColor,
-            disabledPrefixColor = disabledTextColor,
-            errorPrefixColor = errorTextColor,
+            focusedPrefixColor = focusedPrefixColor ?: tTextColor,
+            unfocusedPrefixColor = unfocusedPrefixColor ?: tTextColor,
+            disabledPrefixColor = disabledPrefixColor ?: tDisabledTextColor,
+            errorPrefixColor = errorPrefixColor ?: tErrorTextColor,
 
-            focusedSuffixColor = textColor,
-            unfocusedSuffixColor = textColor,
-            disabledSuffixColor = disabledTextColor,
-            errorSuffixColor = errorTextColor,
+            focusedSuffixColor = focusedSuffixColor ?: tTextColor,
+            unfocusedSuffixColor = unfocusedSuffixColor ?: tTextColor,
+            disabledSuffixColor = disabledSuffixColor ?: tDisabledTextColor,
+            errorSuffixColor = errorSuffixColor ?: tErrorTextColor,
         )
     }
 }
