@@ -1,6 +1,5 @@
 package com.sd.lib.compose.input
 
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -23,7 +22,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.ProvideTextStyle
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
@@ -37,16 +35,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
 
 @Composable
@@ -261,34 +256,6 @@ interface FTextFieldInfo {
 @Composable
 fun fTextFieldInfo(): FTextFieldInfo {
     return checkNotNull(LocalTextFieldInfo.current)
-}
-
-@Composable
-fun FTextFieldLabel(
-    label: String,
-    labelPrefix: String = "",
-    fontSize: TextUnit = 14.sp,
-    fontSizeFocused: TextUnit = 12.sp,
-) {
-    val textFieldInfo = fTextFieldInfo()
-    val finalLabel = if (!textFieldInfo.isFocused && textFieldInfo.value.text.isNotEmpty()) {
-        label
-    } else {
-        labelPrefix + label
-    }
-
-    val density = LocalDensity.current
-    val targetValue = if (textFieldInfo.isFocused || textFieldInfo.value.text.isNotEmpty()) {
-        with(density) { fontSizeFocused.toPx() }
-    } else {
-        with(density) { fontSize.toPx() }
-    }
-    val animateValue by animateFloatAsState(targetValue)
-
-    Text(
-        text = finalLabel,
-        fontSize = with(density) { animateValue.toSp() },
-    )
 }
 
 @Composable
