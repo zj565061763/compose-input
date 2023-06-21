@@ -51,7 +51,6 @@ private fun Content() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(5.dp),
     ) {
-        SampleDefault()
         Sample(
             modifier = Modifier.background(MaterialTheme.colorScheme.surfaceVariant),
             labelText = "label",
