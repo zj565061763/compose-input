@@ -28,8 +28,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -90,9 +92,22 @@ fun FTextField(
 ) {
     val onValueChangeUpdated by rememberUpdatedState(newValue = onValueChange)
 
+    // 内部保存的值
+    var internalFieldValue by remember {
+        mutableStateOf(TextFieldValue(text = value, selection = TextRange(value.length)))
+    }
+
+    // 最终传递进去的值
+    val finalFieldValue = if (internalFieldValue.text == value) {
+        internalFieldValue
+    } else {
+        internalFieldValue.copy(text = value)
+    }
+
     FTextField(
-        value = TextFieldValue(text = value, selection = TextRange(value.length)),
+        value = finalFieldValue,
         onValueChange = {
+            internalFieldValue = it
             onValueChangeUpdated(it.text)
         },
         modifier = modifier,
