@@ -64,11 +64,10 @@ internal fun InternalTextField(
     CompositionLocalProvider(LocalTextSelectionColors provides colors.selectionColors) {
         BasicTextField(
             value = value,
-            modifier = modifier
-                .defaultMinSize(
-                    minWidth = TextFieldDefaults.MinWidth,
-                    minHeight = TextFieldDefaults.MinHeight
-                ),
+            modifier = modifier.defaultMinSize(
+                minWidth = TextFieldDefaults.MinWidth,
+                minHeight = TextFieldDefaults.MinHeight,
+            ),
             onValueChange = onValueChange,
             enabled = enabled,
             readOnly = readOnly,
@@ -115,7 +114,7 @@ internal fun InternalTextField(
                         )
                     },
                 )
-            }
+            },
         )
     }
 }
