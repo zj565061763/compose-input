@@ -63,9 +63,7 @@ fun FTextField(
     supportingText: @Composable (() -> Unit)? = null,
     isError: Boolean = false,
     visualTransformation: VisualTransformation = VisualTransformation.None,
-    keyboardOptions: KeyboardOptions = KeyboardOptions.Default.copy(
-        imeAction = ImeAction.Next
-    ),
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     singleLine: Boolean = true,
     maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
@@ -150,9 +148,7 @@ fun FTextField(
     supportingText: @Composable (() -> Unit)? = null,
     isError: Boolean = false,
     visualTransformation: VisualTransformation = VisualTransformation.None,
-    keyboardOptions: KeyboardOptions = KeyboardOptions.Default.copy(
-        imeAction = ImeAction.Next
-    ),
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     singleLine: Boolean = true,
     maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
@@ -170,7 +166,7 @@ fun FTextField(
     indicator: @Composable BoxScope.() -> Unit = {
         FTextFieldIndicatorUnderline(modifier = Modifier.align(Alignment.BottomCenter))
     },
-    overlay: @Composable BoxScope.() -> Unit = {}
+    overlay: @Composable BoxScope.() -> Unit = {},
 ) {
     val state = remember { FTextFieldState() }.apply {
         this.enabled = enabled
