@@ -7,18 +7,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Clear
-import androidx.compose.material.icons.outlined.Search
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -58,44 +49,6 @@ private fun Content() {
         Sample(labelText = "用户名")
         Sample(labelText = "密码")
     }
-}
-
-@Composable
-private fun SampleDefault(
-    modifier: Modifier = Modifier,
-) {
-    var value by remember { mutableStateOf("") }
-
-    TextField(
-        value = value,
-        onValueChange = { value = it },
-        modifier = modifier.fillMaxWidth(),
-        label = { Text(text = "label") },
-        leadingIcon = {
-            IconButton(
-                onClick = {},
-                modifier = modifier
-            ) {
-                Icon(
-                    modifier = Modifier.width(20.dp),
-                    imageVector = Icons.Outlined.Search,
-                    contentDescription = "Search",
-                )
-            }
-        },
-        trailingIcon = {
-            IconButton(
-                onClick = {},
-                modifier = modifier
-            ) {
-                Icon(
-                    modifier = Modifier.size(15.dp),
-                    imageVector = Icons.Default.Clear,
-                    contentDescription = "Clear"
-                )
-            }
-        },
-    )
 }
 
 @Composable
