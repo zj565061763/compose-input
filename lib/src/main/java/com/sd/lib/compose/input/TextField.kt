@@ -39,7 +39,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.Dp
@@ -78,10 +77,10 @@ fun FTextField(
         start = if (leadingIcon != null) 0.dp else 10.dp,
         end = if (trailingIcon != null) 0.dp else 10.dp,
     ),
-    indicator: @Composable BoxScope.() -> Unit = {
+    indicator: (@Composable BoxScope.() -> Unit)? = {
         FTextFieldIndicatorUnderline(modifier = Modifier.align(Alignment.BottomCenter))
     },
-    overlay: @Composable BoxScope.() -> Unit = {},
+    overlay: (@Composable BoxScope.() -> Unit)? = null,
 ) {
     val onValueChangeUpdated by rememberUpdatedState(newValue = onValueChange)
 
@@ -163,10 +162,10 @@ fun FTextField(
         start = if (leadingIcon != null) 0.dp else 10.dp,
         end = if (trailingIcon != null) 0.dp else 10.dp,
     ),
-    indicator: @Composable BoxScope.() -> Unit = {
+    indicator: (@Composable BoxScope.() -> Unit)? = {
         FTextFieldIndicatorUnderline(modifier = Modifier.align(Alignment.BottomCenter))
     },
-    overlay: @Composable BoxScope.() -> Unit = {},
+    overlay: (@Composable BoxScope.() -> Unit)? = null,
 ) {
     val state = remember { FTextFieldState() }.apply {
         this.enabled = enabled
@@ -241,8 +240,8 @@ fun FTextField(
             }
 
             Box(modifier = Modifier.matchParentSize()) {
-                indicator()
-                overlay()
+                indicator?.let { it() }
+                overlay?.let { it() }
             }
         }
     }
