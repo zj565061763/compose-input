@@ -345,7 +345,7 @@ fun FTextFieldIcon(
 }
 
 @Composable
-internal fun Decoration(
+private fun Decoration(
     contentColor: Color,
     typography: TextStyle? = null,
     content: @Composable () -> Unit,
