@@ -6,14 +6,17 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.sd.demo.compose_input.ui.theme.AppTheme
 
@@ -22,26 +25,41 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AppTheme {
-                Content()
+                Content(
+                    listActivity = listOf(
+                        SampleTextField::class.java,
+                    ),
+                    onClickActivity = {
+                        startActivity(Intent(this, it))
+                    },
+                )
             }
         }
     }
 }
 
 @Composable
-private fun Content() {
-    val activity = LocalContext.current as Activity
-    Column(
-        modifier = Modifier.fillMaxSize(),
+private fun Content(
+    listActivity: List<Class<out Activity>>,
+    onClickActivity: (Class<out Activity>) -> Unit,
+) {
+    val onClickActivityUpdated by rememberUpdatedState(onClickActivity)
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxSize()
+            .statusBarsPadding(),
+        verticalArrangement = Arrangement.spacedBy(5.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(5.dp)
     ) {
-        Button(
-            onClick = {
-                activity.startActivity(Intent(activity, SampleTextField::class.java))
+        items(
+            listActivity,
+            key = { it },
+        ) { item ->
+            Button(
+                onClick = { onClickActivityUpdated(item) }
+            ) {
+                Text(text = item.simpleName)
             }
-        ) {
-            Text(text = "SampleTextField")
         }
     }
 }
