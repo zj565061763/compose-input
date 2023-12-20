@@ -12,7 +12,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
 
-internal class FTextFieldState {
+internal class InternalTextFieldState {
     private var _interactionSource: InteractionSource? by mutableStateOf(null)
     private var _isFocused: Boolean by mutableStateOf(false)
 
@@ -25,19 +25,19 @@ internal class FTextFieldState {
     val focusRequester = FocusRequester()
 
     val textFieldInfo: FTextFieldInfo = object : FTextFieldInfo {
-        override val interactionSource: InteractionSource get() = checkNotNull(this@FTextFieldState._interactionSource)
-        override val isFocused: Boolean get() = this@FTextFieldState._isFocused
-        override val enabled: Boolean get() = this@FTextFieldState.enabled
-        override val isError: Boolean get() = this@FTextFieldState.isError
-        override val colors: FTextFieldColors get() = checkNotNull(this@FTextFieldState.colors)
-        override val value: TextFieldValue get() = this@FTextFieldState.value
+        override val interactionSource: InteractionSource get() = checkNotNull(this@InternalTextFieldState._interactionSource)
+        override val isFocused: Boolean get() = this@InternalTextFieldState._isFocused
+        override val enabled: Boolean get() = this@InternalTextFieldState.enabled
+        override val isError: Boolean get() = this@InternalTextFieldState.isError
+        override val colors: FTextFieldColors get() = checkNotNull(this@InternalTextFieldState.colors)
+        override val value: TextFieldValue get() = this@InternalTextFieldState.value
 
         override fun notifyValue(value: String) {
-            this@FTextFieldState.notifyValueChange(TextFieldValue(value))
+            this@InternalTextFieldState.notifyValueChange(TextFieldValue(value))
         }
 
         override fun notifyValue(value: TextFieldValue) {
-            this@FTextFieldState.notifyValueChange(value)
+            this@InternalTextFieldState.notifyValueChange(value)
         }
     }
 
