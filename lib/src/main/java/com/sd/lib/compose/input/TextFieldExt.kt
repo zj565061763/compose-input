@@ -4,10 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.InteractionSource
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
@@ -19,6 +17,8 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -70,8 +70,9 @@ fun FTextFieldIndicatorUnderline(
 @Composable
 fun FTextFieldIconClear(
     modifier: Modifier = Modifier,
+    shape: Shape = CircleShape,
+    backgroundColor: Color = Color.Transparent,
     size: Dp = 30.dp,
-    padding: PaddingValues = PaddingValues(5.dp),
     icon: @Composable () -> Unit = {
         Icon(
             modifier = Modifier.size(15.dp),
@@ -85,8 +86,9 @@ fun FTextFieldIconClear(
 
     FTextFieldIcon(
         modifier = modifier,
+        shape = shape,
+        backgroundColor = backgroundColor,
         size = size,
-        padding = padding,
         onClick = if (showIcon) {
             {
                 state.notifyValue("")
@@ -105,16 +107,17 @@ fun FTextFieldIconClear(
 @Composable
 fun FTextFieldIcon(
     modifier: Modifier = Modifier,
+    shape: Shape = CircleShape,
+    backgroundColor: Color = Color.Transparent,
     size: Dp = 30.dp,
-    padding: PaddingValues = PaddingValues(5.dp),
     onClick: (() -> Unit)?,
     icon: @Composable () -> Unit,
 ) {
     Box(
         modifier = modifier
-            .padding(padding)
+            .background(color = backgroundColor, shape = shape)
             .size(size)
-            .clip(CircleShape)
+            .clip(shape)
             .let {
                 if (onClick != null) {
                     it.clickable { onClick() }
