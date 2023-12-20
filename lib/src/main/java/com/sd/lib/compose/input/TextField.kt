@@ -178,14 +178,14 @@ fun FTextField(
         }
     }
 
-    CompositionLocalProvider(LocalTextFieldInfo provides state.textFieldInfo) {
+    CompositionLocalProvider(LocalTextFieldState provides state.state) {
         Box(modifier = modifier) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 leadingIcon?.let { leading ->
-                    Decoration(contentColor = state.textFieldInfo.leadingIconColor().value) {
+                    Decoration(contentColor = state.state.leadingIconColor().value) {
                         leading()
                     }
                 }
@@ -220,7 +220,7 @@ fun FTextField(
                 )
 
                 trailingIcon?.let { trailing ->
-                    Decoration(contentColor = state.textFieldInfo.trailingIconColor().value) {
+                    Decoration(contentColor = state.state.trailingIconColor().value) {
                         trailing()
                     }
                 }

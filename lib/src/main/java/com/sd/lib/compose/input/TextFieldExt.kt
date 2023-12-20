@@ -15,7 +15,6 @@ import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,9 +23,9 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
-internal val LocalTextFieldInfo = staticCompositionLocalOf<FTextFieldInfo?> { null }
+internal val LocalTextFieldState = staticCompositionLocalOf<FTextFieldState?> { null }
 
-interface FTextFieldInfo {
+interface FTextFieldState {
     val interactionSource: InteractionSource
 
     val isFocused: Boolean
@@ -45,15 +44,18 @@ interface FTextFieldInfo {
 }
 
 @Composable
-fun fTextFieldInfo(): FTextFieldInfo {
-    return checkNotNull(LocalTextFieldInfo.current)
+fun fTextFieldState(): FTextFieldState {
+    return checkNotNull(LocalTextFieldState.current)
 }
 
+/**
+ * 输入框指示器（下划线）
+ */
 @Composable
 fun FTextFieldIndicatorUnderline(
     modifier: Modifier = Modifier,
 ) {
-    val indicatorColor by fTextFieldInfo().indicatorColor()
+    val indicatorColor by fTextFieldState().indicatorColor()
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -62,10 +64,12 @@ fun FTextFieldIndicatorUnderline(
     )
 }
 
+/**
+ * 清空输入框内容
+ */
 @Composable
 fun FTextFieldIconClear(
     modifier: Modifier = Modifier,
-    textFieldInfo: FTextFieldInfo = fTextFieldInfo(),
     size: Dp = 30.dp,
     padding: PaddingValues = PaddingValues(5.dp),
     icon: @Composable () -> Unit = {
@@ -76,8 +80,8 @@ fun FTextFieldIconClear(
         )
     },
 ) {
-    val info by rememberUpdatedState(textFieldInfo)
-    val showIcon = info.isFocused && info.value.text.isNotEmpty()
+    val state = fTextFieldState()
+    val showIcon = state.isFocused && state.value.text.isNotEmpty()
 
     FTextFieldIcon(
         modifier = modifier,
@@ -85,7 +89,7 @@ fun FTextFieldIconClear(
         padding = padding,
         onClick = if (showIcon) {
             {
-                info.notifyValue("")
+                state.notifyValue("")
             }
         } else null,
     ) {
@@ -95,6 +99,9 @@ fun FTextFieldIconClear(
     }
 }
 
+/**
+ * 输入框图标容器
+ */
 @Composable
 fun FTextFieldIcon(
     modifier: Modifier = Modifier,

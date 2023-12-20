@@ -24,7 +24,7 @@ internal class InternalTextFieldState {
 
     val focusRequester = FocusRequester()
 
-    val textFieldInfo: FTextFieldInfo = object : FTextFieldInfo {
+    val state: FTextFieldState = object : FTextFieldState {
         override val interactionSource: InteractionSource get() = checkNotNull(this@InternalTextFieldState._interactionSource)
         override val isFocused: Boolean get() = this@InternalTextFieldState._isFocused
         override val enabled: Boolean get() = this@InternalTextFieldState.enabled
@@ -64,7 +64,7 @@ internal class InternalTextFieldState {
 }
 
 @Composable
-fun FTextFieldInfo.indicatorColor(): State<Color> {
+fun FTextFieldState.indicatorColor(): State<Color> {
     return colors.indicatorColor(
         enabled = enabled,
         isError = isError,
@@ -73,7 +73,7 @@ fun FTextFieldInfo.indicatorColor(): State<Color> {
 }
 
 @Composable
-fun FTextFieldInfo.leadingIconColor(): State<Color> {
+fun FTextFieldState.leadingIconColor(): State<Color> {
     return colors.leadingIconColor(
         enabled = enabled,
         isError = isError,
@@ -82,7 +82,7 @@ fun FTextFieldInfo.leadingIconColor(): State<Color> {
 }
 
 @Composable
-fun FTextFieldInfo.trailingIconColor(): State<Color> {
+fun FTextFieldState.trailingIconColor(): State<Color> {
     return colors.trailingIconColor(
         enabled = enabled,
         isError = isError,
