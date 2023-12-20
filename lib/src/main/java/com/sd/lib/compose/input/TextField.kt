@@ -2,8 +2,8 @@ package com.sd.lib.compose.input
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.InteractionSource
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.PaddingValues
@@ -64,22 +64,24 @@ fun FTextField(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
+    // modify
     singleLine: Boolean = true,
     maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
     minLines: Int = 1,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    shape: Shape = RoundedCornerShape(0.dp),
     // modify
+    shape: Shape = RoundedCornerShape(0.dp),
+    // modify add
     focus: Boolean? = null,
+    // modify
     colors: FTextFieldColors = FTextFieldDefaults.colors(),
-    contentPadding: PaddingValues = PaddingValues(
-        top = 1.dp, bottom = 1.dp,
-        start = if (leadingIcon != null) 0.dp else 10.dp,
-        end = if (trailingIcon != null) 0.dp else 10.dp,
-    ),
+    // modify add
+    contentPadding: PaddingValues = PaddingValues(vertical = 1.dp, horizontal = 5.dp),
+    // modify add
     indicator: (@Composable BoxScope.() -> Unit)? = {
         FTextFieldIndicatorUnderline(modifier = Modifier.align(Alignment.BottomCenter))
     },
+    // modify add
     overlay: (@Composable BoxScope.() -> Unit)? = null,
 ) {
     val onValueChangeUpdated by rememberUpdatedState(newValue = onValueChange)
@@ -149,28 +151,30 @@ fun FTextField(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
+    // modify
     singleLine: Boolean = true,
     maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
     minLines: Int = 1,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    shape: Shape = RoundedCornerShape(0.dp),
     // modify
+    shape: Shape = RoundedCornerShape(0.dp),
+    // modify add
     focus: Boolean? = null,
+    // modify
     colors: FTextFieldColors = FTextFieldDefaults.colors(),
-    contentPadding: PaddingValues = PaddingValues(
-        top = 1.dp, bottom = 1.dp,
-        start = if (leadingIcon != null) 0.dp else 10.dp,
-        end = if (trailingIcon != null) 0.dp else 10.dp,
-    ),
+    // modify add
+    contentPadding: PaddingValues = PaddingValues(vertical = 1.dp, horizontal = 5.dp),
+    // modify add
     indicator: (@Composable BoxScope.() -> Unit)? = {
         FTextFieldIndicatorUnderline(modifier = Modifier.align(Alignment.BottomCenter))
     },
+    // modify add
     overlay: (@Composable BoxScope.() -> Unit)? = null,
 ) {
     val state = remember { FTextFieldState() }.apply {
+        this.setInteractionSource(interactionSource)
         this.enabled = enabled
         this.isError = isError
-        this.isFocused = interactionSource.collectIsFocusedAsState().value
         this.colors = colors
         this.value = value
         this.onValueChange = onValueChange
@@ -187,18 +191,14 @@ fun FTextField(
         }
     }
 
-    CompositionLocalProvider(
-        LocalTextFieldInfo provides state.info
-    ) {
-        Box(
-            modifier = modifier.fillMaxWidth(),
-        ) {
+    CompositionLocalProvider(LocalTextFieldInfo provides state.textFieldInfo) {
+        Box(modifier = modifier) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 leadingIcon?.let { leading ->
-                    Decoration(contentColor = state.info.leadingIconColor().value) {
+                    Decoration(contentColor = state.textFieldInfo.leadingIconColor().value) {
                         leading()
                     }
                 }
@@ -233,7 +233,7 @@ fun FTextField(
                 )
 
                 trailingIcon?.let { trailing ->
-                    Decoration(contentColor = state.info.trailingIconColor().value) {
+                    Decoration(contentColor = state.textFieldInfo.trailingIconColor().value) {
                         trailing()
                     }
                 }
@@ -250,17 +250,21 @@ fun FTextField(
 private val LocalTextFieldInfo = staticCompositionLocalOf<FTextFieldInfo?> { null }
 
 interface FTextFieldInfo {
+    val interactionSource: InteractionSource
+
+    val isFocused: Boolean
+
     val enabled: Boolean
 
     val isError: Boolean
-
-    val isFocused: Boolean
 
     val colors: FTextFieldColors
 
     val value: TextFieldValue
 
     fun notifyValue(value: String)
+
+    fun notifyValue(value: TextFieldValue)
 }
 
 @Composable
