@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.InteractionSource
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
@@ -20,7 +21,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 internal val LocalTextFieldState = staticCompositionLocalOf<FTextFieldState?> { null }
@@ -72,7 +72,6 @@ fun FTextFieldIconClear(
     modifier: Modifier = Modifier,
     shape: Shape = CircleShape,
     backgroundColor: Color = Color.Transparent,
-    size: Dp = 30.dp,
     icon: @Composable () -> Unit = {
         Icon(
             modifier = Modifier.size(15.dp),
@@ -88,7 +87,6 @@ fun FTextFieldIconClear(
         modifier = modifier,
         shape = shape,
         backgroundColor = backgroundColor,
-        size = size,
         onClick = if (showIcon) {
             {
                 state.notifyValue("")
@@ -109,14 +107,13 @@ fun FTextFieldIcon(
     modifier: Modifier = Modifier,
     shape: Shape = CircleShape,
     backgroundColor: Color = Color.Transparent,
-    size: Dp = 30.dp,
     onClick: (() -> Unit)?,
     icon: @Composable () -> Unit,
 ) {
     Box(
         modifier = modifier
+            .defaultMinSize(25.dp, 25.dp)
             .background(color = backgroundColor, shape = shape)
-            .size(size)
             .clip(shape)
             .let {
                 if (onClick != null) {
