@@ -74,21 +74,21 @@ fun FTextField(
     val onValueChangeUpdated by rememberUpdatedState(newValue = onValueChange)
 
     // 内部保存的值
-    var internalFieldValue by remember {
+    var fieldValue by remember {
         mutableStateOf(TextFieldValue(text = value, selection = TextRange(value.length)))
     }
 
     // 最终传递进去的值
-    val finalFieldValue = if (internalFieldValue.text == value) {
-        internalFieldValue
+    val finalFieldValue = if (fieldValue.text == value) {
+        fieldValue
     } else {
-        internalFieldValue.copy(text = value)
+        fieldValue.copy(text = value, selection = TextRange(value.length))
     }
 
     FTextField(
         value = finalFieldValue,
         onValueChange = {
-            internalFieldValue = it
+            fieldValue = it
             onValueChangeUpdated(it.text)
         },
         modifier = modifier,
