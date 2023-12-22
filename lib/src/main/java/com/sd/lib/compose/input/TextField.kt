@@ -51,8 +51,8 @@ fun FTextField(
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     // modify
-    maxLines: Int = 1,
     minLines: Int = 1,
+    maxLines: Int = minLines,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     // modify
     shape: Shape = RoundedCornerShape(0.dp),
@@ -105,8 +105,8 @@ fun FTextField(
         visualTransformation = visualTransformation,
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
-        maxLines = maxLines,
         minLines = minLines,
+        maxLines = maxLines,
         interactionSource = interactionSource,
         shape = shape,
         colors = colors,
@@ -136,8 +136,8 @@ fun FTextField(
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     // modify
-    maxLines: Int = 1,
     minLines: Int = 1,
+    maxLines: Int = minLines,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     // modify
     shape: Shape = RoundedCornerShape(0.dp),
