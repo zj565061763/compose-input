@@ -17,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.unit.dp
 import com.sd.demo.compose_input.ui.theme.AppTheme
 import com.sd.lib.compose.input.FTextField
@@ -43,7 +44,11 @@ private fun Content() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(20.dp),
     ) {
-        Sample(labelText = "用户名", focus = true)
+        Sample(
+            labelText = "用户名",
+            maxLines = 2,
+            focusRequester = { it.requestFocus() },
+        )
         Sample(labelText = "密码")
     }
 }
@@ -51,7 +56,8 @@ private fun Content() {
 @Composable
 private fun Sample(
     labelText: String,
-    focus: Boolean? = null,
+    maxLines: Int = 1,
+    focusRequester: ((FocusRequester) -> Unit)? = null,
     modifier: Modifier = Modifier,
 ) {
     var value by remember { mutableStateOf("") }
@@ -60,12 +66,13 @@ private fun Sample(
         modifier = modifier,
         value = value,
         onValueChange = { value = it },
+        maxLines = maxLines,
         label = {
             Text(text = labelText)
         },
         trailingIcon = {
             FTextFieldIconClear()
         },
-        focus = focus,
+        onFocusRequester = focusRequester,
     )
 }
