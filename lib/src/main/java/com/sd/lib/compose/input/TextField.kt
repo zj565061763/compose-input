@@ -22,6 +22,7 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
@@ -57,7 +58,7 @@ fun FTextField(
     // modify
     shape: Shape = RoundedCornerShape(0.dp),
     // modify add
-    focus: Boolean? = null,
+    onFocusRequester: ((FocusRequester) -> Unit)? = null,
     // modify
     colors: FTextFieldColors = FTextFieldDefaults.colors(),
     // modify add
@@ -111,7 +112,7 @@ fun FTextField(
         interactionSource = interactionSource,
         shape = shape,
         colors = colors,
-        focus = focus,
+        onFocusRequester = onFocusRequester,
         contentPadding = contentPadding,
         indicator = indicator,
         overlay = overlay,
@@ -144,7 +145,7 @@ fun FTextField(
     // modify
     shape: Shape = RoundedCornerShape(0.dp),
     // modify add
-    focus: Boolean? = null,
+    onFocusRequester: ((FocusRequester) -> Unit)? = null,
     // modify
     colors: FTextFieldColors = FTextFieldDefaults.colors(),
     // modify add
@@ -166,6 +167,12 @@ fun FTextField(
         this.onValueChange = onValueChange
     }
 
+    if (onFocusRequester != null) {
+        LaunchedEffect(onFocusRequester) {
+            onFocusRequester(state.focusRequester)
+        }
+    }
+
     CompositionLocalProvider(LocalTextFieldState provides state.state) {
         Box(modifier = modifier) {
             Row(
@@ -181,18 +188,7 @@ fun FTextField(
                 InternalTextField(
                     modifier = Modifier
                         .weight(1f)
-                        .focusRequester(state.focusRequester)
-                        .also {
-                            if (focus != null) {
-                                LaunchedEffect(focus) {
-                                    if (focus) {
-                                        state.requestFocus()
-                                    } else {
-                                        state.freeFocus()
-                                    }
-                                }
-                            }
-                        },
+                        .focusRequester(state.focusRequester),
                     value = value,
                     onValueChange = onValueChange,
                     enabled = enabled,

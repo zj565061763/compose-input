@@ -48,16 +48,6 @@ internal class InternalTextFieldState {
         this._isFocused = interactionSource.collectIsFocusedAsState().value
     }
 
-    fun requestFocus() {
-        focusRequester.requestFocus()
-    }
-
-    fun freeFocus() {
-        if (_isFocused) {
-            focusRequester.freeFocus()
-        }
-    }
-
     fun notifyValueChange(value: TextFieldValue) {
         onValueChange?.invoke(value)
     }
