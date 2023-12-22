@@ -50,7 +50,7 @@ fun FTextField(
     shape: Shape = RoundedCornerShape(0.dp),
     onFocusRequester: ((FocusRequester) -> Unit)? = null,
     colors: FTextFieldColors = FTextFieldDefaults.colors(),
-    contentPadding: PaddingValues = PaddingValues(vertical = 1.dp, horizontal = 5.dp),
+    contentPadding: PaddingValues = PaddingValues(10.dp),
     indicator: (@Composable BoxScope.() -> Unit)? = {
         FTextFieldIndicatorUnderline(modifier = Modifier.align(Alignment.BottomCenter))
     },
@@ -120,7 +120,7 @@ fun FTextField(
     shape: Shape = RoundedCornerShape(0.dp),
     onFocusRequester: ((FocusRequester) -> Unit)? = null,
     colors: FTextFieldColors = FTextFieldDefaults.colors(),
-    contentPadding: PaddingValues = PaddingValues(vertical = 1.dp, horizontal = 5.dp),
+    contentPadding: PaddingValues = PaddingValues(10.dp),
     indicator: (@Composable BoxScope.() -> Unit)? = {
         FTextFieldIndicatorUnderline(modifier = Modifier.align(Alignment.BottomCenter))
     },
