@@ -30,7 +30,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.delay
 
 @Composable
 fun FTextField(
@@ -167,17 +166,6 @@ fun FTextField(
         this.onValueChange = onValueChange
     }
 
-    if (focus != null) {
-        LaunchedEffect(focus) {
-            if (focus) {
-                delay(100)
-                state.requestFocus()
-            } else {
-                state.freeFocus()
-            }
-        }
-    }
-
     CompositionLocalProvider(LocalTextFieldState provides state.state) {
         Box(modifier = modifier) {
             Row(
@@ -193,7 +181,18 @@ fun FTextField(
                 InternalTextField(
                     modifier = Modifier
                         .weight(1f)
-                        .focusRequester(state.focusRequester),
+                        .focusRequester(state.focusRequester)
+                        .also {
+                            if (focus != null) {
+                                LaunchedEffect(focus) {
+                                    if (focus) {
+                                        state.requestFocus()
+                                    } else {
+                                        state.freeFocus()
+                                    }
+                                }
+                            }
+                        },
                     value = value,
                     onValueChange = onValueChange,
                     enabled = enabled,
