@@ -30,7 +30,7 @@ internal class InternalTextFieldState {
         override val colors: FTextFieldColors get() = checkNotNull(this@InternalTextFieldState.colors)
         override val value: TextFieldValue get() = this@InternalTextFieldState.value
         override fun notifyValue(value: TextFieldValue) {
-            this@InternalTextFieldState.notifyValueChange(value)
+            this@InternalTextFieldState.onValueChange?.invoke(value)
         }
     }
 
@@ -39,9 +39,5 @@ internal class InternalTextFieldState {
     fun setInteractionSource(interactionSource: InteractionSource) {
         this._interactionSource = interactionSource
         this._focused = interactionSource.collectIsFocusedAsState().value
-    }
-
-    fun notifyValueChange(value: TextFieldValue) {
-        onValueChange?.invoke(value)
     }
 }

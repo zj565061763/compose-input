@@ -142,13 +142,7 @@ fun FTextField(
         }
     }
 
-    val textColor = textStyle.color.takeOrElse {
-        colors.textColor(
-            enabled = enabled,
-            isError = isError,
-            focused = state.state.focused,
-        ).value
-    }
+    val textColor = textStyle.color.takeOrElse { state.state.textColor().value }
     val mergedTextStyle = textStyle.merge(TextStyle(color = textColor))
 
     CompositionLocalProvider(LocalTextSelectionColors provides colors.textSelectionColors) {

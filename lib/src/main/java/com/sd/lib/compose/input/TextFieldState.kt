@@ -74,3 +74,12 @@ internal fun FTextFieldState.containerColor(): State<Color> {
         focused = focused,
     )
 }
+
+@Composable
+internal fun FTextFieldState.textColor(): State<Color> {
+    return colors.textColor(
+        enabled = enabled,
+        isError = isError,
+        focused = focused,
+    )
+}
