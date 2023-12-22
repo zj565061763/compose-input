@@ -51,8 +51,7 @@ fun FTextField(
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     // modify
-    singleLine: Boolean = true,
-    maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
+    maxLines: Int = 1,
     minLines: Int = 1,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     // modify
@@ -106,7 +105,6 @@ fun FTextField(
         visualTransformation = visualTransformation,
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
-        singleLine = singleLine,
         maxLines = maxLines,
         minLines = minLines,
         interactionSource = interactionSource,
@@ -138,8 +136,7 @@ fun FTextField(
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     // modify
-    singleLine: Boolean = true,
-    maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
+    maxLines: Int = 1,
     minLines: Int = 1,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     // modify
@@ -205,7 +202,7 @@ fun FTextField(
                     visualTransformation = visualTransformation,
                     keyboardOptions = keyboardOptions,
                     keyboardActions = keyboardActions,
-                    singleLine = singleLine,
+                    singleLine = maxLines == 1 && minLines == 1,
                     maxLines = maxLines,
                     minLines = minLines,
                     interactionSource = interactionSource,
