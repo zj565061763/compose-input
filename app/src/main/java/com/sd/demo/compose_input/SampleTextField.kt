@@ -44,9 +44,10 @@ private fun Content() {
 
         FTextField(
             value = value,
+            maxLines = 2,
             placeholder = { Text(text = "placeholder") },
             trailingIcon = { FTextFieldIconClear() },
-            onFocusRequester = { it.requestFocus() }
+            onFocusRequester = { it.requestFocus() },
         ) {
             value = it
         }
