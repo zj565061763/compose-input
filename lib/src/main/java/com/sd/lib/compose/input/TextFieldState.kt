@@ -2,6 +2,7 @@ package com.sd.lib.compose.input
 
 import androidx.compose.foundation.interaction.InteractionSource
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
@@ -9,6 +10,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 
 internal val LocalTextFieldState = staticCompositionLocalOf<FTextFieldState?> { null }
 
+@Stable
 interface FTextFieldState {
     val interactionSource: InteractionSource
 
