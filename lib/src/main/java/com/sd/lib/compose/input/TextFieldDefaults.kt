@@ -22,7 +22,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 object FTextFieldDefaults {
-
     @Composable
     fun colors(
         focusedTextColor: Color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f),
@@ -48,6 +47,11 @@ object FTextFieldDefaults {
         disabledIndicatorColor: Color = disabledTextColor,
         errorIndicatorColor: Color = errorTextColor,
 
+        focusedPlaceholderColor: Color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f),
+        unfocusedPlaceholderColor: Color = focusedPlaceholderColor,
+        disabledPlaceholderColor: Color = focusedPlaceholderColor,
+        errorPlaceholderColor: Color = focusedPlaceholderColor,
+
         focusedLeadingIconColor: Color = focusedTextColor,
         unfocusedLeadingIconColor: Color = unfocusedTextColor,
         disabledLeadingIconColor: Color = disabledTextColor,
@@ -57,31 +61,6 @@ object FTextFieldDefaults {
         unfocusedTrailingIconColor: Color = unfocusedTextColor,
         disabledTrailingIconColor: Color = disabledTextColor,
         errorTrailingIconColor: Color = errorTextColor,
-
-        focusedLabelColor: Color = focusedIndicatorColor,
-        unfocusedLabelColor: Color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f),
-        disabledLabelColor: Color = disabledTextColor,
-        errorLabelColor: Color = errorTextColor,
-
-        focusedPlaceholderColor: Color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f),
-        unfocusedPlaceholderColor: Color = focusedPlaceholderColor,
-        disabledPlaceholderColor: Color = focusedPlaceholderColor,
-        errorPlaceholderColor: Color = focusedPlaceholderColor,
-
-        focusedSupportingTextColor: Color = focusedTextColor,
-        unfocusedSupportingTextColor: Color = unfocusedTextColor,
-        disabledSupportingTextColor: Color = disabledTextColor,
-        errorSupportingTextColor: Color = errorTextColor,
-
-        focusedPrefixColor: Color = focusedTextColor,
-        unfocusedPrefixColor: Color = unfocusedTextColor,
-        disabledPrefixColor: Color = disabledTextColor,
-        errorPrefixColor: Color = errorTextColor,
-
-        focusedSuffixColor: Color = focusedTextColor,
-        unfocusedSuffixColor: Color = unfocusedTextColor,
-        disabledSuffixColor: Color = disabledTextColor,
-        errorSuffixColor: Color = errorTextColor,
     ): FTextFieldColors {
         return FTextFieldColors(
             focusedTextColor = focusedTextColor,
@@ -104,6 +83,11 @@ object FTextFieldDefaults {
             disabledIndicatorColor = disabledIndicatorColor,
             errorIndicatorColor = errorIndicatorColor,
 
+            focusedPlaceholderColor = focusedPlaceholderColor,
+            unfocusedPlaceholderColor = unfocusedPlaceholderColor,
+            disabledPlaceholderColor = disabledPlaceholderColor,
+            errorPlaceholderColor = errorPlaceholderColor,
+
             focusedLeadingIconColor = focusedLeadingIconColor,
             unfocusedLeadingIconColor = unfocusedLeadingIconColor,
             disabledLeadingIconColor = disabledLeadingIconColor,
@@ -113,31 +97,6 @@ object FTextFieldDefaults {
             unfocusedTrailingIconColor = unfocusedTrailingIconColor,
             disabledTrailingIconColor = disabledTrailingIconColor,
             errorTrailingIconColor = errorTrailingIconColor,
-
-            focusedLabelColor = focusedLabelColor,
-            unfocusedLabelColor = unfocusedLabelColor,
-            disabledLabelColor = disabledLabelColor,
-            errorLabelColor = errorLabelColor,
-
-            focusedPlaceholderColor = focusedPlaceholderColor,
-            unfocusedPlaceholderColor = unfocusedPlaceholderColor,
-            disabledPlaceholderColor = disabledPlaceholderColor,
-            errorPlaceholderColor = errorPlaceholderColor,
-
-            focusedSupportingTextColor = focusedSupportingTextColor,
-            unfocusedSupportingTextColor = unfocusedSupportingTextColor,
-            disabledSupportingTextColor = disabledSupportingTextColor,
-            errorSupportingTextColor = errorSupportingTextColor,
-
-            focusedPrefixColor = focusedPrefixColor,
-            unfocusedPrefixColor = unfocusedPrefixColor,
-            disabledPrefixColor = disabledPrefixColor,
-            errorPrefixColor = errorPrefixColor,
-
-            focusedSuffixColor = focusedSuffixColor,
-            unfocusedSuffixColor = unfocusedSuffixColor,
-            disabledSuffixColor = disabledSuffixColor,
-            errorSuffixColor = errorSuffixColor,
         )
     }
 }
