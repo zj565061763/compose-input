@@ -35,7 +35,6 @@ import kotlinx.coroutines.delay
 @Composable
 fun FTextField(
     value: String,
-    onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     readOnly: Boolean = false,
@@ -70,6 +69,7 @@ fun FTextField(
     },
     // modify add
     overlay: (@Composable BoxScope.() -> Unit)? = null,
+    onValueChange: (String) -> Unit,
 ) {
     val onValueChangeUpdated by rememberUpdatedState(newValue = onValueChange)
 
@@ -122,7 +122,6 @@ fun FTextField(
 @Composable
 fun FTextField(
     value: TextFieldValue,
-    onValueChange: (TextFieldValue) -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     readOnly: Boolean = false,
@@ -157,6 +156,7 @@ fun FTextField(
     },
     // modify add
     overlay: (@Composable BoxScope.() -> Unit)? = null,
+    onValueChange: (TextFieldValue) -> Unit,
 ) {
     val state = remember { InternalTextFieldState() }.apply {
         this.setInteractionSource(interactionSource)
