@@ -30,7 +30,8 @@ internal fun DecorationBox(
     overlay: (@Composable BoxScope.() -> Unit)?,
 ) {
     Box(
-        modifier = modifier.background(state.containerColor().value, shape)
+        modifier = modifier.background(state.containerColor().value, shape),
+        contentAlignment = Alignment.Center,
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             leadingIcon?.let {
@@ -42,7 +43,8 @@ internal fun DecorationBox(
             Box(
                 modifier = Modifier
                     .weight(1f)
-                    .padding(contentPadding)
+                    .padding(contentPadding),
+                propagateMinConstraints = true,
             ) {
                 placeholder?.let {
                     Decoration(contentColor = state.placeholderColor().value) {
