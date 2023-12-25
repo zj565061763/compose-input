@@ -32,8 +32,8 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun FTextField(
-    value: String,
     modifier: Modifier = Modifier,
+    value: String,
     enabled: Boolean = true,
     readOnly: Boolean = false,
     textStyle: TextStyle = LocalTextStyle.current,
@@ -72,12 +72,12 @@ fun FTextField(
     }
 
     FTextField(
+        modifier = modifier,
         value = finalFieldValue,
         onValueChange = {
             fieldValue = it
             onValueChangeUpdated(it.text)
         },
-        modifier = modifier,
         enabled = enabled,
         readOnly = readOnly,
         textStyle = textStyle,
@@ -102,8 +102,8 @@ fun FTextField(
 
 @Composable
 fun FTextField(
-    value: TextFieldValue,
     modifier: Modifier = Modifier,
+    value: TextFieldValue,
     enabled: Boolean = true,
     readOnly: Boolean = false,
     textStyle: TextStyle = LocalTextStyle.current,
