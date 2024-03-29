@@ -12,7 +12,7 @@ android {
     namespace = "com.sd.lib.compose.input"
     compileSdk = libs.versions.androidCompileSdk.get().toInt()
     defaultConfig {
-        minSdk = libs.versions.androidMinSdk.get().toInt()
+        minSdk = 21
     }
 
     buildFeatures {
