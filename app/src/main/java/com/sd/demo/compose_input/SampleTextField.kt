@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,7 +22,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sd.demo.compose_input.ui.theme.AppTheme
 import com.sd.lib.compose.input.FTextField
-import com.sd.lib.compose.input.FTextFieldIconClear
 import com.sd.lib.compose.input.fTextFieldState
 import com.sd.lib.compose.input.indicatorColor
 
@@ -47,37 +45,51 @@ private fun Content() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
-        var value by remember { mutableStateOf("") }
-
-        FTextField(
-            value = value,
-            maxLines = 2,
-            shape = RoundedCornerShape(10.dp),
-            placeholder = { Text(text = "placeholder") },
-            onFocusRequester = { it.requestFocus() },
-        ) {
-            value = it
-        }
-
-        SampleIndicator()
+        SampleDefault()
+        SampleCustom()
     }
 }
 
 @Composable
-private fun SampleIndicator(
+private fun SampleDefault(
     modifier: Modifier = Modifier,
 ) {
     var value by remember { mutableStateOf("") }
+
     FTextField(
         modifier = modifier,
         value = value,
-        trailingIcon = { FTextFieldIconClear(modifier = Modifier.padding(end = 10.dp)) },
-        placeholder = { Text(text = "input", fontSize = 10.sp) },
+        maxLines = 2,
+        shape = RoundedCornerShape(10.dp),
+        placeholder = { Text(text = "placeholder") },
+        onFocusRequester = { it.requestFocus() },
+    ) {
+        value = it
+    }
+}
+
+@Composable
+private fun SampleCustom(
+    modifier: Modifier = Modifier,
+) {
+    var value by remember { mutableStateOf("") }
+
+    FTextField(
+        modifier = modifier,
+        value = value,
+        minLines = 5,
+        maxLines = 5,
+        trailingIcon = { },
+        placeholder = { Text(text = "input", fontSize = 12.sp) },
         indicator = {
             Box(
                 modifier = Modifier
                     .matchParentSize()
-                    .border(1.dp, fTextFieldState().indicatorColor().value, CircleShape)
+                    .border(
+                        width = 1.dp,
+                        color = fTextFieldState().indicatorColor().value,
+                        shape = RoundedCornerShape(10.dp),
+                    )
             )
         },
     ) {

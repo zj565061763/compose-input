@@ -49,17 +49,11 @@ internal fun DecorationBox(
                     .weight(1f)
                     .padding(contentPadding),
                 propagateMinConstraints = true,
-                contentAlignment = Alignment.Center,
             ) {
                 placeholder?.let {
                     if (state.value.text.isEmpty()) {
-                        Row(
-                            modifier = Modifier.matchParentSize(),
-                            verticalAlignment = Alignment.CenterVertically,
-                        ) {
-                            Decoration(contentColor = state.placeholderColor().value) {
-                                it()
-                            }
+                        Decoration(contentColor = state.placeholderColor().value) {
+                            it()
                         }
                     }
                 }
