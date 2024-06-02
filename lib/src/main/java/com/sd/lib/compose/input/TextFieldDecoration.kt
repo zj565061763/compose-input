@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.LocalContentColor
@@ -24,11 +25,11 @@ internal fun DecorationBox(
     shape: Shape,
     contentPadding: PaddingValues,
     innerTextField: @Composable () -> Unit,
-    placeholder: @Composable (() -> Unit)?,
-    leadingIcon: @Composable (() -> Unit)?,
-    trailingIcon: @Composable (() -> Unit)?,
-    indicator: (@Composable BoxScope.() -> Unit)?,
-    overlay: (@Composable BoxScope.() -> Unit)?,
+    placeholder: @Composable (BoxScope.() -> Unit)?,
+    leadingIcon: @Composable (RowScope.() -> Unit)?,
+    trailingIcon: @Composable (RowScope.() -> Unit)?,
+    indicator: @Composable (BoxScope.() -> Unit)?,
+    overlay: @Composable (BoxScope.() -> Unit)?,
 ) {
     Box(
         modifier = modifier.background(state.containerColor().value, shape),
