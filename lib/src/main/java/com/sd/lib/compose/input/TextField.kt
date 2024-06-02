@@ -136,9 +136,10 @@ fun FTextField(
         this.onValueChange = onValueChange
     }
 
-    if (onFocusRequester != null) {
-        LaunchedEffect(onFocusRequester) {
-            onFocusRequester(state.focusRequester)
+    val onFocusRequesterUpdated by rememberUpdatedState(newValue = onFocusRequester)
+    if (onFocusRequesterUpdated != null) {
+        LaunchedEffect(state) {
+            onFocusRequesterUpdated?.invoke(state.focusRequester)
         }
     }
 

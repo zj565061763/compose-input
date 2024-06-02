@@ -62,7 +62,10 @@ private fun SampleDefault(
         maxLines = 2,
         shape = RoundedCornerShape(10.dp),
         placeholder = { Text(text = "placeholder") },
-        onFocusRequester = { it.requestFocus() },
+        onFocusRequester = {
+            logMsg { "onFocusRequester:$it" }
+            it.requestFocus()
+        },
     ) {
         value = it
     }
