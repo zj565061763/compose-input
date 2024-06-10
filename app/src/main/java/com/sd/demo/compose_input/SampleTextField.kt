@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -78,10 +79,9 @@ private fun SampleCustom(
     var value by remember { mutableStateOf("") }
 
     FTextField(
-        modifier = modifier,
+        modifier = modifier.height(100.dp),
         value = value,
-        minLines = 5,
-        maxLines = 5,
+        maxLines = Int.MAX_VALUE,
         trailingIcon = { },
         placeholder = { Text(text = "input", fontSize = 12.sp) },
         indicator = {

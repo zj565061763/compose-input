@@ -33,7 +33,6 @@ internal fun DecorationBox(
 ) {
     Box(
         modifier = modifier.background(state.containerColor().value, shape),
-        contentAlignment = Alignment.Center,
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
