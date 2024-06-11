@@ -22,6 +22,7 @@ import androidx.compose.ui.text.TextStyle
 internal fun DecorationBox(
     modifier: Modifier = Modifier,
     state: FTextFieldState,
+    contentAlignment: Alignment.Vertical,
     textStyle: TextStyle,
     shape: Shape,
     contentPadding: PaddingValues,
@@ -34,6 +35,11 @@ internal fun DecorationBox(
 ) {
     Box(
         modifier = modifier.background(state.containerColor().value, shape),
+        contentAlignment = when (contentAlignment) {
+            Alignment.Top -> Alignment.TopCenter
+            Alignment.Bottom -> Alignment.BottomCenter
+            else -> Alignment.Center
+        },
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),

@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 fun FTextField(
     modifier: Modifier = Modifier,
     value: String,
+    contentAlignment: Alignment.Vertical = Alignment.CenterVertically,
     enabled: Boolean = true,
     readOnly: Boolean = false,
     textStyle: TextStyle = LocalTextStyle.current,
@@ -79,6 +80,7 @@ fun FTextField(
             fieldValue = it
             onValueChangeUpdated(it.text)
         },
+        contentAlignment = contentAlignment,
         enabled = enabled,
         readOnly = readOnly,
         textStyle = textStyle,
@@ -105,6 +107,7 @@ fun FTextField(
 fun FTextField(
     modifier: Modifier = Modifier,
     value: TextFieldValue,
+    contentAlignment: Alignment.Vertical = Alignment.CenterVertically,
     enabled: Boolean = true,
     readOnly: Boolean = false,
     textStyle: TextStyle = LocalTextStyle.current,
@@ -167,6 +170,7 @@ fun FTextField(
                 CompositionLocalProvider(LocalTextFieldState provides state.state) {
                     DecorationBox(
                         state = state.state,
+                        contentAlignment = contentAlignment,
                         textStyle = mergedTextStyle,
                         shape = shape,
                         contentPadding = contentPadding,
