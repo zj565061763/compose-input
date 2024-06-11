@@ -126,9 +126,15 @@ private fun SampleCustom(
     FTextField(
         modifier = modifier.height(100.dp),
         value = value,
+        contentAlignment = Alignment.Top,
         maxLines = Int.MAX_VALUE,
         trailingIcon = { },
-        placeholder = { Text(text = "input", fontSize = 12.sp) },
+        placeholder = {
+            Text(
+                text = "input",
+                fontSize = 12.sp,
+            )
+        },
         indicator = {
             Box(
                 modifier = Modifier
