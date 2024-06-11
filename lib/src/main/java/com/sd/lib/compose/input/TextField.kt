@@ -167,6 +167,7 @@ fun FTextField(
                 CompositionLocalProvider(LocalTextFieldState provides state.state) {
                     DecorationBox(
                         state = state.state,
+                        textStyle = mergedTextStyle,
                         shape = shape,
                         contentPadding = contentPadding,
                         innerTextField = innerTextField,

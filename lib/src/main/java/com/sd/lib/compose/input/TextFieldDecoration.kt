@@ -22,6 +22,7 @@ import androidx.compose.ui.text.TextStyle
 internal fun DecorationBox(
     modifier: Modifier = Modifier,
     state: FTextFieldState,
+    textStyle: TextStyle,
     shape: Shape,
     contentPadding: PaddingValues,
     innerTextField: @Composable () -> Unit,
@@ -52,7 +53,10 @@ internal fun DecorationBox(
             ) {
                 placeholder?.let {
                     if (state.value.text.isEmpty()) {
-                        Decoration(contentColor = state.placeholderColor().value) {
+                        Decoration(
+                            contentColor = state.placeholderColor().value,
+                            typography = textStyle,
+                        ) {
                             it()
                         }
                     }
