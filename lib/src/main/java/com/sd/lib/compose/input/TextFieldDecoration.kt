@@ -34,7 +34,7 @@ internal fun DecorationBox(
     overlay: @Composable (BoxScope.() -> Unit)?,
 ) {
     Box(
-        modifier = modifier.background(state.containerColor().value, shape),
+        modifier = modifier.background(state.containerColor(), shape),
         contentAlignment = when (contentAlignment) {
             Alignment.Top -> Alignment.TopCenter
             Alignment.Bottom -> Alignment.BottomCenter
@@ -46,7 +46,7 @@ internal fun DecorationBox(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             leadingIcon?.let {
-                Decoration(contentColor = state.leadingIconColor().value) {
+                Decoration(contentColor = state.leadingIconColor()) {
                     it()
                 }
             }
@@ -60,7 +60,7 @@ internal fun DecorationBox(
                 placeholder?.let {
                     if (state.value.text.isEmpty()) {
                         Decoration(
-                            contentColor = state.placeholderColor().value,
+                            contentColor = state.placeholderColor(),
                             typography = textStyle,
                         ) {
                             it()
@@ -71,7 +71,7 @@ internal fun DecorationBox(
             }
 
             trailingIcon?.let {
-                Decoration(contentColor = state.trailingIconColor().value) {
+                Decoration(contentColor = state.trailingIconColor()) {
                     it()
                 }
             }
@@ -79,7 +79,7 @@ internal fun DecorationBox(
 
         Box(modifier = Modifier.matchParentSize()) {
             indicator?.let {
-                Decoration(contentColor = state.indicatorColor().value) {
+                Decoration(contentColor = state.indicatorColor()) {
                     it()
                 }
             }

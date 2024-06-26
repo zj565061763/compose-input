@@ -3,7 +3,6 @@ package com.sd.lib.compose.input
 import androidx.compose.foundation.interaction.InteractionSource
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
-import androidx.compose.runtime.State
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
@@ -33,55 +32,55 @@ fun fTextFieldState(): FTextFieldState {
 }
 
 @Composable
-fun FTextFieldState.indicatorColor(): State<Color> {
+fun FTextFieldState.indicatorColor(): Color {
     return colors.indicatorColor(
         enabled = enabled,
         isError = isError,
         focused = focused,
-    )
+    ).value
 }
 
 @Composable
-fun FTextFieldState.placeholderColor(): State<Color> {
+fun FTextFieldState.placeholderColor(): Color {
     return colors.placeholderColor(
         enabled = enabled,
         isError = isError,
         focused = focused,
-    )
+    ).value
 }
 
 @Composable
-fun FTextFieldState.leadingIconColor(): State<Color> {
+fun FTextFieldState.leadingIconColor(): Color {
     return colors.leadingIconColor(
         enabled = enabled,
         isError = isError,
         focused = focused,
-    )
+    ).value
 }
 
 @Composable
-fun FTextFieldState.trailingIconColor(): State<Color> {
+fun FTextFieldState.trailingIconColor(): Color {
     return colors.trailingIconColor(
         enabled = enabled,
         isError = isError,
         focused = focused,
-    )
+    ).value
 }
 
 @Composable
-internal fun FTextFieldState.containerColor(): State<Color> {
+internal fun FTextFieldState.containerColor(): Color {
     return colors.containerColor(
         enabled = enabled,
         isError = isError,
         focused = focused,
-    )
+    ).value
 }
 
 @Composable
-internal fun FTextFieldState.textColor(): State<Color> {
+internal fun FTextFieldState.textColor(): Color {
     return colors.textColor(
         enabled = enabled,
         isError = isError,
         focused = focused,
-    )
+    ).value
 }

@@ -107,7 +107,7 @@ private fun SampleCenter(
                     .matchParentSize()
                     .border(
                         width = 1.dp,
-                        color = fTextFieldState().indicatorColor().value,
+                        color = fTextFieldState().indicatorColor(),
                         shape = RoundedCornerShape(10.dp),
                     )
             )
@@ -141,7 +141,7 @@ private fun SampleCustom(
                     .matchParentSize()
                     .border(
                         width = 1.dp,
-                        color = fTextFieldState().indicatorColor().value,
+                        color = fTextFieldState().indicatorColor(),
                         shape = RoundedCornerShape(10.dp),
                     )
             )
