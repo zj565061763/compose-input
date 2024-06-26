@@ -4,15 +4,12 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,8 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sd.demo.compose_input.ui.theme.AppTheme
 import com.sd.lib.compose.input.FTextField
-import com.sd.lib.compose.input.fTextFieldState
-import com.sd.lib.compose.input.indicatorColor
+import com.sd.lib.compose.input.FTextFieldIndicatorOutline
 
 class SampleTextField : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -102,15 +98,7 @@ private fun SampleCenter(
             )
         },
         indicator = {
-            Box(
-                modifier = Modifier
-                    .matchParentSize()
-                    .border(
-                        width = 1.dp,
-                        color = fTextFieldState().indicatorColor(),
-                        shape = RoundedCornerShape(10.dp),
-                    )
-            )
+            FTextFieldIndicatorOutline()
         },
     ) {
         value = it
@@ -136,15 +124,7 @@ private fun SampleCustom(
             )
         },
         indicator = {
-            Box(
-                modifier = Modifier
-                    .matchParentSize()
-                    .border(
-                        width = 1.dp,
-                        color = fTextFieldState().indicatorColor(),
-                        shape = RoundedCornerShape(10.dp),
-                    )
-            )
+            FTextFieldIndicatorOutline()
         },
     ) {
         value = it

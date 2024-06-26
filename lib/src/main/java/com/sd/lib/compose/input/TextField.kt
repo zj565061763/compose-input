@@ -54,7 +54,7 @@ fun FTextField(
     colors: FTextFieldColors = FTextFieldDefaults.colors(),
     contentPadding: PaddingValues = PaddingValues(horizontal = 10.dp, vertical = 5.dp),
     indicator: (@Composable BoxScope.() -> Unit)? = {
-        FTextFieldIndicatorUnderline(modifier = Modifier.align(Alignment.BottomCenter))
+        FTextFieldIndicatorUnderline()
     },
     overlay: (@Composable BoxScope.() -> Unit)? = null,
     onValueChange: (String) -> Unit,
@@ -126,7 +126,7 @@ fun FTextField(
     colors: FTextFieldColors = FTextFieldDefaults.colors(),
     contentPadding: PaddingValues = PaddingValues(horizontal = 10.dp, vertical = 5.dp),
     indicator: (@Composable BoxScope.() -> Unit)? = {
-        FTextFieldIndicatorUnderline(modifier = Modifier.align(Alignment.BottomCenter))
+        FTextFieldIndicatorUnderline()
     },
     overlay: (@Composable BoxScope.() -> Unit)? = null,
     onValueChange: (TextFieldValue) -> Unit,

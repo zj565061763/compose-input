@@ -1,13 +1,16 @@
 package com.sd.lib.compose.input
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.Icon
@@ -18,20 +21,45 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 /**
  * 输入框指示器（下划线）
  */
 @Composable
-fun FTextFieldIndicatorUnderline(
+fun BoxScope.FTextFieldIndicatorUnderline(
     modifier: Modifier = Modifier,
+    thickness: Dp = 1.dp,
 ) {
+    val indicatorColor = fTextFieldState().indicatorColor()
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .height(1.dp)
-            .background(fTextFieldState().indicatorColor())
+            .height(thickness)
+            .background(indicatorColor)
+            .align(Alignment.BottomCenter)
+    )
+}
+
+/**
+ * 输入框指示器边框
+ */
+@Composable
+fun BoxScope.FTextFieldIndicatorOutline(
+    modifier: Modifier = Modifier,
+    thickness: Dp = 1.dp,
+    shape: Shape = RoundedCornerShape(5.dp),
+) {
+    val indicatorColor = fTextFieldState().indicatorColor()
+    Box(
+        modifier = modifier
+            .matchParentSize()
+            .border(
+                width = thickness,
+                color = indicatorColor,
+                shape = shape,
+            )
     )
 }
 
