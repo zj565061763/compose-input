@@ -18,18 +18,18 @@ object FTextFieldDefaults {
         disabledContainerColor: Color = Color.Transparent,
         errorContainerColor: Color = Color.Transparent,
 
-        cursorColor: Color = MaterialTheme.colorScheme.primary,
+        focusedIndicatorColor: Color = MaterialTheme.colorScheme.primary,
+        unfocusedIndicatorColor: Color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f),
+        disabledIndicatorColor: Color = disabledTextColor,
+        errorIndicatorColor: Color = errorTextColor,
+
+        cursorColor: Color = focusedIndicatorColor,
         errorCursorColor: Color = errorTextColor,
 
         selectionColors: TextSelectionColors = TextSelectionColors(
             handleColor = cursorColor,
             backgroundColor = cursorColor.copy(alpha = 0.4f)
         ),
-
-        focusedIndicatorColor: Color = MaterialTheme.colorScheme.primary,
-        unfocusedIndicatorColor: Color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f),
-        disabledIndicatorColor: Color = disabledTextColor,
-        errorIndicatorColor: Color = errorTextColor,
 
         focusedPlaceholderColor: Color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f),
         unfocusedPlaceholderColor: Color = focusedPlaceholderColor,
