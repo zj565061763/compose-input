@@ -24,8 +24,6 @@ import androidx.compose.ui.unit.sp
 import com.sd.demo.compose_input.ui.theme.AppTheme
 import com.sd.lib.compose.input.FTextField
 import com.sd.lib.compose.input.FTextFieldIconClear
-import com.sd.lib.compose.input.FTextFieldIndicatorOutline
-import com.sd.lib.compose.input.FTextFieldIndicatorUnderline
 import com.sd.lib.compose.input.fMaxLength
 
 class SampleTextField : ComponentActivity() {
@@ -76,9 +74,6 @@ private fun Sample(
             modifier = Modifier.background(Color.Red.copy(0.2f))
          )
       },
-      indicator = {
-         FTextFieldIndicatorOutline()
-      },
       trailingIcon = {
          FTextFieldIconClear()
       }
@@ -95,9 +90,6 @@ private fun SampleMaxLength(
    FTextField(
       modifier = modifier,
       state = state,
-      indicator = {
-         FTextFieldIndicatorUnderline()
-      },
       placeholder = {
          Text(text = "max input length $maxLength")
       }

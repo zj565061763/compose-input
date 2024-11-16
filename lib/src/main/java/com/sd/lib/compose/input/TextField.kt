@@ -1,5 +1,6 @@
 package com.sd.lib.compose.input
 
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -148,35 +149,22 @@ fun FTextField(
 fun BoxScope.FTextFieldIndicatorOutline(
    modifier: Modifier = Modifier,
    shape: Shape = MaterialTheme.shapes.extraSmall,
-   thickness: Dp = 1.dp,
+   unfocusedThickness: Dp = 1.dp,
+   focusedThickness: Dp = unfocusedThickness * 1.2f,
 ) {
-   val indicatorColor = fTextFieldState().indicatorColor()
+   val state = fTextFieldState()
+   val thicknessAnim = animateDpAsState(
+      targetValue = if (state.focused) focusedThickness else unfocusedThickness,
+      label = "TextField indicator thickness"
+   )
    Box(
       modifier = modifier
          .matchParentSize()
          .border(
-            width = thickness,
-            color = indicatorColor,
+            width = thicknessAnim.value,
+            color = state.indicatorColor(),
             shape = shape,
          )
-   )
-}
-
-/**
- * 输入框指示器（下划线）
- */
-@Composable
-fun BoxScope.FTextFieldIndicatorUnderline(
-   modifier: Modifier = Modifier,
-   thickness: Dp = 1.dp,
-) {
-   val indicatorColor = fTextFieldState().indicatorColor()
-   Box(
-      modifier = modifier
-         .fillMaxWidth()
-         .height(thickness)
-         .background(indicatorColor)
-         .align(Alignment.BottomCenter)
    )
 }
 
