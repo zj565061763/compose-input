@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,6 +25,7 @@ import com.sd.demo.compose_input.ui.theme.AppTheme
 import com.sd.lib.compose.input.FTextField
 import com.sd.lib.compose.input.FTextFieldIconClear
 import com.sd.lib.compose.input.FTextFieldIndicatorOutline
+import com.sd.lib.compose.input.fMaxLength
 
 class SampleTextField : ComponentActivity() {
    override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +56,7 @@ private fun Sample(
    modifier: Modifier = Modifier,
 ) {
    val state = rememberTextFieldState()
+
    FTextField(
       modifier = modifier,
       state = state,
@@ -78,6 +81,10 @@ private fun Sample(
          FTextFieldIconClear()
       }
    )
+
+   LaunchedEffect(state) {
+      state.fMaxLength(10)
+   }
 }
 
 @Preview
