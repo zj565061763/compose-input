@@ -56,6 +56,7 @@ internal fun DecorationBox(
                .weight(1f)
                .padding(contentPadding),
             propagateMinConstraints = true,
+            contentAlignment = Alignment.Center,
          ) {
             placeholder?.let {
                if (state.text.isEmpty()) {
