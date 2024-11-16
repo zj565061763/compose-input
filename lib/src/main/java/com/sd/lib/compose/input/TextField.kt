@@ -32,8 +32,8 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun FTextField(
-   state: TextFieldState,
    modifier: Modifier = Modifier,
+   state: TextFieldState,
    enabled: Boolean = true,
    readOnly: Boolean = false,
    inputTransformation: InputTransformation? = null,
