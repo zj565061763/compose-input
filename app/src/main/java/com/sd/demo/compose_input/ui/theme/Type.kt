@@ -8,7 +8,7 @@ import androidx.compose.ui.unit.sp
 val Typography = run {
    val default = Typography()
    val defaultLineHeight = (1.0).em
-   val defaultLetterSpacing = (0.0).sp
+   val defaultLetterSpacing = (0.5).sp
    Typography(
       displayLarge = default.displayLarge.copy(
          lineHeight = defaultLineHeight,
