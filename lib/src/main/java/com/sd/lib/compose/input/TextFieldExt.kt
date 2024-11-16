@@ -105,7 +105,7 @@ fun FTextFieldIcon(
    modifier: Modifier = Modifier,
    shape: Shape = CircleShape,
    containerColor: Color = Color.Transparent,
-   onClick: (() -> Unit)?,
+   onClick: (() -> Unit)? = null,
    icon: @Composable () -> Unit,
 ) {
    Box(
