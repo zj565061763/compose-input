@@ -45,9 +45,22 @@ private fun Content() {
       horizontalAlignment = Alignment.CenterHorizontally,
       verticalArrangement = Arrangement.spacedBy(10.dp),
    ) {
+      SampleIndicator()
       SampleCenter()
       SampleCustom()
    }
+}
+
+@Composable
+private fun SampleIndicator(
+   modifier: Modifier = Modifier,
+) {
+   val state = rememberTextFieldState()
+   FTextField(
+      modifier = modifier,
+      state = state,
+      indicator = { FTextFieldIndicatorOutline() }
+   )
 }
 
 @Composable
