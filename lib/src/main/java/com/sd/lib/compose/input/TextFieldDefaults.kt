@@ -139,7 +139,7 @@ private fun defaultTextFieldColors(
    val disabledTextColor = disabledTextColor ?: focusedTextColor.copy(alpha = 0.3f)
    val errorTextColor = errorTextColor ?: MaterialTheme.colorScheme.error
 
-   val focusedPlaceholderColor = focusedPlaceholderColor ?: MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f)
+   val focusedPlaceholderColor = focusedPlaceholderColor ?: MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f)
 
    val focusedIndicatorColor = focusedIndicatorColor ?: MaterialTheme.colorScheme.primary
    val cursorColor = cursorColor ?: focusedIndicatorColor
