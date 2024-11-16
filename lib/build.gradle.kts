@@ -1,6 +1,6 @@
 plugins {
-   id("com.android.library")
-   id("org.jetbrains.kotlin.android")
+   alias(libs.plugins.android.library)
+   alias(libs.plugins.kotlin.android)
    `maven-publish`
 }
 
@@ -15,12 +15,18 @@ android {
       minSdk = 21
    }
 
-   buildFeatures {
-      compose = true
+   compileOptions {
+      sourceCompatibility = JavaVersion.VERSION_1_8
+      targetCompatibility = JavaVersion.VERSION_1_8
    }
 
    kotlinOptions {
+      jvmTarget = "1.8"
       freeCompilerArgs += "-module-name=$libGroupId.$libArtifactId"
+   }
+
+   buildFeatures {
+      compose = true
    }
 
    composeOptions {
@@ -32,10 +38,6 @@ android {
          withSourcesJar()
       }
    }
-}
-
-kotlin {
-   jvmToolchain(8)
 }
 
 dependencies {
