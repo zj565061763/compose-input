@@ -27,6 +27,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
@@ -67,7 +68,7 @@ fun FTextField(
    contentPadding: PaddingValues = PaddingValues(horizontal = 12.dp, vertical = 6.dp),
    contentAlignment: Alignment.Vertical = Alignment.CenterVertically,
 
-   indicator: (@Composable BoxScope.() -> Unit)? = { FTextFieldIndicatorUnderline() },
+   indicator: (@Composable BoxScope.() -> Unit)? = { FTextFieldIndicatorOutline() },
    placeholder: @Composable (BoxScope.() -> Unit)? = null,
    leadingIcon: @Composable (RowScope.() -> Unit)? = null,
    trailingIcon: @Composable (RowScope.() -> Unit)? = null,
@@ -141,6 +142,27 @@ fun FTextField(
 //-------------------- Ext --------------------
 
 /**
+ * 输入框指示器边框
+ */
+@Composable
+fun BoxScope.FTextFieldIndicatorOutline(
+   modifier: Modifier = Modifier,
+   shape: Shape = MaterialTheme.shapes.extraSmall,
+   thickness: Dp = 1.dp,
+) {
+   val indicatorColor = fTextFieldState().indicatorColor()
+   Box(
+      modifier = modifier
+         .matchParentSize()
+         .border(
+            width = thickness,
+            color = indicatorColor,
+            shape = shape,
+         )
+   )
+}
+
+/**
  * 输入框指示器（下划线）
  */
 @Composable
@@ -155,27 +177,6 @@ fun BoxScope.FTextFieldIndicatorUnderline(
          .height(thickness)
          .background(indicatorColor)
          .align(Alignment.BottomCenter)
-   )
-}
-
-/**
- * 输入框指示器边框
- */
-@Composable
-fun BoxScope.FTextFieldIndicatorOutline(
-   modifier: Modifier = Modifier,
-   thickness: Dp = 1.dp,
-   shape: Shape = RoundedCornerShape(5.dp),
-) {
-   val indicatorColor = fTextFieldState().indicatorColor()
-   Box(
-      modifier = modifier
-         .matchParentSize()
-         .border(
-            width = thickness,
-            color = indicatorColor,
-            shape = shape,
-         )
    )
 }
 

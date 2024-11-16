@@ -25,6 +25,7 @@ import com.sd.demo.compose_input.ui.theme.AppTheme
 import com.sd.lib.compose.input.FTextField
 import com.sd.lib.compose.input.FTextFieldIconClear
 import com.sd.lib.compose.input.FTextFieldIndicatorOutline
+import com.sd.lib.compose.input.FTextFieldIndicatorUnderline
 import com.sd.lib.compose.input.fMaxLength
 
 class SampleTextField : ComponentActivity() {
@@ -89,17 +90,21 @@ private fun SampleMaxLength(
    modifier: Modifier = Modifier,
 ) {
    val state = rememberTextFieldState()
+   val maxLength = 10
 
    FTextField(
       modifier = modifier,
       state = state,
       indicator = {
-         FTextFieldIndicatorOutline()
+         FTextFieldIndicatorUnderline()
       },
+      placeholder = {
+         Text(text = "max input length $maxLength")
+      }
    )
 
-   LaunchedEffect(state) {
-      state.fMaxLength(10)
+   LaunchedEffect(state, maxLength) {
+      state.fMaxLength(maxLength)
    }
 }
 
