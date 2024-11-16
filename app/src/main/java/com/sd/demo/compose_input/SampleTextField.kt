@@ -48,6 +48,7 @@ private fun Content() {
       verticalArrangement = Arrangement.spacedBy(10.dp),
    ) {
       Sample()
+      SampleMaxLength()
    }
 }
 
@@ -80,6 +81,21 @@ private fun Sample(
       trailingIcon = {
          FTextFieldIconClear()
       }
+   )
+}
+
+@Composable
+private fun SampleMaxLength(
+   modifier: Modifier = Modifier,
+) {
+   val state = rememberTextFieldState()
+
+   FTextField(
+      modifier = modifier,
+      state = state,
+      indicator = {
+         FTextFieldIndicatorOutline()
+      },
    )
 
    LaunchedEffect(state) {
