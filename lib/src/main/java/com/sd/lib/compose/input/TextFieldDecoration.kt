@@ -20,7 +20,6 @@ import androidx.compose.ui.text.TextStyle
 
 @Composable
 internal fun DecorationBox(
-   modifier: Modifier = Modifier,
    state: FTextFieldState,
    contentAlignment: Alignment.Vertical,
    textStyle: TextStyle,
@@ -34,7 +33,7 @@ internal fun DecorationBox(
    overlay: @Composable (BoxScope.() -> Unit)?,
 ) {
    Box(
-      modifier = modifier.background(state.containerColor(), shape),
+      modifier = Modifier.background(state.containerColor(), shape),
       contentAlignment = when (contentAlignment) {
          Alignment.Top -> Alignment.TopCenter
          Alignment.Bottom -> Alignment.BottomCenter
