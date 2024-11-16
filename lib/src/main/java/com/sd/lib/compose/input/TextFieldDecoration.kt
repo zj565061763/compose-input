@@ -102,15 +102,6 @@ private fun Decoration(
    textStyle: TextStyle,
    content: @Composable () -> Unit,
 ) {
-   ProvideContentColorTextStyle(contentColor, textStyle, content)
-}
-
-@Composable
-private fun ProvideContentColorTextStyle(
-   contentColor: Color,
-   textStyle: TextStyle,
-   content: @Composable () -> Unit,
-) {
    val mergedStyle = LocalTextStyle.current.merge(textStyle)
    CompositionLocalProvider(
       LocalContentColor provides contentColor,

@@ -103,7 +103,7 @@ fun FTextField(
                DecorationBox(
                   state = internalState,
                   contentAlignment = contentAlignment,
-                  textStyle = mergedTextStyle,
+                  textStyle = textStyle,
                   shape = shape,
                   contentPadding = contentPadding,
                   innerTextField = innerTextField,
