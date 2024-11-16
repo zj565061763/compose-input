@@ -44,14 +44,14 @@ private fun Content() {
       horizontalAlignment = Alignment.CenterHorizontally,
       verticalArrangement = Arrangement.spacedBy(10.dp),
    ) {
-      SampleIndicator()
+      Sample()
       SampleCenter()
       SampleCustom()
    }
 }
 
 @Composable
-private fun SampleIndicator(
+private fun Sample(
    modifier: Modifier = Modifier,
 ) {
    val state = rememberTextFieldState()
