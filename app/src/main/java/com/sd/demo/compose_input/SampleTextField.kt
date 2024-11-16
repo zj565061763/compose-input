@@ -93,8 +93,6 @@ private fun SampleCustom(
             fontSize = 12.sp,
          )
       },
-      indicator = {
-         FTextFieldIndicatorOutline()
-      },
+      indicator = { FTextFieldIndicatorOutline() },
    )
 }
