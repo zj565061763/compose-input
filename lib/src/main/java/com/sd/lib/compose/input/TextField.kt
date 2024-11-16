@@ -49,7 +49,7 @@ fun FTextField(
    isError: Boolean = false,
    shape: Shape = RoundedCornerShape(0.dp),
    colors: FTextFieldColors = FTextFieldDefaults.colors(),
-   contentPadding: PaddingValues = PaddingValues(horizontal = 10.dp, vertical = 5.dp),
+   contentPadding: PaddingValues = PaddingValues(horizontal = 12.dp, vertical = 6.dp),
    contentAlignment: Alignment.Vertical = Alignment.CenterVertically,
 
    indicator: (@Composable BoxScope.() -> Unit)? = { FTextFieldIndicatorUnderline() },
