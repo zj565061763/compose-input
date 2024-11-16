@@ -37,7 +37,7 @@ fun FTextField(
    enabled: Boolean = true,
    readOnly: Boolean = false,
    inputTransformation: InputTransformation? = null,
-   textStyle: TextStyle = LocalTextStyle.current,
+   textStyle: TextStyle? = null,
    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
    onKeyboardAction: KeyboardActionHandler? = null,
    onTextLayout: (Density.(getResult: () -> TextLayoutResult?) -> Unit)? = null,
@@ -68,11 +68,15 @@ fun FTextField(
          )
       }
 
-   val textColor = textStyle.color.takeOrElse { internalState.textColor() }
-   val mergedTextStyle = if (textStyle.color == textColor) {
-      textStyle
-   } else {
-      textStyle.copy(color = textColor)
+   val localTextStyle = LocalTextStyle.current
+   val safeTextStyle = when {
+      textStyle == null -> localTextStyle
+      textStyle === localTextStyle -> localTextStyle
+      else -> localTextStyle.merge(textStyle)
+   }
+   val mergedTextStyle = safeTextStyle.let { style ->
+      val textColor = style.color.takeOrElse { internalState.textColor() }
+      if (textColor == style.color) style else style.copy(color = textColor)
    }
 
    val lineLimits = when {
@@ -103,7 +107,7 @@ fun FTextField(
                DecorationBox(
                   state = internalState,
                   contentAlignment = contentAlignment,
-                  textStyle = textStyle,
+                  textStyle = safeTextStyle,
                   shape = shape,
                   contentPadding = contentPadding,
                   innerTextField = innerTextField,
