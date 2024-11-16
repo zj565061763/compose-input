@@ -28,105 +28,105 @@ import com.sd.lib.compose.input.FTextField
 import com.sd.lib.compose.input.FTextFieldIndicatorOutline
 
 class SampleTextField : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            AppTheme {
-                Content()
-            }
-        }
-    }
+   override fun onCreate(savedInstanceState: Bundle?) {
+      super.onCreate(savedInstanceState)
+      setContent {
+         AppTheme {
+            Content()
+         }
+      }
+   }
 }
 
 @Composable
 private fun Content() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(10.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(10.dp),
-    ) {
-        SampleDefault()
-        SampleCenter()
-        SampleCustom()
-    }
+   Column(
+      modifier = Modifier
+         .fillMaxSize()
+         .padding(10.dp),
+      horizontalAlignment = Alignment.CenterHorizontally,
+      verticalArrangement = Arrangement.spacedBy(10.dp),
+   ) {
+      SampleDefault()
+      SampleCenter()
+      SampleCustom()
+   }
 }
 
 @Composable
 private fun SampleDefault(
-    modifier: Modifier = Modifier,
+   modifier: Modifier = Modifier,
 ) {
-    var value by remember { mutableStateOf("") }
+   var value by remember { mutableStateOf("") }
 
-    FTextField(
-        modifier = modifier,
-        value = value,
-        maxLines = 2,
-        placeholder = {
-            Text(text = "placeholder")
-        },
-        onFocusRequester = {
-            logMsg { "onFocusRequester:$it" }
-            it.requestFocus()
-        },
-    ) {
-        value = it
-    }
+   FTextField(
+      modifier = modifier,
+      value = value,
+      maxLines = 2,
+      placeholder = {
+         Text(text = "placeholder")
+      },
+      onFocusRequester = {
+         logMsg { "onFocusRequester:$it" }
+         it.requestFocus()
+      },
+   ) {
+      value = it
+   }
 }
 
 @Composable
 private fun SampleCenter(
-    modifier: Modifier = Modifier,
+   modifier: Modifier = Modifier,
 ) {
-    var value by remember { mutableStateOf("") }
+   var value by remember { mutableStateOf("") }
 
-    FTextField(
-        modifier = modifier.height(80.dp),
-        value = value,
-        contentAlignment = Alignment.CenterVertically,
-        contentPadding = PaddingValues(0.dp),
-        maxLines = Int.MAX_VALUE,
-        trailingIcon = {},
-        textStyle = LocalTextStyle.current.copy(
-            textAlign = TextAlign.Center,
-        ),
-        placeholder = {
-            Text(
-                text = "placeholder",
-                modifier = Modifier.background(Color.Red)
-            )
-        },
-        indicator = {
-            FTextFieldIndicatorOutline()
-        },
-    ) {
-        value = it
-    }
+   FTextField(
+      modifier = modifier.height(80.dp),
+      value = value,
+      contentAlignment = Alignment.CenterVertically,
+      contentPadding = PaddingValues(0.dp),
+      maxLines = Int.MAX_VALUE,
+      trailingIcon = {},
+      textStyle = LocalTextStyle.current.copy(
+         textAlign = TextAlign.Center,
+      ),
+      placeholder = {
+         Text(
+            text = "placeholder",
+            modifier = Modifier.background(Color.Red)
+         )
+      },
+      indicator = {
+         FTextFieldIndicatorOutline()
+      },
+   ) {
+      value = it
+   }
 }
 
 @Composable
 private fun SampleCustom(
-    modifier: Modifier = Modifier,
+   modifier: Modifier = Modifier,
 ) {
-    var value by remember { mutableStateOf("") }
+   var value by remember { mutableStateOf("") }
 
-    FTextField(
-        modifier = modifier.height(100.dp),
-        value = value,
-        contentAlignment = Alignment.Top,
-        maxLines = Int.MAX_VALUE,
-        trailingIcon = { },
-        placeholder = {
-            Text(
-                text = "input",
-                fontSize = 12.sp,
-            )
-        },
-        indicator = {
-            FTextFieldIndicatorOutline()
-        },
-    ) {
-        value = it
-    }
+   FTextField(
+      modifier = modifier.height(100.dp),
+      value = value,
+      contentAlignment = Alignment.Top,
+      maxLines = Int.MAX_VALUE,
+      trailingIcon = { },
+      placeholder = {
+         Text(
+            text = "input",
+            fontSize = 12.sp,
+         )
+      },
+      indicator = {
+         FTextFieldIndicatorOutline()
+      },
+   ) {
+      value = it
+   }
 }

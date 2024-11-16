@@ -20,85 +20,85 @@ import androidx.compose.ui.text.TextStyle
 
 @Composable
 internal fun DecorationBox(
-    modifier: Modifier = Modifier,
-    state: FTextFieldState,
-    contentAlignment: Alignment.Vertical,
-    textStyle: TextStyle,
-    shape: Shape,
-    contentPadding: PaddingValues,
-    innerTextField: @Composable () -> Unit,
-    placeholder: @Composable (BoxScope.() -> Unit)?,
-    leadingIcon: @Composable (RowScope.() -> Unit)?,
-    trailingIcon: @Composable (RowScope.() -> Unit)?,
-    indicator: @Composable (BoxScope.() -> Unit)?,
-    overlay: @Composable (BoxScope.() -> Unit)?,
+   modifier: Modifier = Modifier,
+   state: FTextFieldState,
+   contentAlignment: Alignment.Vertical,
+   textStyle: TextStyle,
+   shape: Shape,
+   contentPadding: PaddingValues,
+   innerTextField: @Composable () -> Unit,
+   placeholder: @Composable (BoxScope.() -> Unit)?,
+   leadingIcon: @Composable (RowScope.() -> Unit)?,
+   trailingIcon: @Composable (RowScope.() -> Unit)?,
+   indicator: @Composable (BoxScope.() -> Unit)?,
+   overlay: @Composable (BoxScope.() -> Unit)?,
 ) {
-    Box(
-        modifier = modifier.background(state.containerColor(), shape),
-        contentAlignment = when (contentAlignment) {
-            Alignment.Top -> Alignment.TopCenter
-            Alignment.Bottom -> Alignment.BottomCenter
-            else -> Alignment.Center
-        },
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            leadingIcon?.let {
-                Decoration(contentColor = state.leadingIconColor()) {
-                    it()
-                }
+   Box(
+      modifier = modifier.background(state.containerColor(), shape),
+      contentAlignment = when (contentAlignment) {
+         Alignment.Top -> Alignment.TopCenter
+         Alignment.Bottom -> Alignment.BottomCenter
+         else -> Alignment.Center
+      },
+   ) {
+      Row(
+         modifier = Modifier.fillMaxWidth(),
+         verticalAlignment = Alignment.CenterVertically,
+      ) {
+         leadingIcon?.let {
+            Decoration(contentColor = state.leadingIconColor()) {
+               it()
             }
+         }
 
-            Box(
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(contentPadding),
-                propagateMinConstraints = true,
-            ) {
-                placeholder?.let {
-                    if (state.value.text.isEmpty()) {
-                        Decoration(
-                            contentColor = state.placeholderColor(),
-                            typography = textStyle,
-                        ) {
-                            it()
-                        }
-                    }
-                }
-                innerTextField()
+         Box(
+            modifier = Modifier
+               .weight(1f)
+               .padding(contentPadding),
+            propagateMinConstraints = true,
+         ) {
+            placeholder?.let {
+               if (state.text.isEmpty()) {
+                  Decoration(
+                     contentColor = state.placeholderColor(),
+                     typography = textStyle,
+                  ) {
+                     it()
+                  }
+               }
             }
+            innerTextField()
+         }
 
-            trailingIcon?.let {
-                Decoration(contentColor = state.trailingIconColor()) {
-                    it()
-                }
+         trailingIcon?.let {
+            Decoration(contentColor = state.trailingIconColor()) {
+               it()
             }
-        }
+         }
+      }
 
-        Box(modifier = Modifier.matchParentSize()) {
-            indicator?.let {
-                Decoration(contentColor = state.indicatorColor()) {
-                    it()
-                }
+      Box(modifier = Modifier.matchParentSize()) {
+         indicator?.let {
+            Decoration(contentColor = state.indicatorColor()) {
+               it()
             }
-            overlay?.let { it() }
-        }
-    }
+         }
+         overlay?.let { it() }
+      }
+   }
 }
 
 @Composable
 private fun Decoration(
-    contentColor: Color,
-    typography: TextStyle? = null,
-    content: @Composable () -> Unit,
+   contentColor: Color,
+   typography: TextStyle? = null,
+   content: @Composable () -> Unit,
 ) {
-    val contentWithColor: @Composable () -> Unit = @Composable {
-        CompositionLocalProvider(
-            LocalContentColor provides contentColor,
-            content = content,
-        )
-    }
-    if (typography != null) ProvideTextStyle(typography, contentWithColor) else contentWithColor()
+   val contentWithColor: @Composable () -> Unit = @Composable {
+      CompositionLocalProvider(
+         LocalContentColor provides contentColor,
+         content = content,
+      )
+   }
+   if (typography != null) ProvideTextStyle(typography, contentWithColor) else contentWithColor()
 }

@@ -91,7 +91,6 @@ object FTextFieldDefaults {
    }
 }
 
-
 @Suppress("NAME_SHADOWING")
 @Composable
 private fun defaultTextFieldColors(

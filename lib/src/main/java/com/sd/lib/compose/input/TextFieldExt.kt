@@ -20,7 +20,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
@@ -29,17 +28,17 @@ import androidx.compose.ui.unit.dp
  */
 @Composable
 fun BoxScope.FTextFieldIndicatorUnderline(
-    modifier: Modifier = Modifier,
-    thickness: Dp = 1.dp,
+   modifier: Modifier = Modifier,
+   thickness: Dp = 1.dp,
 ) {
-    val indicatorColor = fTextFieldState().indicatorColor()
-    Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(thickness)
-            .background(indicatorColor)
-            .align(Alignment.BottomCenter)
-    )
+   val indicatorColor = fTextFieldState().indicatorColor()
+   Box(
+      modifier = modifier
+         .fillMaxWidth()
+         .height(thickness)
+         .background(indicatorColor)
+         .align(Alignment.BottomCenter)
+   )
 }
 
 /**
@@ -47,20 +46,20 @@ fun BoxScope.FTextFieldIndicatorUnderline(
  */
 @Composable
 fun BoxScope.FTextFieldIndicatorOutline(
-    modifier: Modifier = Modifier,
-    thickness: Dp = 1.dp,
-    shape: Shape = RoundedCornerShape(5.dp),
+   modifier: Modifier = Modifier,
+   thickness: Dp = 1.dp,
+   shape: Shape = RoundedCornerShape(5.dp),
 ) {
-    val indicatorColor = fTextFieldState().indicatorColor()
-    Box(
-        modifier = modifier
-            .matchParentSize()
-            .border(
-                width = thickness,
-                color = indicatorColor,
-                shape = shape,
-            )
-    )
+   val indicatorColor = fTextFieldState().indicatorColor()
+   Box(
+      modifier = modifier
+         .matchParentSize()
+         .border(
+            width = thickness,
+            color = indicatorColor,
+            shape = shape,
+         )
+   )
 }
 
 /**
@@ -68,34 +67,34 @@ fun BoxScope.FTextFieldIndicatorOutline(
  */
 @Composable
 fun FTextFieldIconClear(
-    modifier: Modifier = Modifier,
-    shape: Shape = CircleShape,
-    backgroundColor: Color = Color.Transparent,
-    icon: @Composable () -> Unit = {
-        Icon(
-            modifier = Modifier.size(15.dp),
-            imageVector = Icons.Default.Clear,
-            contentDescription = "clear",
-        )
-    },
+   modifier: Modifier = Modifier,
+   shape: Shape = CircleShape,
+   containerColor: Color = Color.Transparent,
+   icon: @Composable () -> Unit = {
+      Icon(
+         modifier = Modifier.size(16.dp),
+         imageVector = Icons.Default.Clear,
+         contentDescription = "clear",
+      )
+   },
 ) {
-    val state = fTextFieldState()
-    val showIcon = state.focused && state.value.text.isNotEmpty()
+   val state = fTextFieldState()
+   val showIcon = state.focused && state.text.isNotEmpty()
 
-    FTextFieldIcon(
-        modifier = modifier,
-        shape = shape,
-        backgroundColor = backgroundColor,
-        onClick = if (showIcon) {
-            {
-                state.notifyValue(TextFieldValue())
-            }
-        } else null,
-    ) {
-        if (showIcon) {
-            icon()
-        }
-    }
+   FTextFieldIcon(
+      modifier = modifier,
+      shape = shape,
+      containerColor = containerColor,
+      onClick = if (showIcon) {
+         {
+            state.clearText()
+         }
+      } else null,
+   ) {
+      if (showIcon) {
+         icon()
+      }
+   }
 }
 
 /**
@@ -103,26 +102,26 @@ fun FTextFieldIconClear(
  */
 @Composable
 fun FTextFieldIcon(
-    modifier: Modifier = Modifier,
-    shape: Shape = CircleShape,
-    backgroundColor: Color = Color.Transparent,
-    onClick: (() -> Unit)?,
-    icon: @Composable () -> Unit,
+   modifier: Modifier = Modifier,
+   shape: Shape = CircleShape,
+   containerColor: Color = Color.Transparent,
+   onClick: (() -> Unit)?,
+   icon: @Composable () -> Unit,
 ) {
-    Box(
-        modifier = modifier
-            .defaultMinSize(25.dp, 25.dp)
-            .background(color = backgroundColor, shape = shape)
-            .clip(shape)
-            .let {
-                if (onClick != null) {
-                    it.clickable { onClick() }
-                } else {
-                    it
-                }
-            },
-        contentAlignment = Alignment.Center,
-    ) {
-        icon()
-    }
+   Box(
+      modifier = modifier
+         .defaultMinSize(24.dp, 24.dp)
+         .background(color = containerColor, shape = shape)
+         .clip(shape)
+         .let {
+            if (onClick != null) {
+               it.clickable { onClick() }
+            } else {
+               it
+            }
+         },
+      contentAlignment = Alignment.Center,
+   ) {
+      icon()
+   }
 }
