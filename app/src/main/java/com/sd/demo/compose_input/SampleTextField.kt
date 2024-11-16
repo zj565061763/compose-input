@@ -17,11 +17,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.em
-import androidx.compose.ui.unit.sp
 import com.sd.demo.compose_input.ui.theme.AppTheme
 import com.sd.lib.compose.input.FTextField
 import com.sd.lib.compose.input.FTextFieldIconClear
@@ -49,6 +46,7 @@ private fun Content() {
    ) {
       Sample()
       SampleMaxLength()
+      SampleError()
    }
 }
 
@@ -64,10 +62,6 @@ private fun Sample(
       contentPadding = PaddingValues(
          horizontal = 16.dp,
          vertical = 8.dp,
-      ),
-      textStyle = TextStyle(
-         fontSize = 16.sp,
-         lineHeight = 1.3.em,
       ),
       placeholder = {
          Text(
@@ -99,6 +93,22 @@ private fun SampleMaxLength(
    LaunchedEffect(state, maxLength) {
       state.fMaxLength(maxLength)
    }
+}
+
+@Composable
+private fun SampleError(
+   modifier: Modifier = Modifier,
+) {
+   val state = rememberTextFieldState()
+
+   FTextField(
+      modifier = modifier.fillMaxWidth(),
+      state = state,
+      isError = true,
+      placeholder = {
+         Text(text = "input")
+      }
+   )
 }
 
 @Preview
