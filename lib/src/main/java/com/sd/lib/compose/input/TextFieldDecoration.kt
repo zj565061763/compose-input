@@ -58,11 +58,13 @@ internal fun DecorationBox(
             propagateMinConstraints = true,
          ) {
             placeholder?.let {
-               Decoration(
-                  contentColor = state.placeholderColor(),
-                  textStyle = textStyle,
-               ) {
-                  it()
+               if (state.text.isEmpty()) {
+                  Decoration(
+                     contentColor = state.placeholderColor(),
+                     textStyle = textStyle,
+                  ) {
+                     it()
+                  }
                }
             }
             innerTextField()

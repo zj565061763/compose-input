@@ -58,8 +58,12 @@ private fun Sample(
    FTextField(
       modifier = modifier,
       state = state,
-      placeholder = { Text(text = "Enter your email...") },
-      indicator = { FTextFieldIndicatorOutline() },
+      placeholder = {
+         Text(text = "Enter your email...")
+      },
+      indicator = {
+         FTextFieldIndicatorOutline()
+      },
    )
 }
 
@@ -83,8 +87,12 @@ private fun SampleCenter(
             modifier = Modifier.background(Color.Red)
          )
       },
-      indicator = { FTextFieldIndicatorOutline() },
-      trailingIcon = { FTextFieldIconClear() },
+      indicator = {
+         FTextFieldIndicatorOutline()
+      },
+      trailingIcon = {
+         FTextFieldIconClear()
+      },
    )
 }
 
@@ -102,6 +110,8 @@ private fun SampleCustom(
       placeholder = {
          Text(text = "input")
       },
-      indicator = { FTextFieldIndicatorOutline() },
+      indicator = {
+         FTextFieldIndicatorOutline()
+      },
    )
 }
