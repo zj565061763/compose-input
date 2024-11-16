@@ -6,22 +6,19 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.input.rememberTextFieldState
-import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sd.demo.compose_input.ui.theme.AppTheme
 import com.sd.lib.compose.input.FTextField
-import com.sd.lib.compose.input.FTextFieldIconClear
 import com.sd.lib.compose.input.FTextFieldIndicatorOutline
 
 class SampleTextField : ComponentActivity() {
@@ -45,8 +42,6 @@ private fun Content() {
       verticalArrangement = Arrangement.spacedBy(10.dp),
    ) {
       Sample()
-      SampleCenter()
-      SampleCustom()
    }
 }
 
@@ -56,62 +51,22 @@ private fun Sample(
 ) {
    val state = rememberTextFieldState()
    FTextField(
-      modifier = modifier,
+      modifier = modifier.heightIn(64.dp),
       state = state,
-      placeholder = {
-         Text(text = "Enter your email...")
-      },
-      indicator = {
-         FTextFieldIndicatorOutline()
-      },
-   )
-}
-
-@Composable
-private fun SampleCenter(
-   modifier: Modifier = Modifier,
-) {
-   val state = rememberTextFieldState()
-
-   FTextField(
-      modifier = modifier.height(80.dp),
-      state = state,
-      contentAlignment = Alignment.CenterVertically,
-      contentPadding = PaddingValues(0.dp),
-      textStyle = LocalTextStyle.current.copy(
-         textAlign = TextAlign.Center,
-      ),
       placeholder = {
          Text(
-            text = "placeholder",
-            modifier = Modifier.background(Color.Red)
+            text = "Enter your email...",
+            modifier = Modifier.background(Color.Red.copy(0.2f))
          )
       },
       indicator = {
          FTextFieldIndicatorOutline()
       },
-      trailingIcon = {
-         FTextFieldIconClear()
-      },
    )
 }
 
+@Preview
 @Composable
-private fun SampleCustom(
-   modifier: Modifier = Modifier,
-) {
-   val state = rememberTextFieldState()
-
-   FTextField(
-      modifier = modifier.height(100.dp),
-      state = state,
-      maxLines = Int.MAX_VALUE,
-      contentAlignment = Alignment.Top,
-      placeholder = {
-         Text(text = "input")
-      },
-      indicator = {
-         FTextFieldIndicatorOutline()
-      },
-   )
+private fun Preview() {
+   Content()
 }
