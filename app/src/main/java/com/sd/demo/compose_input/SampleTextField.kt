@@ -58,7 +58,8 @@ private fun SampleIndicator(
    FTextField(
       modifier = modifier,
       state = state,
-      indicator = { FTextFieldIndicatorOutline() }
+      placeholder = { Text(text = "Enter your email...") },
+      indicator = { FTextFieldIndicatorOutline() },
    )
 }
 
