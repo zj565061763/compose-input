@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.Text
@@ -58,7 +59,7 @@ private fun Sample(
    val state = rememberTextFieldState()
 
    FTextField(
-      modifier = modifier,
+      modifier = modifier.fillMaxWidth(),
       state = state,
       contentPadding = PaddingValues(
          horizontal = 16.dp,
@@ -88,7 +89,7 @@ private fun SampleMaxLength(
    val maxLength = 10
 
    FTextField(
-      modifier = modifier,
+      modifier = modifier.fillMaxWidth(),
       state = state,
       placeholder = {
          Text(text = "max input length $maxLength")

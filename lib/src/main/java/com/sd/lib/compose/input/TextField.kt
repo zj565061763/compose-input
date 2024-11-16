@@ -103,9 +103,9 @@ fun FTextField(
    CompositionLocalProvider(LocalTextSelectionColors provides colors.textSelectionColors) {
       BasicTextField(
          state = state,
-         modifier = modifier.let {
-            if (isError) it.semantics { error("Input error") } else it
-         },
+         modifier = modifier
+            .defaultMinSize(minWidth = 200.dp, minHeight = 56.dp)
+            .let { if (isError) it.semantics { error("Input error") } else it },
          enabled = enabled,
          readOnly = readOnly,
          inputTransformation = inputTransformation,

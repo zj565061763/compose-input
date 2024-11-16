@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.LocalTextStyle
@@ -43,7 +42,7 @@ internal fun DecorationBox(
       },
    ) {
       Row(
-         modifier = Modifier.fillMaxWidth(),
+         modifier = Modifier.matchParentSize(),
          verticalAlignment = Alignment.CenterVertically,
       ) {
          leadingIcon?.let {
@@ -52,28 +51,14 @@ internal fun DecorationBox(
             }
          }
 
-         Box(
-            modifier = Modifier
-               .weight(1f)
-               .padding(contentPadding),
-            propagateMinConstraints = true,
-            contentAlignment = Alignment.Center,
-         ) {
-            placeholder?.let {
-               Decoration(
-                  contentColor = state.placeholderColor(),
-                  textStyle = textStyle,
-               ) {
-                  Box(
-                     modifier = Modifier.alpha(if (state.text.isEmpty()) 1f else 0f),
-                     propagateMinConstraints = true,
-                  ) {
-                     it()
-                  }
-               }
-            }
-            innerTextField()
-         }
+         ContentBox(
+            modifier = Modifier.weight(1f),
+            state = state,
+            textStyle = textStyle,
+            contentPadding = contentPadding,
+            innerTextField = innerTextField,
+            placeholder = placeholder,
+         )
 
          trailingIcon?.let {
             Decoration(state.trailingIconColor()) {
@@ -90,6 +75,37 @@ internal fun DecorationBox(
          }
          overlay?.let { it() }
       }
+   }
+}
+
+@Composable
+private fun ContentBox(
+   modifier: Modifier = Modifier,
+   state: FTextFieldState,
+   textStyle: TextStyle,
+   contentPadding: PaddingValues,
+   innerTextField: @Composable () -> Unit,
+   placeholder: @Composable (BoxScope.() -> Unit)?,
+) {
+   Box(
+      modifier = modifier.padding(contentPadding),
+      propagateMinConstraints = true,
+      contentAlignment = Alignment.Center,
+   ) {
+      placeholder?.let {
+         Decoration(
+            contentColor = state.placeholderColor(),
+            textStyle = textStyle,
+         ) {
+            Box(
+               modifier = Modifier.alpha(if (state.text.isEmpty()) 1f else 0f),
+               propagateMinConstraints = true,
+            ) {
+               it()
+            }
+         }
+      }
+      innerTextField()
    }
 }
 
