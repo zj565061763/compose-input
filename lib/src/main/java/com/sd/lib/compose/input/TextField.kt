@@ -69,7 +69,11 @@ fun FTextField(
       }
 
    val textColor = textStyle.color.takeOrElse { internalState.textColor() }
-   val mergedTextStyle = textStyle.merge(TextStyle(color = textColor))
+   val mergedTextStyle = if (textStyle.color == textColor) {
+      textStyle
+   } else {
+      textStyle.copy(color = textColor)
+   }
 
    val lineLimits = if (minLines == 1 && maxLines == 1) {
       TextFieldLineLimits.SingleLine

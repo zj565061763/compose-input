@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.LocalContentColor
-import androidx.compose.material3.ProvideTextStyle
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
@@ -61,7 +61,7 @@ internal fun DecorationBox(
                if (state.text.isEmpty()) {
                   Decoration(
                      contentColor = state.placeholderColor(),
-                     typography = textStyle,
+                     textStyle = textStyle,
                   ) {
                      it()
                   }
@@ -91,14 +91,30 @@ internal fun DecorationBox(
 @Composable
 private fun Decoration(
    contentColor: Color,
-   typography: TextStyle? = null,
    content: @Composable () -> Unit,
 ) {
-   val contentWithColor: @Composable () -> Unit = @Composable {
-      CompositionLocalProvider(
-         LocalContentColor provides contentColor,
-         content = content,
-      )
-   }
-   if (typography != null) ProvideTextStyle(typography, contentWithColor) else contentWithColor()
+   CompositionLocalProvider(LocalContentColor provides contentColor, content = content)
+}
+
+@Composable
+private fun Decoration(
+   contentColor: Color,
+   textStyle: TextStyle,
+   content: @Composable () -> Unit,
+) {
+   ProvideContentColorTextStyle(contentColor, textStyle, content)
+}
+
+@Composable
+private fun ProvideContentColorTextStyle(
+   contentColor: Color,
+   textStyle: TextStyle,
+   content: @Composable () -> Unit,
+) {
+   val mergedStyle = LocalTextStyle.current.merge(textStyle)
+   CompositionLocalProvider(
+      LocalContentColor provides contentColor,
+      LocalTextStyle provides mergedStyle,
+      content = content
+   )
 }
