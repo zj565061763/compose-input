@@ -10,13 +10,11 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sd.demo.compose_input.ui.theme.AppTheme
 import com.sd.lib.compose.input.FTextField
+import com.sd.lib.compose.input.FTextFieldIconClear
 import com.sd.lib.compose.input.FTextFieldIndicatorOutline
 
 class SampleTextField : ComponentActivity() {
@@ -47,31 +46,8 @@ private fun Content() {
       horizontalAlignment = Alignment.CenterHorizontally,
       verticalArrangement = Arrangement.spacedBy(10.dp),
    ) {
-      SampleDefault()
       SampleCenter()
       SampleCustom()
-   }
-}
-
-@Composable
-private fun SampleDefault(
-   modifier: Modifier = Modifier,
-) {
-   var value by remember { mutableStateOf("") }
-
-   FTextField(
-      modifier = modifier,
-      value = value,
-      maxLines = 2,
-      placeholder = {
-         Text(text = "placeholder")
-      },
-      onFocusRequester = {
-         logMsg { "onFocusRequester:$it" }
-         it.requestFocus()
-      },
-   ) {
-      value = it
    }
 }
 
@@ -79,15 +55,13 @@ private fun SampleDefault(
 private fun SampleCenter(
    modifier: Modifier = Modifier,
 ) {
-   var value by remember { mutableStateOf("") }
+   val state = remember { TextFieldState() }
 
    FTextField(
       modifier = modifier.height(80.dp),
-      value = value,
+      state = state,
       contentAlignment = Alignment.CenterVertically,
       contentPadding = PaddingValues(0.dp),
-      maxLines = Int.MAX_VALUE,
-      trailingIcon = {},
       textStyle = LocalTextStyle.current.copy(
          textAlign = TextAlign.Center,
       ),
@@ -97,26 +71,22 @@ private fun SampleCenter(
             modifier = Modifier.background(Color.Red)
          )
       },
-      indicator = {
-         FTextFieldIndicatorOutline()
-      },
-   ) {
-      value = it
-   }
+      indicator = { FTextFieldIndicatorOutline() },
+      trailingIcon = { FTextFieldIconClear() },
+   )
 }
 
 @Composable
 private fun SampleCustom(
    modifier: Modifier = Modifier,
 ) {
-   var value by remember { mutableStateOf("") }
+   val state = remember { TextFieldState() }
 
    FTextField(
       modifier = modifier.height(100.dp),
-      value = value,
-      contentAlignment = Alignment.Top,
+      state = state,
       maxLines = Int.MAX_VALUE,
-      trailingIcon = { },
+      contentAlignment = Alignment.Top,
       placeholder = {
          Text(
             text = "input",
@@ -126,7 +96,5 @@ private fun SampleCustom(
       indicator = {
          FTextFieldIndicatorOutline()
       },
-   ) {
-      value = it
-   }
+   )
 }

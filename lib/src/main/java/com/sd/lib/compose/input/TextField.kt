@@ -40,11 +40,12 @@ fun FTextField(
    textStyle: TextStyle = LocalTextStyle.current,
    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
    onKeyboardAction: KeyboardActionHandler? = null,
-   lineLimits: TextFieldLineLimits = TextFieldLineLimits.SingleLine,
    onTextLayout: (Density.(getResult: () -> TextLayoutResult?) -> Unit)? = null,
    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
    outputTransformation: OutputTransformation? = null,
 
+   minLines: Int = 1,
+   maxLines: Int = 1,
    isError: Boolean = false,
    shape: Shape = RoundedCornerShape(0.dp),
    colors: FTextFieldColors = FTextFieldDefaults.colors(),
@@ -54,7 +55,7 @@ fun FTextField(
    indicator: (@Composable BoxScope.() -> Unit)? = { FTextFieldIndicatorUnderline() },
    placeholder: @Composable (BoxScope.() -> Unit)? = null,
    leadingIcon: @Composable (RowScope.() -> Unit)? = null,
-   trailingIcon: @Composable (RowScope.() -> Unit)? = { FTextFieldIconClear() },
+   trailingIcon: @Composable (RowScope.() -> Unit)? = null,
    overlay: (@Composable BoxScope.() -> Unit)? = null,
 ) {
    val internalState = remember(state) { TextFieldStateImpl(state) }
@@ -69,6 +70,12 @@ fun FTextField(
 
    val textColor = textStyle.color.takeOrElse { internalState.textColor() }
    val mergedTextStyle = textStyle.merge(TextStyle(color = textColor))
+
+   val lineLimits = if (minLines == 1 && maxLines == 1) {
+      TextFieldLineLimits.SingleLine
+   } else {
+      TextFieldLineLimits.MultiLine(minHeightInLines = minLines, maxHeightInLines = maxLines)
+   }
 
    CompositionLocalProvider(LocalTextSelectionColors provides colors.textSelectionColors) {
       BasicTextField(
