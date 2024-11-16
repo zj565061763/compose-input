@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
@@ -59,10 +60,13 @@ internal fun DecorationBox(
             contentAlignment = Alignment.Center,
          ) {
             placeholder?.let {
-               if (state.text.isEmpty()) {
-                  Decoration(
-                     contentColor = state.placeholderColor(),
-                     textStyle = textStyle,
+               Decoration(
+                  contentColor = state.placeholderColor(),
+                  textStyle = textStyle,
+               ) {
+                  Box(
+                     modifier = Modifier.alpha(if (state.text.isEmpty()) 1f else 0f),
+                     propagateMinConstraints = true,
                   ) {
                      it()
                   }
