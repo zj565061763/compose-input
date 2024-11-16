@@ -11,8 +11,6 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.defaultMinSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -69,7 +67,7 @@ fun FTextField(
    contentPadding: PaddingValues = PaddingValues(horizontal = 12.dp, vertical = 6.dp),
    contentAlignment: Alignment.Vertical = Alignment.CenterVertically,
 
-   indicator: (@Composable BoxScope.() -> Unit)? = { FTextFieldIndicatorOutline() },
+   indicator: (@Composable BoxScope.() -> Unit)? = { FTextFieldIndicator() },
    placeholder: @Composable (BoxScope.() -> Unit)? = null,
    leadingIcon: @Composable (RowScope.() -> Unit)? = null,
    trailingIcon: @Composable (RowScope.() -> Unit)? = null,
@@ -143,10 +141,10 @@ fun FTextField(
 //-------------------- Ext --------------------
 
 /**
- * 输入框指示器边框
+ * 指示器边框
  */
 @Composable
-fun BoxScope.FTextFieldIndicatorOutline(
+fun BoxScope.FTextFieldIndicator(
    modifier: Modifier = Modifier,
    shape: Shape = MaterialTheme.shapes.extraSmall,
    unfocusedThickness: Dp = 1.dp,
@@ -169,7 +167,7 @@ fun BoxScope.FTextFieldIndicatorOutline(
 }
 
 /**
- * 清空输入框内容
+ * 清空内容
  */
 @Composable
 fun FTextFieldIconClear(
@@ -204,7 +202,7 @@ fun FTextFieldIconClear(
 }
 
 /**
- * 输入框图标容器
+ * 图标容器
  */
 @Composable
 fun FTextFieldIcon(
