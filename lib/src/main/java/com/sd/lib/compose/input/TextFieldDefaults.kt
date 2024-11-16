@@ -6,81 +6,189 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 object FTextFieldDefaults {
-    @Composable
-    fun colors(
-        focusedTextColor: Color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f),
-        unfocusedTextColor: Color = focusedTextColor,
-        disabledTextColor: Color = focusedTextColor.copy(0.3f),
-        errorTextColor: Color = MaterialTheme.colorScheme.error,
+   private var _defaultTextFieldColors: FTextFieldColors? = null
 
-        focusedContainerColor: Color = Color.Transparent,
-        unfocusedContainerColor: Color = Color.Transparent,
-        disabledContainerColor: Color = Color.Transparent,
-        errorContainerColor: Color = Color.Transparent,
+   @Composable
+   fun colors(): FTextFieldColors = _defaultTextFieldColors
+      ?: defaultTextFieldColors().also { _defaultTextFieldColors = it }
 
-        focusedIndicatorColor: Color = MaterialTheme.colorScheme.primary,
-        unfocusedIndicatorColor: Color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f),
-        disabledIndicatorColor: Color = disabledTextColor,
-        errorIndicatorColor: Color = errorTextColor,
+   @Composable
+   fun colors(
+      // Text
+      focusedTextColor: Color? = null,
+      unfocusedTextColor: Color? = null,
+      disabledTextColor: Color? = null,
+      errorTextColor: Color? = null,
 
-        cursorColor: Color = focusedIndicatorColor,
-        errorCursorColor: Color = errorTextColor,
+      // Container
+      focusedContainerColor: Color? = null,
+      unfocusedContainerColor: Color? = null,
+      disabledContainerColor: Color? = null,
+      errorContainerColor: Color? = null,
 
-        selectionColors: TextSelectionColors = TextSelectionColors(
-            handleColor = cursorColor,
-            backgroundColor = cursorColor.copy(alpha = 0.4f)
-        ),
+      // Indicator
+      focusedIndicatorColor: Color? = null,
+      unfocusedIndicatorColor: Color? = null,
+      disabledIndicatorColor: Color? = null,
+      errorIndicatorColor: Color? = null,
 
-        focusedPlaceholderColor: Color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f),
-        unfocusedPlaceholderColor: Color = focusedPlaceholderColor,
-        disabledPlaceholderColor: Color = focusedPlaceholderColor,
-        errorPlaceholderColor: Color = focusedPlaceholderColor,
+      // Placeholder
+      focusedPlaceholderColor: Color? = null,
+      unfocusedPlaceholderColor: Color? = null,
+      disabledPlaceholderColor: Color? = null,
+      errorPlaceholderColor: Color? = null,
 
-        focusedLeadingIconColor: Color = focusedTextColor,
-        unfocusedLeadingIconColor: Color = unfocusedTextColor,
-        disabledLeadingIconColor: Color = disabledTextColor,
-        errorLeadingIconColor: Color = errorTextColor,
+      // Leading
+      focusedLeadingIconColor: Color? = null,
+      unfocusedLeadingIconColor: Color? = null,
+      disabledLeadingIconColor: Color? = null,
+      errorLeadingIconColor: Color? = null,
 
-        focusedTrailingIconColor: Color = focusedTextColor,
-        unfocusedTrailingIconColor: Color = unfocusedTextColor,
-        disabledTrailingIconColor: Color = disabledTextColor,
-        errorTrailingIconColor: Color = errorTextColor,
-    ): FTextFieldColors {
-        return FTextFieldColors(
-            focusedTextColor = focusedTextColor,
-            unfocusedTextColor = unfocusedTextColor,
-            disabledTextColor = disabledTextColor,
-            errorTextColor = errorTextColor,
+      // Trailing
+      focusedTrailingIconColor: Color? = null,
+      unfocusedTrailingIconColor: Color? = null,
+      disabledTrailingIconColor: Color? = null,
+      errorTrailingIconColor: Color? = null,
 
-            focusedContainerColor = focusedContainerColor,
-            unfocusedContainerColor = unfocusedContainerColor,
-            disabledContainerColor = disabledContainerColor,
-            errorContainerColor = errorContainerColor,
+      // Cursor
+      cursorColor: Color? = null,
+      errorCursorColor: Color? = null,
+   ): FTextFieldColors {
+      return defaultTextFieldColors(
+         focusedTextColor = focusedTextColor,
+         unfocusedTextColor = unfocusedTextColor,
+         disabledTextColor = disabledTextColor,
+         errorTextColor = errorTextColor,
 
-            cursorColor = cursorColor,
-            errorCursorColor = errorCursorColor,
+         focusedContainerColor = focusedContainerColor,
+         unfocusedContainerColor = unfocusedContainerColor,
+         disabledContainerColor = disabledContainerColor,
+         errorContainerColor = errorContainerColor,
 
-            textSelectionColors = selectionColors,
+         focusedIndicatorColor = focusedIndicatorColor,
+         unfocusedIndicatorColor = unfocusedIndicatorColor,
+         disabledIndicatorColor = disabledIndicatorColor,
+         errorIndicatorColor = errorIndicatorColor,
 
-            focusedIndicatorColor = focusedIndicatorColor,
-            unfocusedIndicatorColor = unfocusedIndicatorColor,
-            disabledIndicatorColor = disabledIndicatorColor,
-            errorIndicatorColor = errorIndicatorColor,
+         focusedPlaceholderColor = focusedPlaceholderColor,
+         unfocusedPlaceholderColor = unfocusedPlaceholderColor,
+         disabledPlaceholderColor = disabledPlaceholderColor,
+         errorPlaceholderColor = errorPlaceholderColor,
 
-            focusedPlaceholderColor = focusedPlaceholderColor,
-            unfocusedPlaceholderColor = unfocusedPlaceholderColor,
-            disabledPlaceholderColor = disabledPlaceholderColor,
-            errorPlaceholderColor = errorPlaceholderColor,
+         focusedLeadingIconColor = focusedLeadingIconColor,
+         unfocusedLeadingIconColor = unfocusedLeadingIconColor,
+         disabledLeadingIconColor = disabledLeadingIconColor,
+         errorLeadingIconColor = errorLeadingIconColor,
 
-            focusedLeadingIconColor = focusedLeadingIconColor,
-            unfocusedLeadingIconColor = unfocusedLeadingIconColor,
-            disabledLeadingIconColor = disabledLeadingIconColor,
-            errorLeadingIconColor = errorLeadingIconColor,
+         focusedTrailingIconColor = focusedTrailingIconColor,
+         unfocusedTrailingIconColor = unfocusedTrailingIconColor,
+         disabledTrailingIconColor = disabledTrailingIconColor,
+         errorTrailingIconColor = errorTrailingIconColor,
 
-            focusedTrailingIconColor = focusedTrailingIconColor,
-            unfocusedTrailingIconColor = unfocusedTrailingIconColor,
-            disabledTrailingIconColor = disabledTrailingIconColor,
-            errorTrailingIconColor = errorTrailingIconColor,
-        )
-    }
+         cursorColor = cursorColor,
+         errorCursorColor = errorCursorColor,
+      )
+   }
+}
+
+
+@Suppress("NAME_SHADOWING")
+@Composable
+private fun defaultTextFieldColors(
+   // Text
+   focusedTextColor: Color? = null,
+   unfocusedTextColor: Color? = null,
+   disabledTextColor: Color? = null,
+   errorTextColor: Color? = null,
+
+   // Container
+   focusedContainerColor: Color? = null,
+   unfocusedContainerColor: Color? = null,
+   disabledContainerColor: Color? = null,
+   errorContainerColor: Color? = null,
+
+   // Indicator
+   focusedIndicatorColor: Color? = null,
+   unfocusedIndicatorColor: Color? = null,
+   disabledIndicatorColor: Color? = null,
+   errorIndicatorColor: Color? = null,
+
+   // Placeholder
+   focusedPlaceholderColor: Color? = null,
+   unfocusedPlaceholderColor: Color? = null,
+   disabledPlaceholderColor: Color? = null,
+   errorPlaceholderColor: Color? = null,
+
+   // Leading
+   focusedLeadingIconColor: Color? = null,
+   unfocusedLeadingIconColor: Color? = null,
+   disabledLeadingIconColor: Color? = null,
+   errorLeadingIconColor: Color? = null,
+
+   // Trailing
+   focusedTrailingIconColor: Color? = null,
+   unfocusedTrailingIconColor: Color? = null,
+   disabledTrailingIconColor: Color? = null,
+   errorTrailingIconColor: Color? = null,
+
+   // Cursor
+   cursorColor: Color? = null,
+   errorCursorColor: Color? = null,
+): FTextFieldColors {
+   val focusedTextColor = focusedTextColor ?: MaterialTheme.colorScheme.onSurface
+   val unfocusedTextColor = unfocusedTextColor ?: focusedTextColor
+   val disabledTextColor = disabledTextColor ?: focusedTextColor.copy(alpha = 0.3f)
+   val errorTextColor = errorTextColor ?: MaterialTheme.colorScheme.error
+
+   val focusedPlaceholderColor = focusedPlaceholderColor ?: MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f)
+
+   val focusedIndicatorColor = focusedIndicatorColor ?: MaterialTheme.colorScheme.primary
+   val cursorColor = cursorColor ?: focusedIndicatorColor
+
+   return FTextFieldColors(
+      // Text
+      focusedTextColor = focusedTextColor,
+      unfocusedTextColor = unfocusedTextColor,
+      disabledTextColor = disabledTextColor,
+      errorTextColor = errorTextColor,
+
+      // Container
+      focusedContainerColor = focusedContainerColor ?: Color.Transparent,
+      unfocusedContainerColor = unfocusedContainerColor ?: Color.Transparent,
+      disabledContainerColor = disabledContainerColor ?: Color.Transparent,
+      errorContainerColor = errorContainerColor ?: Color.Transparent,
+
+      // Indicator
+      focusedIndicatorColor = focusedIndicatorColor,
+      unfocusedIndicatorColor = unfocusedIndicatorColor ?: MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f),
+      disabledIndicatorColor = disabledIndicatorColor ?: disabledTextColor,
+      errorIndicatorColor = errorIndicatorColor ?: errorTextColor,
+
+      // Placeholder
+      focusedPlaceholderColor = focusedPlaceholderColor,
+      unfocusedPlaceholderColor = unfocusedPlaceholderColor ?: focusedPlaceholderColor,
+      disabledPlaceholderColor = disabledPlaceholderColor ?: focusedPlaceholderColor,
+      errorPlaceholderColor = errorPlaceholderColor ?: focusedPlaceholderColor,
+
+      // Leading
+      focusedLeadingIconColor = focusedLeadingIconColor ?: focusedTextColor,
+      unfocusedLeadingIconColor = unfocusedLeadingIconColor ?: unfocusedTextColor,
+      disabledLeadingIconColor = disabledLeadingIconColor ?: disabledTextColor,
+      errorLeadingIconColor = errorLeadingIconColor ?: errorTextColor,
+
+      // Trailing
+      focusedTrailingIconColor = focusedTrailingIconColor ?: focusedTextColor,
+      unfocusedTrailingIconColor = unfocusedTrailingIconColor ?: unfocusedTextColor,
+      disabledTrailingIconColor = disabledTrailingIconColor ?: disabledTextColor,
+      errorTrailingIconColor = errorTrailingIconColor ?: errorTextColor,
+
+      // Cursor
+      cursorColor = cursorColor,
+      errorCursorColor = errorCursorColor ?: errorTextColor,
+
+      textSelectionColors = TextSelectionColors(
+         handleColor = cursorColor,
+         backgroundColor = cursorColor.copy(alpha = 0.4f)
+      )
+   )
 }
