@@ -75,10 +75,10 @@ fun FTextField(
       textStyle.copy(color = textColor)
    }
 
-   val lineLimits = if (minLines == 1 && maxLines == 1) {
-      TextFieldLineLimits.SingleLine
-   } else {
-      TextFieldLineLimits.MultiLine(minHeightInLines = minLines, maxHeightInLines = maxLines)
+   val lineLimits = when {
+      minLines == 1 && maxLines == 1 -> TextFieldLineLimits.SingleLine
+      minLines == 1 && maxLines == Int.MAX_VALUE -> TextFieldLineLimits.Default
+      else -> TextFieldLineLimits.MultiLine(minLines, maxLines)
    }
 
    CompositionLocalProvider(LocalTextSelectionColors provides colors.textSelectionColors) {
