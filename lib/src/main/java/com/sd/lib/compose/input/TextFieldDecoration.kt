@@ -14,7 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
@@ -47,7 +46,7 @@ internal fun DecorationBox(
          verticalAlignment = Alignment.CenterVertically,
       ) {
          leadingIcon?.let {
-            Decoration(contentColor = state.leadingIconColor()) {
+            Decoration(state.leadingIconColor()) {
                it()
             }
          }
@@ -63,19 +62,14 @@ internal fun DecorationBox(
                   contentColor = state.placeholderColor(),
                   textStyle = textStyle,
                ) {
-                  Box(
-                     modifier = Modifier.alpha(if (state.text.isEmpty()) 1f else 0f),
-                     propagateMinConstraints = true,
-                  ) {
-                     it()
-                  }
+                  it()
                }
             }
             innerTextField()
          }
 
          trailingIcon?.let {
-            Decoration(contentColor = state.trailingIconColor()) {
+            Decoration(state.trailingIconColor()) {
                it()
             }
          }
@@ -83,7 +77,7 @@ internal fun DecorationBox(
 
       Box(modifier = Modifier.matchParentSize()) {
          indicator?.let {
-            Decoration(contentColor = state.indicatorColor()) {
+            Decoration(state.indicatorColor()) {
                it()
             }
          }
@@ -97,7 +91,10 @@ private fun Decoration(
    contentColor: Color,
    content: @Composable () -> Unit,
 ) {
-   CompositionLocalProvider(LocalContentColor provides contentColor, content = content)
+   CompositionLocalProvider(
+      value = LocalContentColor provides contentColor,
+      content = content,
+   )
 }
 
 @Composable
@@ -106,10 +103,9 @@ private fun Decoration(
    textStyle: TextStyle,
    content: @Composable () -> Unit,
 ) {
-   val mergedStyle = LocalTextStyle.current.merge(textStyle)
    CompositionLocalProvider(
       LocalContentColor provides contentColor,
-      LocalTextStyle provides mergedStyle,
-      content = content
+      LocalTextStyle provides textStyle,
+      content = content,
    )
 }
