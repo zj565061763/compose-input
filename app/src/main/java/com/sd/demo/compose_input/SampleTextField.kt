@@ -19,7 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.sd.demo.compose_input.ui.theme.AppTheme
 import com.sd.lib.compose.input.FTextField
 import com.sd.lib.compose.input.FTextFieldIconClear
@@ -100,10 +99,7 @@ private fun SampleCustom(
       maxLines = Int.MAX_VALUE,
       contentAlignment = Alignment.Top,
       placeholder = {
-         Text(
-            text = "input",
-            fontSize = 12.sp,
-         )
+         Text(text = "input")
       },
       indicator = { FTextFieldIndicatorOutline() },
    )
