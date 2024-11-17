@@ -6,12 +6,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 object FTextFieldDefaults {
-   private var _defaultTextFieldColors: FTextFieldColors? = null
-
-   @Composable
-   fun colors(): FTextFieldColors = _defaultTextFieldColors
-      ?: defaultTextFieldColors().also { _defaultTextFieldColors = it }
-
    @Composable
    fun colors(
       // Text
