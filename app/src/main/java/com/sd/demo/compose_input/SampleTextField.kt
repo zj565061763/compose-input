@@ -25,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sd.demo.compose_input.ui.theme.AppTheme
+import com.sd.lib.compose.input.FSecureTextField
 import com.sd.lib.compose.input.FTextField
 import com.sd.lib.compose.input.FTextFieldIconClear
 import com.sd.lib.compose.input.fMaxLength
@@ -61,6 +62,7 @@ private fun Content() {
       verticalArrangement = Arrangement.spacedBy(10.dp),
    ) {
       Sample()
+      SampleSecure()
       SampleMaxLength()
       SampleError()
    }
@@ -87,6 +89,21 @@ private fun Sample(
       },
       trailingIcon = {
          FTextFieldIconClear()
+      }
+   )
+}
+
+@Composable
+private fun SampleSecure(
+   modifier: Modifier = Modifier,
+) {
+   val state = rememberTextFieldState()
+
+   FSecureTextField(
+      modifier = modifier.fillMaxWidth(),
+      state = state,
+      placeholder = {
+         Text(text = "Enter you password")
       }
    )
 }
