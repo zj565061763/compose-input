@@ -24,7 +24,7 @@ fun fTextFieldState(): FTextFieldState {
 }
 
 @Composable
-fun FTextFieldState.indicatorColor(): Color {
+internal fun FTextFieldState.indicatorColor(): Color {
    return colors.indicatorColor(
       enabled = enabled,
       isError = isError,

@@ -58,7 +58,7 @@ internal fun DecorationBox(
       val (
          refText, refPlaceholder,
          refLeading, refTrailing,
-         refOverlay,
+         refIndicator, refOverlay,
       ) = createRefs()
 
       // Leading
@@ -124,23 +124,21 @@ internal fun DecorationBox(
          innerTextField()
       }
 
-      // Overlay
-      Box(
-         modifier = Modifier.constrainAs(refOverlay) {
-            width = Dimension.percent(1f)
-            height = Dimension.percent(1f)
-         }
-      ) {
-         if (indicator != null) {
+      // Indicator
+      if (indicator != null) {
+         Box(
+            modifier = Modifier.constrainAs(refIndicator) {
+               width = Dimension.percent(1f)
+               height = Dimension.percent(1f)
+            }
+         ) {
             Decoration(state.indicatorColor()) {
                indicator()
             }
          }
-         if (overlay != null) {
-            overlay()
-         }
       }
 
+      // Label
       if (label != null) {
          LabelBox(
             state = state,
@@ -149,6 +147,18 @@ internal fun DecorationBox(
             startPadding = startPadding,
             label = label,
          )
+      }
+
+      // Overlay
+      if (overlay != null) {
+         Box(
+            modifier = Modifier.constrainAs(refOverlay) {
+               width = Dimension.percent(1f)
+               height = Dimension.percent(1f)
+            }
+         ) {
+            overlay()
+         }
       }
    }
 }
