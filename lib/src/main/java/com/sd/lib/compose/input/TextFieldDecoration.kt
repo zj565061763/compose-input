@@ -50,6 +50,7 @@ internal fun DecorationBox(
 ) {
    val layoutDirection = LocalLayoutDirection.current
    val startPadding = contentPadding.calculateStartPadding(layoutDirection)
+   val isTextEmpty = state.isTextEmpty
 
    ConstraintLayout(
       modifier = Modifier.background(state.containerColor(), shape),
@@ -69,7 +70,7 @@ internal fun DecorationBox(
                start.linkTo(refText.start, startPadding)
             }
          ) {
-            if (state.isTextEmpty) {
+            if (isTextEmpty) {
                Decoration(
                   contentColor = state.placeholderColor(),
                   textStyle = textStyle,
