@@ -39,7 +39,7 @@ private fun Content() {
    Column(
       modifier = Modifier
          .fillMaxSize()
-         .padding(10.dp),
+         .padding(24.dp),
       horizontalAlignment = Alignment.CenterHorizontally,
       verticalArrangement = Arrangement.spacedBy(24.dp),
    ) {
@@ -48,7 +48,7 @@ private fun Content() {
          state = state,
          placeholder = {
             Text(
-               text = "Enter your email",
+               text = "placeholder",
                modifier = Modifier.background(Color.Red.copy(0.2f))
             )
          },

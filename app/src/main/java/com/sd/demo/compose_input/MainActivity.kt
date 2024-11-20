@@ -27,8 +27,9 @@ class MainActivity : ComponentActivity() {
             Content(
                listActivity = listOf(
                   SampleTextField::class.java,
-                  SampleLightMode::class.java,
                   SamplePlaceholder::class.java,
+                  SampleLabel::class.java,
+                  SampleLightMode::class.java,
                ),
                onClickActivity = {
                   startActivity(Intent(this, it))
