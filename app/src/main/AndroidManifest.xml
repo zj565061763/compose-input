@@ -26,6 +26,7 @@
         <activity android:name=".SamplePlaceholder" />
         <activity android:name=".SampleLabel" />
         <activity android:name=".SamplePassword" />
+        <activity android:name=".SampleMaxLength" />
         <activity android:name=".SampleLightMode" />
 
     </application>

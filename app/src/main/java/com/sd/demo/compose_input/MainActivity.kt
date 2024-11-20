@@ -30,6 +30,7 @@ class MainActivity : ComponentActivity() {
                   SamplePlaceholder::class.java,
                   SampleLabel::class.java,
                   SamplePassword::class.java,
+                  SampleMaxLength::class.java,
                   SampleLightMode::class.java,
                ),
                onClickActivity = {
