@@ -32,7 +32,6 @@ import androidx.constraintlayout.compose.ConstrainedLayoutReference
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintLayoutScope
 import androidx.constraintlayout.compose.Dimension
-import androidx.constraintlayout.compose.atLeastWrapContent
 
 @Composable
 internal fun DecorationBox(
@@ -90,7 +89,7 @@ internal fun DecorationBox(
                   start = if (leadingIcon != null) refLeading.end else parent.start,
                   end = if (trailingIcon != null) refTrailing.start else parent.end,
                )
-               width = Dimension.fillToConstraints.atLeastWrapContent
+               width = Dimension.fillToConstraints
             }
             .padding(contentPadding)
       ) {
