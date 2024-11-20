@@ -16,6 +16,7 @@ import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -47,20 +48,37 @@ fun BoxScope.FTextFieldIndicator(
    unfocusedThickness: Dp = 1.dp,
    focusedThickness: Dp = unfocusedThickness * 1.2f,
 ) {
+   FTextFieldIndicatorContainer(
+      unfocusedThickness = unfocusedThickness,
+      focusedThickness = focusedThickness,
+   ) { color, thickness ->
+      Box(
+         modifier = modifier
+            .matchParentSize()
+            .border(
+               width = thickness,
+               color = color,
+               shape = shape,
+            )
+      )
+   }
+}
+
+/**
+ * 指示器容器
+ */
+@Composable
+fun FTextFieldIndicatorContainer(
+   unfocusedThickness: Dp = 1.dp,
+   focusedThickness: Dp = unfocusedThickness * 1.2f,
+   content: @Composable (color: Color, thickness: Dp) -> Unit,
+) {
    val state = fTextFieldState()
-   val thicknessAnim = animateDpAsState(
+   val thicknessAnim by animateDpAsState(
       targetValue = if (state.focused) focusedThickness else unfocusedThickness,
       label = "TextField indicator thickness"
    )
-   Box(
-      modifier = modifier
-         .matchParentSize()
-         .border(
-            width = thicknessAnim.value,
-            color = state.indicatorColor(),
-            shape = shape,
-         )
-   )
+   content(state.indicatorColor(), thicknessAnim)
 }
 
 /**
