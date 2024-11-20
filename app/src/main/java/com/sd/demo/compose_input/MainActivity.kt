@@ -31,8 +31,9 @@ class MainActivity : ComponentActivity() {
                   SamplePassword::class.java,
                   SampleClear::class.java,
                   SampleIndicator::class.java,
-                  SampleMaxLength::class.java,
+                  SampleOverlay::class.java,
                   SampleError::class.java,
+                  SampleMaxLength::class.java,
                   SampleLightMode::class.java,
                ),
                onClickActivity = {
