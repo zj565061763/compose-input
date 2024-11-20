@@ -1,13 +1,11 @@
 package com.sd.lib.compose.input
 
 import androidx.compose.foundation.text.selection.TextSelectionColors
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.takeOrElse
 
 @Immutable
 data class FTextFieldColors internal constructor(
@@ -30,6 +28,11 @@ data class FTextFieldColors internal constructor(
    val unfocusedPlaceholderColor: Color,
    val disabledPlaceholderColor: Color,
    val errorPlaceholderColor: Color,
+
+   val focusedLabelColor: Color,
+   val unfocusedLabelColor: Color,
+   val disabledLabelColor: Color,
+   val errorLabelColor: Color,
 
    val focusedLeadingIconColor: Color,
    val unfocusedLeadingIconColor: Color,
@@ -106,6 +109,22 @@ internal fun FTextFieldColors.placeholderColor(
          isError -> errorPlaceholderColor
          focused -> focusedPlaceholderColor
          else -> unfocusedPlaceholderColor
+      }
+   )
+}
+
+@Composable
+internal fun FTextFieldColors.labelColor(
+   enabled: Boolean,
+   isError: Boolean,
+   focused: Boolean,
+): State<Color> {
+   return rememberUpdatedState(
+      when {
+         !enabled -> disabledLabelColor
+         isError -> errorLabelColor
+         focused -> focusedLabelColor
+         else -> unfocusedLabelColor
       }
    )
 }

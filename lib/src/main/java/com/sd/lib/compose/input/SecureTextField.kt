@@ -4,7 +4,6 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicSecureTextField
@@ -18,7 +17,6 @@ import androidx.compose.material3.LocalTextStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.SolidColor
@@ -49,12 +47,12 @@ fun FSecureTextField(
    shape: Shape = RoundedCornerShape(0.dp),
    colors: FTextFieldColors = FTextFieldDefaults.colors(),
    contentPadding: PaddingValues = PaddingValues(horizontal = 12.dp, vertical = 6.dp),
-   contentAlignment: Alignment.Vertical = Alignment.CenterVertically,
 
+   placeholder: @Composable (() -> Unit)? = null,
+   label: @Composable (() -> Unit)? = null,
+   leadingIcon: @Composable (() -> Unit)? = null,
+   trailingIcon: @Composable (() -> Unit)? = null,
    indicator: (@Composable BoxScope.() -> Unit)? = { FTextFieldIndicator() },
-   placeholder: @Composable (BoxScope.() -> Unit)? = null,
-   leadingIcon: @Composable (RowScope.() -> Unit)? = null,
-   trailingIcon: @Composable (RowScope.() -> Unit)? = null,
    overlay: (@Composable BoxScope.() -> Unit)? = null,
 ) {
    val internalState = remember(state) { TextFieldStateImpl(state) }
@@ -98,12 +96,12 @@ fun FSecureTextField(
             CompositionLocalProvider(LocalTextFieldState provides internalState) {
                DecorationBox(
                   state = internalState,
-                  contentAlignment = contentAlignment,
                   textStyle = safeTextStyle,
                   shape = shape,
                   contentPadding = contentPadding,
                   innerTextField = innerTextField,
                   placeholder = placeholder,
+                  label = label,
                   leadingIcon = leadingIcon,
                   trailingIcon = trailingIcon,
                   indicator = indicator,

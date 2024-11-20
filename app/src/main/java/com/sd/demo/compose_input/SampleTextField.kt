@@ -10,7 +10,10 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.input.rememberTextFieldState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,7 +32,6 @@ import com.sd.lib.compose.input.FSecureTextField
 import com.sd.lib.compose.input.FTextField
 import com.sd.lib.compose.input.FTextFieldIconClear
 import com.sd.lib.compose.input.fMaxLength
-import kotlinx.coroutines.delay
 
 class SampleTextField : ComponentActivity() {
    override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,14 +40,11 @@ class SampleTextField : ComponentActivity() {
          var isLight by remember { mutableStateOf(true) }
          AppTheme(isLight = isLight) {
             Surface {
-               Content()
-            }
-         }
-
-         LaunchedEffect(Unit) {
-            while (true) {
-               delay(5_000)
-               isLight = !isLight
+               Content(
+                  onClickChangeMode = {
+                     isLight = !isLight
+                  }
+               )
             }
          }
       }
@@ -53,15 +52,22 @@ class SampleTextField : ComponentActivity() {
 }
 
 @Composable
-private fun Content() {
+private fun Content(
+   onClickChangeMode: () -> Unit,
+) {
    Column(
       modifier = Modifier
+         .verticalScroll(rememberScrollState())
          .fillMaxSize()
          .padding(10.dp),
       horizontalAlignment = Alignment.CenterHorizontally,
-      verticalArrangement = Arrangement.spacedBy(10.dp),
+      verticalArrangement = Arrangement.spacedBy(24.dp),
    ) {
+      Button(onClick = onClickChangeMode) {
+         Text(text = "Change Mode")
+      }
       Sample()
+      SampleLabel()
       SampleSecure()
       SampleMaxLength()
       SampleError()
@@ -83,13 +89,28 @@ private fun Sample(
       ),
       placeholder = {
          Text(
-            text = "Enter your email...",
+            text = "Enter your email",
             modifier = Modifier.background(Color.Red.copy(0.2f))
          )
       },
       trailingIcon = {
          FTextFieldIconClear()
       }
+   )
+}
+
+@Composable
+private fun SampleLabel(
+   modifier: Modifier = Modifier,
+) {
+   val state = rememberTextFieldState()
+
+   FTextField(
+      modifier = modifier.fillMaxWidth(),
+      state = state,
+      label = {
+         Text(text = "Enter your username")
+      },
    )
 }
 
@@ -147,5 +168,7 @@ private fun SampleError(
 @Preview
 @Composable
 private fun Preview() {
-   Content()
+   Content(
+      onClickChangeMode = {},
+   )
 }

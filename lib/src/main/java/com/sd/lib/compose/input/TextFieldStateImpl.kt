@@ -2,6 +2,7 @@ package com.sd.lib.compose.input
 
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.clearText
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -19,6 +20,7 @@ internal class TextFieldStateImpl(
    override val focused: Boolean get() = _focused
    override val colors: FTextFieldColors get() = checkNotNull(_colors)
    override val text: CharSequence get() = state.text
+   override val isTextEmpty: Boolean by derivedStateOf { state.text.isEmpty() }
 
    override fun clearText() {
       state.clearText()

@@ -13,6 +13,7 @@ interface FTextFieldState {
    val isError: Boolean
    val focused: Boolean
    val text: CharSequence
+   val isTextEmpty: Boolean
    val colors: FTextFieldColors
    fun clearText()
 }
@@ -32,7 +33,7 @@ fun FTextFieldState.indicatorColor(): Color {
 }
 
 @Composable
-fun FTextFieldState.placeholderColor(): Color {
+internal fun FTextFieldState.placeholderColor(): Color {
    return colors.placeholderColor(
       enabled = enabled,
       isError = isError,
@@ -41,7 +42,16 @@ fun FTextFieldState.placeholderColor(): Color {
 }
 
 @Composable
-fun FTextFieldState.leadingIconColor(): Color {
+internal fun FTextFieldState.labelColor(): Color {
+   return colors.labelColor(
+      enabled = enabled,
+      isError = isError,
+      focused = focused,
+   ).value
+}
+
+@Composable
+internal fun FTextFieldState.leadingIconColor(): Color {
    return colors.leadingIconColor(
       enabled = enabled,
       isError = isError,
@@ -50,7 +60,7 @@ fun FTextFieldState.leadingIconColor(): Color {
 }
 
 @Composable
-fun FTextFieldState.trailingIconColor(): Color {
+internal fun FTextFieldState.trailingIconColor(): Color {
    return colors.trailingIconColor(
       enabled = enabled,
       isError = isError,
