@@ -29,6 +29,7 @@ class MainActivity : ComponentActivity() {
                   SampleTextField::class.java,
                   SamplePlaceholder::class.java,
                   SampleLabel::class.java,
+                  SamplePassword::class.java,
                   SampleLightMode::class.java,
                ),
                onClickActivity = {
