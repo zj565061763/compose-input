@@ -61,6 +61,34 @@ internal fun DecorationBox(
          refOverlay,
       ) = createRefs()
 
+      // Leading
+      if (leadingIcon != null) {
+         Box(
+            modifier = Modifier.constrainAs(refLeading) {
+               centerVerticallyTo(parent)
+               start.linkTo(parent.start)
+            }
+         ) {
+            Decoration(state.leadingIconColor()) {
+               leadingIcon()
+            }
+         }
+      }
+
+      // Trailing
+      if (trailingIcon != null) {
+         Box(
+            modifier = Modifier.constrainAs(refTrailing) {
+               centerVerticallyTo(parent)
+               end.linkTo(parent.end)
+            }
+         ) {
+            Decoration(state.trailingIconColor()) {
+               trailingIcon()
+            }
+         }
+      }
+
       // Placeholder
       if (placeholder != null) {
          Box(
@@ -96,34 +124,6 @@ internal fun DecorationBox(
          innerTextField()
       }
 
-      // Leading
-      if (leadingIcon != null) {
-         Box(
-            modifier = Modifier.constrainAs(refLeading) {
-               centerVerticallyTo(parent)
-               start.linkTo(parent.start)
-            }
-         ) {
-            Decoration(state.leadingIconColor()) {
-               leadingIcon()
-            }
-         }
-      }
-
-      // Trailing
-      if (trailingIcon != null) {
-         Box(
-            modifier = Modifier.constrainAs(refTrailing) {
-               centerVerticallyTo(parent)
-               end.linkTo(parent.end)
-            }
-         ) {
-            Decoration(state.trailingIconColor()) {
-               trailingIcon()
-            }
-         }
-      }
-
       // Overlay
       Box(
          modifier = Modifier.constrainAs(refOverlay) {
@@ -131,12 +131,14 @@ internal fun DecorationBox(
             height = Dimension.percent(1f)
          }
       ) {
-         indicator?.let {
+         if (indicator != null) {
             Decoration(state.indicatorColor()) {
-               it()
+               indicator()
             }
          }
-         overlay?.let { it() }
+         if (overlay != null) {
+            overlay()
+         }
       }
 
       if (label != null) {
