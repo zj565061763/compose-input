@@ -45,7 +45,6 @@ class SampleLightMode : ComponentActivity() {
 private fun Content(
    onClickChangeMode: () -> Unit,
 ) {
-   val state = rememberTextFieldState()
    Column(
       modifier = Modifier
          .fillMaxSize()
@@ -58,9 +57,16 @@ private fun Content(
       }
       FTextField(
          modifier = Modifier.fillMaxWidth(),
-         state = state,
+         state = rememberTextFieldState(),
          placeholder = {
-            Text(text = "placeholder")
+            Text(text = "text1")
+         }
+      )
+      FTextField(
+         modifier = Modifier.fillMaxWidth(),
+         state = rememberTextFieldState(),
+         placeholder = {
+            Text(text = "text2")
          }
       )
    }

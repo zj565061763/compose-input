@@ -35,7 +35,6 @@ class SamplePlaceholder : ComponentActivity() {
 
 @Composable
 private fun Content() {
-   val state = rememberTextFieldState()
    Column(
       modifier = Modifier
          .fillMaxSize()
@@ -45,10 +44,20 @@ private fun Content() {
    ) {
       FTextField(
          modifier = Modifier.fillMaxWidth(),
-         state = state,
+         state = rememberTextFieldState(),
          placeholder = {
             Text(
-               text = "placeholder",
+               text = "placeholder1",
+               modifier = Modifier.background(Color.Red.copy(0.2f))
+            )
+         },
+      )
+      FTextField(
+         modifier = Modifier.fillMaxWidth(),
+         state = rememberTextFieldState(),
+         placeholder = {
+            Text(
+               text = "placeholder2",
                modifier = Modifier.background(Color.Red.copy(0.2f))
             )
          },
