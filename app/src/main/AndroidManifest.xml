@@ -22,7 +22,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".SampleTextField" />
         <activity android:name=".SamplePlaceholder" />
         <activity android:name=".SampleLabel" />
         <activity android:name=".SamplePassword" />

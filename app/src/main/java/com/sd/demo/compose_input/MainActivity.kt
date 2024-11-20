@@ -26,7 +26,6 @@ class MainActivity : ComponentActivity() {
          AppTheme {
             Content(
                listActivity = listOf(
-                  SampleTextField::class.java,
                   SamplePlaceholder::class.java,
                   SampleLabel::class.java,
                   SamplePassword::class.java,
