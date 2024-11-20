@@ -44,7 +44,7 @@ private fun Content() {
       FTextField(
          modifier = Modifier.fillMaxWidth(),
          state = rememberTextFieldState(),
-         placeholder = {
+         label = {
             Text(text = "clear1")
          },
          trailingIcon = {
