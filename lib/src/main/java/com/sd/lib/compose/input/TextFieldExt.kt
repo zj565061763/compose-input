@@ -43,7 +43,7 @@ suspend fun TextFieldState.fMaxLength(maxLength: Int) {
  * 指示器边框
  */
 @Composable
-fun BoxScope.FTextFieldIndicator(
+fun BoxScope.FTextFieldIndicatorOutline(
    modifier: Modifier = Modifier,
    color: Color = Color.Unspecified,
    shape: Shape = MaterialTheme.shapes.extraSmall,
@@ -89,7 +89,7 @@ fun FTextFieldIndicatorContainer(
 }
 
 /**
- * 清空内容
+ * 清空内容图标
  */
 @Composable
 fun FTextFieldIconClear(
@@ -108,7 +108,7 @@ fun FTextFieldIconClear(
    val showIcon = state.focused && !state.isTextEmpty
    if (!showIcon) return
 
-   FTextFieldIcon(
+   FTextFieldIconContainer(
       modifier = modifier,
       shape = shape,
       containerColor = containerColor,
@@ -122,7 +122,7 @@ fun FTextFieldIconClear(
  * 图标容器
  */
 @Composable
-fun FTextFieldIcon(
+fun FTextFieldIconContainer(
    modifier: Modifier = Modifier,
    shape: Shape = CircleShape,
    containerColor: Color = Color.Transparent,

@@ -54,7 +54,7 @@ fun FTextField(
    label: @Composable (() -> Unit)? = null,
    leadingIcon: @Composable (() -> Unit)? = null,
    trailingIcon: @Composable (() -> Unit)? = null,
-   indicator: (@Composable BoxScope.() -> Unit)? = { FTextFieldIndicator() },
+   indicator: (@Composable BoxScope.() -> Unit)? = { FTextFieldIndicatorOutline() },
    overlay: (@Composable BoxScope.() -> Unit)? = null,
 ) {
    val internalState = remember(state) { TextFieldStateImpl(state) }

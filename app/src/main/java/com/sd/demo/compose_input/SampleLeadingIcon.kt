@@ -22,7 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sd.demo.compose_input.ui.theme.AppTheme
 import com.sd.lib.compose.input.FTextField
-import com.sd.lib.compose.input.FTextFieldIcon
+import com.sd.lib.compose.input.FTextFieldIconContainer
 
 class SampleLeadingIcon : ComponentActivity() {
    override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,9 +50,7 @@ private fun Content() {
          modifier = Modifier.fillMaxWidth(),
          state = rememberTextFieldState(),
          leadingIcon = {
-            FTextFieldIcon(
-               modifier = Modifier.width(48.dp)
-            ) {
+            FTextFieldIconContainer(modifier = Modifier.width(48.dp)) {
                Icon(
                   imageVector = Icons.Default.Search,
                   contentDescription = "Search",

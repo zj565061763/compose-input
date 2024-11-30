@@ -20,7 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sd.demo.compose_input.ui.theme.AppTheme
 import com.sd.lib.compose.input.FTextField
-import com.sd.lib.compose.input.FTextFieldIndicator
+import com.sd.lib.compose.input.FTextFieldIndicatorOutline
 import com.sd.lib.compose.input.FTextFieldIndicatorContainer
 
 class SampleIndicator : ComponentActivity() {
@@ -52,7 +52,7 @@ private fun Content() {
             Text(text = "indicator1")
          },
          indicator = {
-            FTextFieldIndicator(
+            FTextFieldIndicatorOutline(
                shape = CircleShape,
                unfocusedThickness = 1.dp,
                focusedThickness = 3.dp,

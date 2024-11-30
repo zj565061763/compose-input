@@ -46,7 +46,7 @@ private fun Content() {
          modifier = Modifier.fillMaxWidth(),
          state = rememberTextFieldState(),
          label = {
-            Text(text = "clear1")
+            Text(text = "label clear")
          },
          trailingIcon = {
             FTextFieldIconClear(modifier = Modifier.padding(end = 8.dp))
@@ -56,7 +56,7 @@ private fun Content() {
          modifier = Modifier.fillMaxWidth(),
          state = rememberTextFieldState(),
          placeholder = {
-            Text(text = "clear2")
+            Text(text = "placeholder clear")
          },
          trailingIcon = {
             FTextFieldIconClear(modifier = Modifier.padding(end = 8.dp))
