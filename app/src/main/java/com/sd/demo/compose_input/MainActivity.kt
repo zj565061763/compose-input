@@ -31,6 +31,7 @@ class MainActivity : ComponentActivity() {
                   SamplePassword::class.java,
                   SampleClear::class.java,
                   SampleIndicator::class.java,
+                  SampleLeadingIcon::class.java,
                   SampleOverlay::class.java,
                   SampleError::class.java,
                   SampleMaxLength::class.java,

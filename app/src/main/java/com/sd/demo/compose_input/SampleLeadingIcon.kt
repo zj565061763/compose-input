@@ -8,9 +8,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.input.rememberTextFieldState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,9 +22,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sd.demo.compose_input.ui.theme.AppTheme
 import com.sd.lib.compose.input.FTextField
-import com.sd.lib.compose.input.FTextFieldIconClear
+import com.sd.lib.compose.input.FTextFieldIcon
 
-class SampleClear : ComponentActivity() {
+class SampleLeadingIcon : ComponentActivity() {
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
       setContent {
@@ -45,21 +49,16 @@ private fun Content() {
       FTextField(
          modifier = Modifier.fillMaxWidth(),
          state = rememberTextFieldState(),
-         label = {
-            Text(text = "clear1")
-         },
-         trailingIcon = {
-            FTextFieldIconClear(modifier = Modifier.padding(end = 8.dp))
-         },
-      )
-      FTextField(
-         modifier = Modifier.fillMaxWidth(),
-         state = rememberTextFieldState(),
-         placeholder = {
-            Text(text = "clear2")
-         },
-         trailingIcon = {
-            FTextFieldIconClear(modifier = Modifier.padding(end = 8.dp))
+         leadingIcon = {
+            FTextFieldIcon(
+               modifier = Modifier.width(48.dp)
+            ) {
+               Icon(
+                  imageVector = Icons.Default.Search,
+                  contentDescription = "Search",
+                  modifier = Modifier.size(18.dp),
+               )
+            }
          },
       )
    }

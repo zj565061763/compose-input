@@ -27,6 +27,7 @@
         <activity android:name=".SamplePassword" />
         <activity android:name=".SampleClear" />
         <activity android:name=".SampleIndicator" />
+        <activity android:name=".SampleLeadingIcon" />
         <activity android:name=".SampleOverlay" />
         <activity android:name=".SampleError" />
         <activity android:name=".SampleMaxLength" />
