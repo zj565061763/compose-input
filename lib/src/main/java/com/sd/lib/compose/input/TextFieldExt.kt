@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.takeOrElse
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
@@ -44,20 +45,22 @@ suspend fun TextFieldState.fMaxLength(maxLength: Int) {
 @Composable
 fun BoxScope.FTextFieldIndicator(
    modifier: Modifier = Modifier,
+   color: Color = Color.Unspecified,
    shape: Shape = MaterialTheme.shapes.extraSmall,
    unfocusedThickness: Dp = 1.dp,
    focusedThickness: Dp = unfocusedThickness * 1.2f,
 ) {
    FTextFieldIndicatorContainer(
+      color = color,
       unfocusedThickness = unfocusedThickness,
       focusedThickness = focusedThickness,
-   ) { color, thickness ->
+   ) { c, t ->
       Box(
          modifier = modifier
             .matchParentSize()
             .border(
-               width = thickness,
-               color = color,
+               width = t,
+               color = c,
                shape = shape,
             )
       )
@@ -69,6 +72,7 @@ fun BoxScope.FTextFieldIndicator(
  */
 @Composable
 fun FTextFieldIndicatorContainer(
+   color: Color = Color.Unspecified,
    unfocusedThickness: Dp = 1.dp,
    focusedThickness: Dp = unfocusedThickness * 1.2f,
    content: @Composable (color: Color, thickness: Dp) -> Unit,
@@ -78,7 +82,10 @@ fun FTextFieldIndicatorContainer(
       targetValue = if (state.focused) focusedThickness else unfocusedThickness,
       label = "TextField indicator thickness"
    )
-   content(state.indicatorColor(), thicknessAnim)
+   content(
+      color.takeOrElse { state.indicatorColor() },
+      thicknessAnim
+   )
 }
 
 /**
