@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material.icons.Icons
@@ -54,7 +53,6 @@ private fun Content() {
                Icon(
                   imageVector = Icons.Default.Search,
                   contentDescription = "Search",
-                  modifier = Modifier.size(18.dp),
                )
             }
          },
