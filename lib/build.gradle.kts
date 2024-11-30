@@ -6,7 +6,7 @@ plugins {
 
 val libGroupId = "com.sd.lib.android"
 val libArtifactId = "compose-input"
-val libVersion = "1.3.0-beta01"
+val libVersion = "1.3.0-beta02"
 
 android {
    namespace = "com.sd.lib.compose.input"
