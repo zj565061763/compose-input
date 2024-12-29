@@ -27,7 +27,7 @@ import androidx.compose.ui.graphics.takeOrElse
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
-suspend fun TextFieldState.fMaxLength(maxLength: Int) {
+suspend fun TextFieldState.fSetMaxLength(maxLength: Int) {
   require(maxLength > 0)
   snapshotFlow { text }.collect { text ->
     if (text.length > maxLength) {

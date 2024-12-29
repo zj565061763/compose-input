@@ -19,7 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sd.demo.compose_input.ui.theme.AppTheme
 import com.sd.lib.compose.input.FTextField
-import com.sd.lib.compose.input.fMaxLength
+import com.sd.lib.compose.input.fSetMaxLength
 
 class SampleMaxLength : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +40,7 @@ private fun Content() {
   val maxLength = 5
 
   LaunchedEffect(state, maxLength) {
-    state.fMaxLength(maxLength)
+    state.fSetMaxLength(maxLength)
   }
 
   Column(
