@@ -25,58 +25,58 @@ import com.sd.demo.compose_input.ui.theme.AppTheme
 import com.sd.lib.compose.input.FTextField
 
 class SampleLightMode : ComponentActivity() {
-   override fun onCreate(savedInstanceState: Bundle?) {
-      super.onCreate(savedInstanceState)
-      setContent {
-         var isLight by remember { mutableStateOf(true) }
-         AppTheme(isLight = isLight) {
-            Surface {
-               Content(
-                  onClickChangeMode = {
-                     isLight = !isLight
-                  }
-               )
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContent {
+      var isLight by remember { mutableStateOf(true) }
+      AppTheme(isLight = isLight) {
+        Surface {
+          Content(
+            onClickChangeMode = {
+              isLight = !isLight
             }
-         }
+          )
+        }
       }
-   }
+    }
+  }
 }
 
 @Composable
 private fun Content(
-   onClickChangeMode: () -> Unit,
+  onClickChangeMode: () -> Unit,
 ) {
-   Column(
-      modifier = Modifier
-         .fillMaxSize()
-         .padding(24.dp),
-      horizontalAlignment = Alignment.CenterHorizontally,
-      verticalArrangement = Arrangement.spacedBy(24.dp),
-   ) {
-      Button(onClick = onClickChangeMode) {
-         Text(text = "Change Mode")
+  Column(
+    modifier = Modifier
+      .fillMaxSize()
+      .padding(24.dp),
+    horizontalAlignment = Alignment.CenterHorizontally,
+    verticalArrangement = Arrangement.spacedBy(24.dp),
+  ) {
+    Button(onClick = onClickChangeMode) {
+      Text(text = "Change Mode")
+    }
+    FTextField(
+      modifier = Modifier.fillMaxWidth(),
+      state = rememberTextFieldState(),
+      placeholder = {
+        Text(text = "text1")
       }
-      FTextField(
-         modifier = Modifier.fillMaxWidth(),
-         state = rememberTextFieldState(),
-         placeholder = {
-            Text(text = "text1")
-         }
-      )
-      FTextField(
-         modifier = Modifier.fillMaxWidth(),
-         state = rememberTextFieldState(),
-         placeholder = {
-            Text(text = "text2")
-         }
-      )
-   }
+    )
+    FTextField(
+      modifier = Modifier.fillMaxWidth(),
+      state = rememberTextFieldState(),
+      placeholder = {
+        Text(text = "text2")
+      }
+    )
+  }
 }
 
 @Preview
 @Composable
 private fun Preview() {
-   Content(
-      onClickChangeMode = {},
-   )
+  Content(
+    onClickChangeMode = {},
+  )
 }

@@ -22,52 +22,52 @@ import com.sd.demo.compose_input.ui.theme.AppTheme
 import com.sd.lib.compose.input.FTextField
 
 class SamplePlaceholder : ComponentActivity() {
-   override fun onCreate(savedInstanceState: Bundle?) {
-      super.onCreate(savedInstanceState)
-      setContent {
-         AppTheme {
-            Surface {
-               Content()
-            }
-         }
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContent {
+      AppTheme {
+        Surface {
+          Content()
+        }
       }
-   }
+    }
+  }
 }
 
 @Composable
 private fun Content() {
-   Column(
-      modifier = Modifier
-         .fillMaxSize()
-         .padding(24.dp),
-      horizontalAlignment = Alignment.CenterHorizontally,
-      verticalArrangement = Arrangement.spacedBy(24.dp),
-   ) {
-      FTextField(
-         modifier = Modifier.fillMaxWidth(),
-         state = rememberTextFieldState(),
-         placeholder = {
-            Text(
-               text = "placeholder1",
-               modifier = Modifier.background(Color.Red.copy(0.2f))
-            )
-         },
-      )
-      FTextField(
-         modifier = Modifier.fillMaxWidth(),
-         state = rememberTextFieldState(),
-         placeholder = {
-            Text(
-               text = "placeholder2",
-               modifier = Modifier.background(Color.Red.copy(0.2f))
-            )
-         },
-      )
-   }
+  Column(
+    modifier = Modifier
+      .fillMaxSize()
+      .padding(24.dp),
+    horizontalAlignment = Alignment.CenterHorizontally,
+    verticalArrangement = Arrangement.spacedBy(24.dp),
+  ) {
+    FTextField(
+      modifier = Modifier.fillMaxWidth(),
+      state = rememberTextFieldState(),
+      placeholder = {
+        Text(
+          text = "placeholder1",
+          modifier = Modifier.background(Color.Red.copy(0.2f))
+        )
+      },
+    )
+    FTextField(
+      modifier = Modifier.fillMaxWidth(),
+      state = rememberTextFieldState(),
+      placeholder = {
+        Text(
+          text = "placeholder2",
+          modifier = Modifier.background(Color.Red.copy(0.2f))
+        )
+      },
+    )
+  }
 }
 
 @Preview
 @Composable
 private fun Preview() {
-   Content()
+  Content()
 }

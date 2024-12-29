@@ -28,13 +28,13 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 suspend fun TextFieldState.fMaxLength(maxLength: Int) {
-   require(maxLength > 0)
-   snapshotFlow { text }.collect { text ->
-      if (text.length > maxLength) {
-         val take = text.take(maxLength)
-         setTextAndPlaceCursorAtEnd(take.toString())
-      }
-   }
+  require(maxLength > 0)
+  snapshotFlow { text }.collect { text ->
+    if (text.length > maxLength) {
+      val take = text.take(maxLength)
+      setTextAndPlaceCursorAtEnd(take.toString())
+    }
+  }
 }
 
 //-------------------- Ext --------------------
@@ -44,27 +44,27 @@ suspend fun TextFieldState.fMaxLength(maxLength: Int) {
  */
 @Composable
 fun BoxScope.FTextFieldIndicatorOutline(
-   modifier: Modifier = Modifier,
-   color: Color = Color.Unspecified,
-   shape: Shape = MaterialTheme.shapes.extraSmall,
-   unfocusedThickness: Dp = 1.dp,
-   focusedThickness: Dp = unfocusedThickness * 1.2f,
+  modifier: Modifier = Modifier,
+  color: Color = Color.Unspecified,
+  shape: Shape = MaterialTheme.shapes.extraSmall,
+  unfocusedThickness: Dp = 1.dp,
+  focusedThickness: Dp = unfocusedThickness * 1.2f,
 ) {
-   FTextFieldIndicatorContainer(
-      color = color,
-      unfocusedThickness = unfocusedThickness,
-      focusedThickness = focusedThickness,
-   ) { c, t ->
-      Box(
-         modifier = modifier
-            .matchParentSize()
-            .border(
-               width = t,
-               color = c,
-               shape = shape,
-            )
-      )
-   }
+  FTextFieldIndicatorContainer(
+    color = color,
+    unfocusedThickness = unfocusedThickness,
+    focusedThickness = focusedThickness,
+  ) { c, t ->
+    Box(
+      modifier = modifier
+         .matchParentSize()
+         .border(
+            width = t,
+            color = c,
+            shape = shape,
+         )
+    )
+  }
 }
 
 /**
@@ -72,20 +72,20 @@ fun BoxScope.FTextFieldIndicatorOutline(
  */
 @Composable
 fun FTextFieldIndicatorContainer(
-   color: Color = Color.Unspecified,
-   unfocusedThickness: Dp = 1.dp,
-   focusedThickness: Dp = unfocusedThickness * 1.2f,
-   content: @Composable (color: Color, thickness: Dp) -> Unit,
+  color: Color = Color.Unspecified,
+  unfocusedThickness: Dp = 1.dp,
+  focusedThickness: Dp = unfocusedThickness * 1.2f,
+  content: @Composable (color: Color, thickness: Dp) -> Unit,
 ) {
-   val state = fTextFieldState()
-   val thicknessAnim by animateDpAsState(
-      targetValue = if (state.focused) focusedThickness else unfocusedThickness,
-      label = "TextField indicator thickness"
-   )
-   content(
-      color.takeOrElse { state.indicatorColor() },
-      thicknessAnim
-   )
+  val state = fTextFieldState()
+  val thicknessAnim by animateDpAsState(
+    targetValue = if (state.focused) focusedThickness else unfocusedThickness,
+    label = "TextField indicator thickness"
+  )
+  content(
+    color.takeOrElse { state.indicatorColor() },
+    thicknessAnim
+  )
 }
 
 /**
@@ -93,29 +93,29 @@ fun FTextFieldIndicatorContainer(
  */
 @Composable
 fun FTextFieldIconClear(
-   modifier: Modifier = Modifier,
-   shape: Shape = CircleShape,
-   containerColor: Color = Color.Transparent,
-   icon: @Composable () -> Unit = {
-      Icon(
-         modifier = Modifier.size(16.dp),
-         imageVector = Icons.Default.Clear,
-         contentDescription = "clear",
-      )
-   },
+  modifier: Modifier = Modifier,
+  shape: Shape = CircleShape,
+  containerColor: Color = Color.Transparent,
+  icon: @Composable () -> Unit = {
+    Icon(
+      modifier = Modifier.size(16.dp),
+      imageVector = Icons.Default.Clear,
+      contentDescription = "clear",
+    )
+  },
 ) {
-   val state = fTextFieldState()
-   val showIcon = state.focused && !state.isTextEmpty
-   if (!showIcon) return
+  val state = fTextFieldState()
+  val showIcon = state.focused && !state.isTextEmpty
+  if (!showIcon) return
 
-   FTextFieldIconContainer(
-      modifier = modifier,
-      shape = shape,
-      containerColor = containerColor,
-      onClick = { state.clearText() },
-   ) {
-      icon()
-   }
+  FTextFieldIconContainer(
+    modifier = modifier,
+    shape = shape,
+    containerColor = containerColor,
+    onClick = { state.clearText() },
+  ) {
+    icon()
+  }
 }
 
 /**
@@ -123,26 +123,26 @@ fun FTextFieldIconClear(
  */
 @Composable
 fun FTextFieldIconContainer(
-   modifier: Modifier = Modifier,
-   shape: Shape = CircleShape,
-   containerColor: Color = Color.Transparent,
-   onClick: (() -> Unit)? = null,
-   icon: @Composable () -> Unit,
+  modifier: Modifier = Modifier,
+  shape: Shape = CircleShape,
+  containerColor: Color = Color.Transparent,
+  onClick: (() -> Unit)? = null,
+  icon: @Composable () -> Unit,
 ) {
-   Box(
-      modifier = modifier
-         .defaultMinSize(24.dp, 24.dp)
-         .background(color = containerColor, shape = shape)
-         .clip(shape)
-         .let {
-            if (onClick != null) {
-               it.clickable { onClick() }
-            } else {
-               it
-            }
-         },
-      contentAlignment = Alignment.Center,
-   ) {
-      icon()
-   }
+  Box(
+    modifier = modifier
+       .defaultMinSize(24.dp, 24.dp)
+       .background(color = containerColor, shape = shape)
+       .clip(shape)
+       .let {
+          if (onClick != null) {
+             it.clickable { onClick() }
+          } else {
+             it
+          }
+       },
+    contentAlignment = Alignment.Center,
+  ) {
+    icon()
+  }
 }

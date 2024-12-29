@@ -21,52 +21,52 @@ import com.sd.lib.compose.input.FTextField
 import com.sd.lib.compose.input.FTextFieldIconClear
 
 class SampleClear : ComponentActivity() {
-   override fun onCreate(savedInstanceState: Bundle?) {
-      super.onCreate(savedInstanceState)
-      setContent {
-         AppTheme {
-            Surface {
-               Content()
-            }
-         }
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContent {
+      AppTheme {
+        Surface {
+          Content()
+        }
       }
-   }
+    }
+  }
 }
 
 @Composable
 private fun Content() {
-   Column(
-      modifier = Modifier
-         .fillMaxSize()
-         .padding(24.dp),
-      horizontalAlignment = Alignment.CenterHorizontally,
-      verticalArrangement = Arrangement.spacedBy(24.dp),
-   ) {
-      FTextField(
-         modifier = Modifier.fillMaxWidth(),
-         state = rememberTextFieldState(),
-         label = {
-            Text(text = "label clear")
-         },
-         trailingIcon = {
-            FTextFieldIconClear(modifier = Modifier.padding(end = 8.dp))
-         },
-      )
-      FTextField(
-         modifier = Modifier.fillMaxWidth(),
-         state = rememberTextFieldState(),
-         placeholder = {
-            Text(text = "placeholder clear")
-         },
-         trailingIcon = {
-            FTextFieldIconClear(modifier = Modifier.padding(end = 8.dp))
-         },
-      )
-   }
+  Column(
+    modifier = Modifier
+      .fillMaxSize()
+      .padding(24.dp),
+    horizontalAlignment = Alignment.CenterHorizontally,
+    verticalArrangement = Arrangement.spacedBy(24.dp),
+  ) {
+    FTextField(
+      modifier = Modifier.fillMaxWidth(),
+      state = rememberTextFieldState(),
+      label = {
+        Text(text = "label clear")
+      },
+      trailingIcon = {
+        FTextFieldIconClear(modifier = Modifier.padding(end = 8.dp))
+      },
+    )
+    FTextField(
+      modifier = Modifier.fillMaxWidth(),
+      state = rememberTextFieldState(),
+      placeholder = {
+        Text(text = "placeholder clear")
+      },
+      trailingIcon = {
+        FTextFieldIconClear(modifier = Modifier.padding(end = 8.dp))
+      },
+    )
+  }
 }
 
 @Preview
 @Composable
 private fun Preview() {
-   Content()
+  Content()
 }

@@ -27,60 +27,60 @@ import com.sd.demo.compose_input.ui.theme.AppTheme
 import com.sd.lib.compose.input.FSecureTextField
 
 class SamplePassword : ComponentActivity() {
-   override fun onCreate(savedInstanceState: Bundle?) {
-      super.onCreate(savedInstanceState)
-      setContent {
-         AppTheme {
-            Surface {
-               Content()
-            }
-         }
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContent {
+      AppTheme {
+        Surface {
+          Content()
+        }
       }
-   }
+    }
+  }
 }
 
 @Composable
 private fun Content() {
-   Column(
-      modifier = Modifier
-         .fillMaxSize()
-         .padding(24.dp),
-      horizontalAlignment = Alignment.CenterHorizontally,
-      verticalArrangement = Arrangement.spacedBy(24.dp),
-   ) {
-      InputPasswordView(state = rememberTextFieldState())
-      InputPasswordView(state = rememberTextFieldState())
-   }
+  Column(
+    modifier = Modifier
+      .fillMaxSize()
+      .padding(24.dp),
+    horizontalAlignment = Alignment.CenterHorizontally,
+    verticalArrangement = Arrangement.spacedBy(24.dp),
+  ) {
+    InputPasswordView(state = rememberTextFieldState())
+    InputPasswordView(state = rememberTextFieldState())
+  }
 }
 
 @Composable
 private fun InputPasswordView(
-   modifier: Modifier = Modifier,
-   state: TextFieldState,
+  modifier: Modifier = Modifier,
+  state: TextFieldState,
 ) {
-   var passwordVisible by remember { mutableStateOf(false) }
+  var passwordVisible by remember { mutableStateOf(false) }
 
-   FSecureTextField(
-      modifier = modifier.fillMaxWidth(),
-      state = state,
-      textObfuscationMode = if (passwordVisible) TextObfuscationMode.Visible else TextObfuscationMode.RevealLastTyped,
-      label = {
-         Text(text = "password")
-      },
-      trailingIcon = {
-         if (state.text.isNotEmpty()) {
-            TextButton(
-               onClick = { passwordVisible = !passwordVisible },
-            ) {
-               Text(text = if (passwordVisible) "hide" else "show")
-            }
-         }
-      },
-   )
+  FSecureTextField(
+    modifier = modifier.fillMaxWidth(),
+    state = state,
+    textObfuscationMode = if (passwordVisible) TextObfuscationMode.Visible else TextObfuscationMode.RevealLastTyped,
+    label = {
+      Text(text = "password")
+    },
+    trailingIcon = {
+      if (state.text.isNotEmpty()) {
+        TextButton(
+          onClick = { passwordVisible = !passwordVisible },
+        ) {
+          Text(text = if (passwordVisible) "hide" else "show")
+        }
+      }
+    },
+  )
 }
 
 @Preview
 @Composable
 private fun Preview() {
-   Content()
+  Content()
 }

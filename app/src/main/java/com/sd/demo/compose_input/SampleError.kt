@@ -20,48 +20,48 @@ import com.sd.demo.compose_input.ui.theme.AppTheme
 import com.sd.lib.compose.input.FTextField
 
 class SampleError : ComponentActivity() {
-   override fun onCreate(savedInstanceState: Bundle?) {
-      super.onCreate(savedInstanceState)
-      setContent {
-         AppTheme {
-            Surface {
-               Content()
-            }
-         }
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContent {
+      AppTheme {
+        Surface {
+          Content()
+        }
       }
-   }
+    }
+  }
 }
 
 @Composable
 private fun Content() {
-   Column(
-      modifier = Modifier
-         .fillMaxSize()
-         .padding(24.dp),
-      horizontalAlignment = Alignment.CenterHorizontally,
-      verticalArrangement = Arrangement.spacedBy(24.dp),
-   ) {
-      FTextField(
-         modifier = Modifier.fillMaxWidth(),
-         state = rememberTextFieldState(),
-         isError = true,
-         label = {
-            Text(text = "error1")
-         },
-      )
-      FTextField(
-         modifier = Modifier.fillMaxWidth(),
-         state = rememberTextFieldState(),
-         isError = true,
-         label = {
-            Text(text = "error2")
-         },
-      )
-   }
+  Column(
+    modifier = Modifier
+      .fillMaxSize()
+      .padding(24.dp),
+    horizontalAlignment = Alignment.CenterHorizontally,
+    verticalArrangement = Arrangement.spacedBy(24.dp),
+  ) {
+    FTextField(
+      modifier = Modifier.fillMaxWidth(),
+      state = rememberTextFieldState(),
+      isError = true,
+      label = {
+        Text(text = "error1")
+      },
+    )
+    FTextField(
+      modifier = Modifier.fillMaxWidth(),
+      state = rememberTextFieldState(),
+      isError = true,
+      label = {
+        Text(text = "error2")
+      },
+    )
+  }
 }
 
 @Preview
 @Composable
 private fun Preview() {
-   Content()
+  Content()
 }

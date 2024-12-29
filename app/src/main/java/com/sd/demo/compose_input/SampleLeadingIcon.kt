@@ -24,44 +24,44 @@ import com.sd.lib.compose.input.FTextField
 import com.sd.lib.compose.input.FTextFieldIconContainer
 
 class SampleLeadingIcon : ComponentActivity() {
-   override fun onCreate(savedInstanceState: Bundle?) {
-      super.onCreate(savedInstanceState)
-      setContent {
-         AppTheme {
-            Surface {
-               Content()
-            }
-         }
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContent {
+      AppTheme {
+        Surface {
+          Content()
+        }
       }
-   }
+    }
+  }
 }
 
 @Composable
 private fun Content() {
-   Column(
-      modifier = Modifier
-         .fillMaxSize()
-         .padding(24.dp),
-      horizontalAlignment = Alignment.CenterHorizontally,
-      verticalArrangement = Arrangement.spacedBy(24.dp),
-   ) {
-      FTextField(
-         modifier = Modifier.fillMaxWidth(),
-         state = rememberTextFieldState(),
-         leadingIcon = {
-            FTextFieldIconContainer(modifier = Modifier.width(48.dp)) {
-               Icon(
-                  imageVector = Icons.Default.Search,
-                  contentDescription = "Search",
-               )
-            }
-         },
-      )
-   }
+  Column(
+    modifier = Modifier
+      .fillMaxSize()
+      .padding(24.dp),
+    horizontalAlignment = Alignment.CenterHorizontally,
+    verticalArrangement = Arrangement.spacedBy(24.dp),
+  ) {
+    FTextField(
+      modifier = Modifier.fillMaxWidth(),
+      state = rememberTextFieldState(),
+      leadingIcon = {
+        FTextFieldIconContainer(modifier = Modifier.width(48.dp)) {
+          Icon(
+            imageVector = Icons.Default.Search,
+            contentDescription = "Search",
+          )
+        }
+      },
+    )
+  }
 }
 
 @Preview
 @Composable
 private fun Preview() {
-   Content()
+  Content()
 }

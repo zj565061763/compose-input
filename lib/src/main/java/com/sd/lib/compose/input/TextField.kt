@@ -31,93 +31,93 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun FTextField(
-   modifier: Modifier = Modifier,
-   state: TextFieldState,
-   enabled: Boolean = true,
-   readOnly: Boolean = false,
-   inputTransformation: InputTransformation? = null,
-   textStyle: TextStyle? = null,
-   keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-   onKeyboardAction: KeyboardActionHandler? = null,
-   onTextLayout: (Density.(getResult: () -> TextLayoutResult?) -> Unit)? = null,
-   interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-   outputTransformation: OutputTransformation? = null,
+  modifier: Modifier = Modifier,
+  state: TextFieldState,
+  enabled: Boolean = true,
+  readOnly: Boolean = false,
+  inputTransformation: InputTransformation? = null,
+  textStyle: TextStyle? = null,
+  keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+  onKeyboardAction: KeyboardActionHandler? = null,
+  onTextLayout: (Density.(getResult: () -> TextLayoutResult?) -> Unit)? = null,
+  interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+  outputTransformation: OutputTransformation? = null,
 
-   minLines: Int = 1,
-   maxLines: Int = 1,
-   isError: Boolean = false,
-   shape: Shape = RoundedCornerShape(0.dp),
-   colors: FTextFieldColors = FTextFieldDefaults.colors(),
-   contentPadding: PaddingValues = PaddingValues(horizontal = 12.dp, vertical = 6.dp),
+  minLines: Int = 1,
+  maxLines: Int = 1,
+  isError: Boolean = false,
+  shape: Shape = RoundedCornerShape(0.dp),
+  colors: FTextFieldColors = FTextFieldDefaults.colors(),
+  contentPadding: PaddingValues = PaddingValues(horizontal = 12.dp, vertical = 6.dp),
 
-   placeholder: @Composable (() -> Unit)? = null,
-   label: @Composable (() -> Unit)? = null,
-   leadingIcon: @Composable (() -> Unit)? = null,
-   trailingIcon: @Composable (() -> Unit)? = null,
-   indicator: (@Composable BoxScope.() -> Unit)? = { FTextFieldIndicatorOutline() },
-   overlay: (@Composable BoxScope.() -> Unit)? = null,
+  placeholder: @Composable (() -> Unit)? = null,
+  label: @Composable (() -> Unit)? = null,
+  leadingIcon: @Composable (() -> Unit)? = null,
+  trailingIcon: @Composable (() -> Unit)? = null,
+  indicator: (@Composable BoxScope.() -> Unit)? = { FTextFieldIndicatorOutline() },
+  overlay: (@Composable BoxScope.() -> Unit)? = null,
 ) {
-   val internalState = remember(state) { TextFieldStateImpl(state) }
-      .apply {
-         setData(
-            enabled = enabled,
-            isError = isError,
-            focused = interactionSource.collectIsFocusedAsState().value,
-            colors = colors,
-         )
-      }
-
-   val localTextStyle = LocalTextStyle.current
-   val safeTextStyle = when {
-      textStyle == null -> localTextStyle
-      textStyle === localTextStyle -> localTextStyle
-      else -> localTextStyle.merge(textStyle)
-   }
-   val mergedTextStyle = safeTextStyle.let { style ->
-      val textColor = style.color.takeOrElse { internalState.textColor() }
-      if (textColor == style.color) style else style.copy(color = textColor)
-   }
-
-   val lineLimits = when {
-      minLines == 1 && maxLines == 1 -> TextFieldLineLimits.SingleLine
-      minLines == 1 && maxLines == Int.MAX_VALUE -> TextFieldLineLimits.Default
-      else -> TextFieldLineLimits.MultiLine(minLines, maxLines)
-   }
-
-   CompositionLocalProvider(LocalTextSelectionColors provides colors.textSelectionColors) {
-      BasicTextField(
-         state = state,
-         modifier = modifier
-            .defaultMinSize(minWidth = 200.dp, minHeight = 56.dp)
-            .let { if (isError) it.semantics { error("Input error") } else it },
-         enabled = enabled,
-         readOnly = readOnly,
-         inputTransformation = inputTransformation,
-         textStyle = mergedTextStyle,
-         keyboardOptions = keyboardOptions,
-         onKeyboardAction = onKeyboardAction,
-         lineLimits = lineLimits,
-         onTextLayout = onTextLayout,
-         interactionSource = interactionSource,
-         cursorBrush = SolidColor(internalState.cursorColor()),
-         outputTransformation = outputTransformation,
-         decorator = { innerTextField ->
-            CompositionLocalProvider(LocalTextFieldState provides internalState) {
-               DecorationBox(
-                  state = internalState,
-                  textStyle = safeTextStyle,
-                  shape = shape,
-                  contentPadding = contentPadding,
-                  innerTextField = innerTextField,
-                  placeholder = placeholder,
-                  label = label,
-                  leadingIcon = leadingIcon,
-                  trailingIcon = trailingIcon,
-                  indicator = indicator,
-                  overlay = overlay,
-               )
-            }
-         }
+  val internalState = remember(state) { TextFieldStateImpl(state) }
+    .apply {
+      setData(
+        enabled = enabled,
+        isError = isError,
+        focused = interactionSource.collectIsFocusedAsState().value,
+        colors = colors,
       )
-   }
+    }
+
+  val localTextStyle = LocalTextStyle.current
+  val safeTextStyle = when {
+    textStyle == null -> localTextStyle
+    textStyle === localTextStyle -> localTextStyle
+    else -> localTextStyle.merge(textStyle)
+  }
+  val mergedTextStyle = safeTextStyle.let { style ->
+    val textColor = style.color.takeOrElse { internalState.textColor() }
+    if (textColor == style.color) style else style.copy(color = textColor)
+  }
+
+  val lineLimits = when {
+    minLines == 1 && maxLines == 1 -> TextFieldLineLimits.SingleLine
+    minLines == 1 && maxLines == Int.MAX_VALUE -> TextFieldLineLimits.Default
+    else -> TextFieldLineLimits.MultiLine(minLines, maxLines)
+  }
+
+  CompositionLocalProvider(LocalTextSelectionColors provides colors.textSelectionColors) {
+    BasicTextField(
+      state = state,
+      modifier = modifier
+        .defaultMinSize(minWidth = 200.dp, minHeight = 56.dp)
+        .let { if (isError) it.semantics { error("Input error") } else it },
+      enabled = enabled,
+      readOnly = readOnly,
+      inputTransformation = inputTransformation,
+      textStyle = mergedTextStyle,
+      keyboardOptions = keyboardOptions,
+      onKeyboardAction = onKeyboardAction,
+      lineLimits = lineLimits,
+      onTextLayout = onTextLayout,
+      interactionSource = interactionSource,
+      cursorBrush = SolidColor(internalState.cursorColor()),
+      outputTransformation = outputTransformation,
+      decorator = { innerTextField ->
+        CompositionLocalProvider(LocalTextFieldState provides internalState) {
+          DecorationBox(
+            state = internalState,
+            textStyle = safeTextStyle,
+            shape = shape,
+            contentPadding = contentPadding,
+            innerTextField = innerTextField,
+            placeholder = placeholder,
+            label = label,
+            leadingIcon = leadingIcon,
+            trailingIcon = trailingIcon,
+            indicator = indicator,
+            overlay = overlay,
+          )
+        }
+      }
+    )
+  }
 }

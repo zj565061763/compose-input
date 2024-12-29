@@ -22,46 +22,46 @@ import com.sd.lib.compose.input.FTextField
 import com.sd.lib.compose.input.fMaxLength
 
 class SampleMaxLength : ComponentActivity() {
-   override fun onCreate(savedInstanceState: Bundle?) {
-      super.onCreate(savedInstanceState)
-      setContent {
-         AppTheme {
-            Surface {
-               Content()
-            }
-         }
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContent {
+      AppTheme {
+        Surface {
+          Content()
+        }
       }
-   }
+    }
+  }
 }
 
 @Composable
 private fun Content() {
-   val state = rememberTextFieldState()
-   val maxLength = 5
+  val state = rememberTextFieldState()
+  val maxLength = 5
 
-   LaunchedEffect(state, maxLength) {
-      state.fMaxLength(maxLength)
-   }
+  LaunchedEffect(state, maxLength) {
+    state.fMaxLength(maxLength)
+  }
 
-   Column(
-      modifier = Modifier
-         .fillMaxSize()
-         .padding(24.dp),
-      horizontalAlignment = Alignment.CenterHorizontally,
-      verticalArrangement = Arrangement.spacedBy(24.dp),
-   ) {
-      FTextField(
-         modifier = Modifier.fillMaxWidth(),
-         state = state,
-         placeholder = {
-            Text(text = "max input length $maxLength")
-         }
-      )
-   }
+  Column(
+    modifier = Modifier
+      .fillMaxSize()
+      .padding(24.dp),
+    horizontalAlignment = Alignment.CenterHorizontally,
+    verticalArrangement = Arrangement.spacedBy(24.dp),
+  ) {
+    FTextField(
+      modifier = Modifier.fillMaxWidth(),
+      state = state,
+      placeholder = {
+        Text(text = "max input length $maxLength")
+      }
+    )
+  }
 }
 
 @Preview
 @Composable
 private fun Preview() {
-   Content()
+  Content()
 }
