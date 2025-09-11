@@ -24,7 +24,7 @@ import com.sd.demo.compose_input.ui.theme.AppTheme
 import com.sd.lib.compose.input.FTextField
 import com.sd.lib.compose.input.FTextFieldIconContainer
 
-class SampleLeadingIcon : ComponentActivity() {
+class SampleIcon : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContent {
@@ -49,6 +49,17 @@ private fun Content() {
       state = rememberTextFieldState(),
       contentPadding = PaddingValues(0.dp),
       leadingIcon = {
+        FTextFieldIconContainer(
+          modifier = Modifier.width(48.dp),
+          containerColor = Color.Red.copy(0.5f),
+        ) {
+          Icon(
+            imageVector = Icons.Default.Search,
+            contentDescription = "Search",
+          )
+        }
+      },
+      trailingIcon = {
         FTextFieldIconContainer(
           modifier = Modifier.width(48.dp),
           containerColor = Color.Red.copy(0.5f),
