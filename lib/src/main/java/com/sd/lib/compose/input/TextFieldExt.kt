@@ -7,14 +7,11 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.defaultMinSize
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Clear
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.snapshotFlow
@@ -26,6 +23,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.takeOrElse
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 suspend fun TextFieldState.fSetMaxLength(maxLength: Int) {
   require(maxLength > 0)
@@ -57,12 +55,8 @@ fun BoxScope.FTextFieldIndicatorOutline(
   ) { c, t ->
     Box(
       modifier = modifier
-         .matchParentSize()
-         .border(
-            width = t,
-            color = c,
-            shape = shape,
-         )
+        .matchParentSize()
+        .border(width = t, color = c, shape = shape)
     )
   }
 }
@@ -96,13 +90,7 @@ fun FTextFieldIconClear(
   modifier: Modifier = Modifier,
   shape: Shape = CircleShape,
   containerColor: Color = Color.Transparent,
-  icon: @Composable () -> Unit = {
-    Icon(
-      modifier = Modifier.size(16.dp),
-      imageVector = Icons.Default.Clear,
-      contentDescription = "clear",
-    )
-  },
+  icon: @Composable () -> Unit = { Text(text = "x", fontSize = 16.sp) },
 ) {
   val state = fTextFieldState()
   val showIcon = state.focused && !state.isTextEmpty
@@ -131,16 +119,16 @@ fun FTextFieldIconContainer(
 ) {
   Box(
     modifier = modifier
-       .defaultMinSize(24.dp, 24.dp)
-       .background(color = containerColor, shape = shape)
-       .clip(shape)
-       .let {
-          if (onClick != null) {
-             it.clickable { onClick() }
-          } else {
-             it
-          }
-       },
+      .defaultMinSize(24.dp, 24.dp)
+      .background(color = containerColor, shape = shape)
+      .clip(shape)
+      .let {
+        if (onClick != null) {
+          it.clickable(interactionSource = null, indication = null) { onClick() }
+        } else {
+          it
+        }
+      },
     contentAlignment = Alignment.Center,
   ) {
     icon()

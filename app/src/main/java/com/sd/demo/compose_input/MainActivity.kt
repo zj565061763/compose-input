@@ -27,7 +27,6 @@ class MainActivity : ComponentActivity() {
         Content(
           listActivity = listOf(
             SamplePlaceholder::class.java,
-            SampleLabel::class.java,
             SamplePassword::class.java,
             SampleClear::class.java,
             SampleIndicator::class.java,
@@ -35,7 +34,7 @@ class MainActivity : ComponentActivity() {
             SampleOverlay::class.java,
             SampleError::class.java,
             SampleMaxLength::class.java,
-            SampleLightMode::class.java,
+            SampleLightDark::class.java,
           ),
           onClickActivity = {
             startActivity(Intent(this, it))

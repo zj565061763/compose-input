@@ -42,15 +42,6 @@ internal fun FTextFieldState.placeholderColor(): Color {
 }
 
 @Composable
-internal fun FTextFieldState.labelColor(): Color {
-  return colors.labelColor(
-    enabled = enabled,
-    isError = isError,
-    focused = focused,
-  ).value
-}
-
-@Composable
 internal fun FTextFieldState.leadingIconColor(): Color {
   return colors.leadingIconColor(
     enabled = enabled,

@@ -33,12 +33,6 @@ object FTextFieldDefaults {
     disabledPlaceholderColor: Color? = null,
     errorPlaceholderColor: Color? = null,
 
-    // Label
-    focusedLabelColor: Color? = null,
-    unfocusedLabelColor: Color? = null,
-    disabledLabelColor: Color? = null,
-    errorLabelColor: Color? = null,
-
     // Leading
     focusedLeadingIconColor: Color? = null,
     unfocusedLeadingIconColor: Color? = null,
@@ -92,11 +86,6 @@ object FTextFieldDefaults {
       unfocusedPlaceholderColor = unfocusedPlaceholderColor ?: focusedPlaceholderColor,
       disabledPlaceholderColor = disabledPlaceholderColor ?: focusedPlaceholderColor,
       errorPlaceholderColor = errorPlaceholderColor ?: focusedPlaceholderColor,
-
-      focusedLabelColor = focusedLabelColor ?: focusedIndicatorColor,
-      unfocusedLabelColor = unfocusedLabelColor ?: unfocusedIndicatorColor,
-      disabledLabelColor = disabledLabelColor ?: disabledIndicatorColor,
-      errorLabelColor = errorLabelColor ?: errorIndicatorColor,
 
       // Leading
       focusedLeadingIconColor = focusedLeadingIconColor ?: focusedTextColor,

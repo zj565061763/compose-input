@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.TextObfuscationMode
 import androidx.compose.foundation.text.input.rememberTextFieldState
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -31,9 +30,7 @@ class SamplePassword : ComponentActivity() {
     super.onCreate(savedInstanceState)
     setContent {
       AppTheme {
-        Surface {
-          Content()
-        }
+        Content()
       }
     }
   }
@@ -64,7 +61,7 @@ private fun InputPasswordView(
     modifier = modifier.fillMaxWidth(),
     state = state,
     textObfuscationMode = if (passwordVisible) TextObfuscationMode.Visible else TextObfuscationMode.RevealLastTyped,
-    label = {
+    placeholder = {
       Text(text = "password")
     },
     trailingIcon = {

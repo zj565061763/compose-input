@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -28,9 +27,7 @@ class SampleIndicator : ComponentActivity() {
     super.onCreate(savedInstanceState)
     setContent {
       AppTheme {
-        Surface {
-          Content()
-        }
+        Content()
       }
     }
   }
@@ -49,7 +46,7 @@ private fun Content() {
       modifier = Modifier.fillMaxWidth(),
       state = rememberTextFieldState(),
       placeholder = {
-        Text(text = "indicator1")
+        Text(text = "indicator")
       },
       indicator = {
         FTextFieldIndicatorOutline(
@@ -63,7 +60,7 @@ private fun Content() {
       modifier = Modifier.fillMaxWidth(),
       state = rememberTextFieldState(),
       placeholder = {
-        Text(text = "indicator2")
+        Text(text = "indicator")
       },
       indicator = {
         FTextFieldIndicatorContainer(

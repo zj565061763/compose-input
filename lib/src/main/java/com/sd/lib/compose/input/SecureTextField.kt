@@ -49,7 +49,6 @@ fun FSecureTextField(
   contentPadding: PaddingValues = PaddingValues(horizontal = 12.dp, vertical = 6.dp),
 
   placeholder: @Composable (() -> Unit)? = null,
-  label: @Composable (() -> Unit)? = null,
   leadingIcon: @Composable (() -> Unit)? = null,
   trailingIcon: @Composable (() -> Unit)? = null,
   indicator: (@Composable BoxScope.() -> Unit)? = { FTextFieldIndicatorOutline() },
@@ -101,7 +100,6 @@ fun FSecureTextField(
             contentPadding = contentPadding,
             innerTextField = innerTextField,
             placeholder = placeholder,
-            label = label,
             leadingIcon = leadingIcon,
             trailingIcon = trailingIcon,
             indicator = indicator,

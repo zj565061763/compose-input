@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -13,10 +14,10 @@ import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sd.demo.compose_input.ui.theme.AppTheme
@@ -28,9 +29,7 @@ class SampleLeadingIcon : ComponentActivity() {
     super.onCreate(savedInstanceState)
     setContent {
       AppTheme {
-        Surface {
-          Content()
-        }
+        Content()
       }
     }
   }
@@ -48,8 +47,12 @@ private fun Content() {
     FTextField(
       modifier = Modifier.fillMaxWidth(),
       state = rememberTextFieldState(),
+      contentPadding = PaddingValues(0.dp),
       leadingIcon = {
-        FTextFieldIconContainer(modifier = Modifier.width(48.dp)) {
+        FTextFieldIconContainer(
+          modifier = Modifier.width(48.dp),
+          containerColor = Color.Red.copy(0.5f),
+        ) {
           Icon(
             imageVector = Icons.Default.Search,
             contentDescription = "Search",

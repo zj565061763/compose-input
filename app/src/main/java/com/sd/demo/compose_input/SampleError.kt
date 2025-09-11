@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.input.rememberTextFieldState
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,9 +23,7 @@ class SampleError : ComponentActivity() {
     super.onCreate(savedInstanceState)
     setContent {
       AppTheme {
-        Surface {
-          Content()
-        }
+        Content()
       }
     }
   }
@@ -45,16 +42,16 @@ private fun Content() {
       modifier = Modifier.fillMaxWidth(),
       state = rememberTextFieldState(),
       isError = true,
-      label = {
-        Text(text = "error1")
+      placeholder = {
+        Text(text = "placeholder")
       },
     )
     FTextField(
       modifier = Modifier.fillMaxWidth(),
       state = rememberTextFieldState(),
       isError = true,
-      label = {
-        Text(text = "error2")
+      placeholder = {
+        Text(text = "placeholder")
       },
     )
   }

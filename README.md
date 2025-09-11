@@ -1,5 +1,7 @@
-[![](https://jitpack.io/v/zj565061763/compose-input.svg)](https://jitpack.io/#zj565061763/compose-input)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.zj565061763.android/compose-input)](https://central.sonatype.com/search?q=g:io.github.zj565061763.android+compose-input)
 
-# Deprecated
+# Gradle
 
-这个库已经废弃，迁移到跨平台版本：[kmp-compose-input](https://github.com/zj565061763/kmp-compose-input)
+```kotlin
+implementation("io.github.zj565061763.android:compose-input:$version")
+```

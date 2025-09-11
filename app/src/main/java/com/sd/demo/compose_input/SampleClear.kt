@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.input.rememberTextFieldState
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -25,9 +24,7 @@ class SampleClear : ComponentActivity() {
     super.onCreate(savedInstanceState)
     setContent {
       AppTheme {
-        Surface {
-          Content()
-        }
+        Content()
       }
     }
   }
@@ -45,8 +42,8 @@ private fun Content() {
     FTextField(
       modifier = Modifier.fillMaxWidth(),
       state = rememberTextFieldState(),
-      label = {
-        Text(text = "label clear")
+      placeholder = {
+        Text(text = "placeholder")
       },
       trailingIcon = {
         FTextFieldIconClear(modifier = Modifier.padding(end = 8.dp))
@@ -56,7 +53,7 @@ private fun Content() {
       modifier = Modifier.fillMaxWidth(),
       state = rememberTextFieldState(),
       placeholder = {
-        Text(text = "placeholder clear")
+        Text(text = "placeholder")
       },
       trailingIcon = {
         FTextFieldIconClear(modifier = Modifier.padding(end = 8.dp))
