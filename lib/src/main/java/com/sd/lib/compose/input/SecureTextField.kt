@@ -64,12 +64,7 @@ fun FSecureTextField(
       )
     }
 
-  val localTextStyle = LocalTextStyle.current
-  val safeTextStyle = when {
-    textStyle == null -> localTextStyle
-    textStyle === localTextStyle -> localTextStyle
-    else -> localTextStyle.merge(textStyle)
-  }
+  val safeTextStyle = LocalTextStyle.current.merge(textStyle)
   val mergedTextStyle = safeTextStyle.let { style ->
     val textColor = style.color.takeOrElse { internalState.textColor() }
     if (textColor == style.color) style else style.copy(color = textColor)
