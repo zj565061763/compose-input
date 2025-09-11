@@ -52,14 +52,12 @@ internal fun DecorationBox(
         innerTextField()
 
         // Placeholder
-        if (placeholder != null) {
-          if (state.isTextEmpty) {
-            Decoration(
-              contentColor = state.placeholderColor(),
-              textStyle = textStyle,
-            ) {
-              placeholder()
-            }
+        if (placeholder != null && state.isTextEmpty) {
+          Decoration(
+            contentColor = state.placeholderColor(),
+            textStyle = textStyle,
+          ) {
+            placeholder()
           }
         }
       }
