@@ -72,18 +72,14 @@ internal fun DecorationBox(
 
     // Indicator
     if (indicator != null) {
-      Box(modifier = Modifier.matchParentSize()) {
-        Decoration(state.indicatorColor()) {
-          indicator()
-        }
+      Decoration(state.indicatorColor()) {
+        indicator()
       }
     }
 
     // Overlay
     if (overlay != null) {
-      Box(modifier = Modifier.matchParentSize()) {
-        overlay()
-      }
+      overlay()
     }
   }
 }
