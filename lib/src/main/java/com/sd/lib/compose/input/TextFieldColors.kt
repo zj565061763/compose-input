@@ -6,15 +6,15 @@ import androidx.compose.ui.graphics.Color
 
 @Immutable
 data class FTextFieldColors(
-  val unfocusedTextColor: Color,
-  val focusedTextColor: Color,
-  val disabledTextColor: Color,
-  val errorTextColor: Color,
-
   val unfocusedContainerColor: Color,
   val focusedContainerColor: Color,
   val disabledContainerColor: Color,
   val errorContainerColor: Color,
+
+  val unfocusedTextColor: Color,
+  val focusedTextColor: Color,
+  val disabledTextColor: Color,
+  val errorTextColor: Color,
 
   val unfocusedIndicatorColor: Color,
   val focusedIndicatorColor: Color,
@@ -41,17 +41,6 @@ data class FTextFieldColors(
   val textSelectionColors: TextSelectionColors,
 )
 
-internal fun FTextFieldColors.textColor(
-  enabled: Boolean,
-  isError: Boolean,
-  focused: Boolean,
-): Color = when {
-  !enabled -> disabledTextColor
-  isError -> errorTextColor
-  focused -> focusedTextColor
-  else -> unfocusedTextColor
-}
-
 internal fun FTextFieldColors.containerColor(
   enabled: Boolean,
   isError: Boolean,
@@ -61,6 +50,17 @@ internal fun FTextFieldColors.containerColor(
   isError -> errorContainerColor
   focused -> focusedContainerColor
   else -> unfocusedContainerColor
+}
+
+internal fun FTextFieldColors.textColor(
+  enabled: Boolean,
+  isError: Boolean,
+  focused: Boolean,
+): Color = when {
+  !enabled -> disabledTextColor
+  isError -> errorTextColor
+  focused -> focusedTextColor
+  else -> unfocusedTextColor
 }
 
 internal fun FTextFieldColors.indicatorColor(

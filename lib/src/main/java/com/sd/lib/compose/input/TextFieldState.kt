@@ -58,16 +58,16 @@ internal class TextFieldStateImpl(
   }
 }
 
-internal fun FTextFieldState.textColor(): Color {
-  return colors.textColor(
+internal fun FTextFieldState.containerColor(): Color {
+  return colors.containerColor(
     enabled = enabled,
     isError = isError,
     focused = focused,
   )
 }
 
-internal fun FTextFieldState.containerColor(): Color {
-  return colors.containerColor(
+internal fun FTextFieldState.textColor(): Color {
+  return colors.textColor(
     enabled = enabled,
     isError = isError,
     focused = focused,
@@ -107,5 +107,5 @@ internal fun FTextFieldState.trailingIconColor(): Color {
 }
 
 internal fun FTextFieldState.cursorColor(): Color {
-  return colors.cursorColor(isError)
+  return colors.cursorColor(isError = isError)
 }
