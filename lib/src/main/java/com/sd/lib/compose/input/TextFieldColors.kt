@@ -26,6 +26,10 @@ data class FTextFieldColors(
   val disabledPlaceholderColor: Color,
   val errorPlaceholderColor: Color,
 
+  val cursorColor: Color,
+  val errorCursorColor: Color,
+  val textSelectionColors: TextSelectionColors,
+
   val unfocusedLeadingIconColor: Color,
   val focusedLeadingIconColor: Color,
   val disabledLeadingIconColor: Color,
@@ -35,10 +39,6 @@ data class FTextFieldColors(
   val focusedTrailingIconColor: Color,
   val disabledTrailingIconColor: Color,
   val errorTrailingIconColor: Color,
-
-  val cursorColor: Color,
-  val errorCursorColor: Color,
-  val textSelectionColors: TextSelectionColors,
 )
 
 internal fun FTextFieldColors.containerColor(
@@ -85,6 +85,10 @@ internal fun FTextFieldColors.placeholderColor(
   else -> unfocusedPlaceholderColor
 }
 
+internal fun FTextFieldColors.cursorColor(isError: Boolean): Color {
+  return if (isError) errorCursorColor else cursorColor
+}
+
 internal fun FTextFieldColors.leadingIconColor(
   enabled: Boolean,
   isError: Boolean,
@@ -105,8 +109,4 @@ internal fun FTextFieldColors.trailingIconColor(
   isError -> errorTrailingIconColor
   focused -> focusedTrailingIconColor
   else -> unfocusedTrailingIconColor
-}
-
-internal fun FTextFieldColors.cursorColor(isError: Boolean): Color {
-  return if (isError) errorCursorColor else cursorColor
 }

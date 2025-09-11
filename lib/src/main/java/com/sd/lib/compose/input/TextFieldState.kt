@@ -90,6 +90,10 @@ internal fun FTextFieldState.placeholderColor(): Color {
   )
 }
 
+internal fun FTextFieldState.cursorColor(): Color {
+  return colors.cursorColor(isError = isError)
+}
+
 internal fun FTextFieldState.leadingIconColor(): Color {
   return colors.leadingIconColor(
     enabled = enabled,
@@ -104,8 +108,4 @@ internal fun FTextFieldState.trailingIconColor(): Color {
     isError = isError,
     focused = focused,
   )
-}
-
-internal fun FTextFieldState.cursorColor(): Color {
-  return colors.cursorColor(isError = isError)
 }
