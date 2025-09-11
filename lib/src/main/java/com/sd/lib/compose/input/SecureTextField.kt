@@ -79,7 +79,7 @@ fun FSecureTextField(
     BasicSecureTextField(
       state = state,
       modifier = modifier
-        .defaultMinSize(minWidth = 200.dp, minHeight = 56.dp)
+        .defaultMinSize(minWidth = 280.dp, minHeight = 56.dp)
         .let { if (isError) it.semantics { error("Input error") } else it },
       enabled = enabled,
       inputTransformation = inputTransformation,
