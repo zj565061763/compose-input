@@ -37,9 +37,7 @@ suspend fun TextFieldState.fSetMaxLength(maxLength: Int) {
 
 //-------------------- Ext --------------------
 
-/**
- * 指示器边框
- */
+/** 指示器边框 */
 @Composable
 fun BoxScope.FTextFieldIndicatorOutline(
   modifier: Modifier = Modifier,
@@ -61,9 +59,7 @@ fun BoxScope.FTextFieldIndicatorOutline(
   }
 }
 
-/**
- * 指示器容器
- */
+/** 指示器容器 */
 @Composable
 fun FTextFieldIndicatorContainer(
   color: Color = Color.Unspecified,
@@ -74,17 +70,15 @@ fun FTextFieldIndicatorContainer(
   val state = fTextFieldState()
   val thicknessAnim by animateDpAsState(
     targetValue = if (state.focused) focusedThickness else unfocusedThickness,
-    label = "TextField indicator thickness"
+    label = "TextField indicator thickness",
   )
   content(
     color.takeOrElse { state.indicatorColor() },
-    thicknessAnim
+    thicknessAnim,
   )
 }
 
-/**
- * 清空内容图标
- */
+/** 清空内容图标 */
 @Composable
 fun FTextFieldIconClear(
   modifier: Modifier = Modifier,
@@ -106,9 +100,7 @@ fun FTextFieldIconClear(
   }
 }
 
-/**
- * 图标容器
- */
+/** 图标容器 */
 @Composable
 fun FTextFieldIconContainer(
   modifier: Modifier = Modifier,
@@ -124,7 +116,7 @@ fun FTextFieldIconContainer(
       .clip(shape)
       .let {
         if (onClick != null) {
-          it.clickable(interactionSource = null, indication = null) { onClick() }
+          it.clickable(interactionSource = null, indication = null, onClick = onClick)
         } else {
           it
         }
