@@ -50,6 +50,8 @@ object FTextFieldDefaults {
     disabledTrailingIconColor: Color = Color.Unspecified,
     errorTrailingIconColor: Color = Color.Unspecified,
   ): FTextFieldColors {
+    val unfocusedContainerColor = unfocusedContainerColor.takeOrElse { Color.Transparent }
+
     val unfocusedTextColor = unfocusedTextColor.takeOrElse { MaterialTheme.colorScheme.onSurface }
     val focusedTextColor = focusedTextColor.takeOrElse { unfocusedTextColor }
     val disabledTextColor = disabledTextColor.takeOrElse { unfocusedTextColor.copy(alpha = 0.3f) }
@@ -65,10 +67,10 @@ object FTextFieldDefaults {
     val cursorColor = cursorColor.takeOrElse { focusedIndicatorColor }
     return FTextFieldColors(
       // Container
-      unfocusedContainerColor = unfocusedContainerColor.takeOrElse { Color.Transparent },
-      focusedContainerColor = focusedContainerColor.takeOrElse { Color.Transparent },
-      disabledContainerColor = disabledContainerColor.takeOrElse { Color.Transparent },
-      errorContainerColor = errorContainerColor.takeOrElse { Color.Transparent },
+      unfocusedContainerColor = unfocusedContainerColor,
+      focusedContainerColor = focusedContainerColor.takeOrElse { unfocusedContainerColor },
+      disabledContainerColor = disabledContainerColor.takeOrElse { unfocusedContainerColor },
+      errorContainerColor = errorContainerColor.takeOrElse { unfocusedContainerColor },
 
       // Text
       unfocusedTextColor = unfocusedTextColor,
