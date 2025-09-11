@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.Button
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -29,9 +30,11 @@ class SampleLightDark : ComponentActivity() {
     setContent {
       var isLight by remember { mutableStateOf(true) }
       AppTheme(isLight = isLight) {
-        Content(
-          onClickChangeMode = { isLight = !isLight }
-        )
+        Surface {
+          Content(
+            onClickChangeMode = { isLight = !isLight }
+          )
+        }
       }
     }
   }
