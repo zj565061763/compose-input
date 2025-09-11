@@ -57,12 +57,12 @@ object FTextFieldDefaults {
     val disabledTextColor = disabledTextColor.takeOrElse { unfocusedTextColor.copy(alpha = 0.3f) }
     val errorTextColor = errorTextColor.takeOrElse { MaterialTheme.colorScheme.error }
 
-    val unfocusedIndicatorColor = unfocusedIndicatorColor.takeOrElse { MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f) }
+    val unfocusedIndicatorColor = unfocusedIndicatorColor.takeOrElse { unfocusedTextColor.copy(alpha = 0.4f) }
     val focusedIndicatorColor = focusedIndicatorColor.takeOrElse { MaterialTheme.colorScheme.primary }
     val disabledIndicatorColor = disabledIndicatorColor.takeOrElse { disabledTextColor }
     val errorIndicatorColor = errorIndicatorColor.takeOrElse { errorTextColor }
 
-    val unfocusedPlaceholderColor = unfocusedPlaceholderColor.takeOrElse { MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f) }
+    val unfocusedPlaceholderColor = unfocusedPlaceholderColor.takeOrElse { unfocusedTextColor.copy(alpha = 0.4f) }
 
     val cursorColor = cursorColor.takeOrElse { focusedIndicatorColor }
     return FTextFieldColors(
