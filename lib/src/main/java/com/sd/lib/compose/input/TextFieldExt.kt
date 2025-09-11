@@ -88,15 +88,15 @@ fun FTextFieldIconClear(
 ) {
   val state = fTextFieldState()
   val showIcon = state.focused && !state.isTextEmpty
-  if (!showIcon) return
-
-  FTextFieldIconContainer(
-    modifier = modifier,
-    shape = shape,
-    containerColor = containerColor,
-    onClick = { state.clearText() },
-  ) {
-    icon()
+  if (showIcon) {
+    FTextFieldIconContainer(
+      modifier = modifier,
+      shape = shape,
+      containerColor = containerColor,
+      onClick = { state.clearText() },
+    ) {
+      icon()
+    }
   }
 }
 
