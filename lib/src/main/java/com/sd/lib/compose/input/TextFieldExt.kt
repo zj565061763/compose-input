@@ -97,6 +97,8 @@ fun FTextFieldIconClear(
     ) {
       icon()
     }
+  } else {
+    Box(modifier = modifier)
   }
 }
 
