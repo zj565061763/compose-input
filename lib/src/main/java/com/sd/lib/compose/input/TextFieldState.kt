@@ -1,9 +1,22 @@
 package com.sd.lib.compose.input
 
+import androidx.compose.foundation.text.input.TextFieldState
+import androidx.compose.foundation.text.input.clearText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
+
+@Composable
+fun fTextFieldState(): FTextFieldState {
+  return checkNotNull(LocalTextFieldState.current)
+}
+
+internal val LocalTextFieldState = staticCompositionLocalOf<FTextFieldState?> { null }
 
 @Stable
 interface FTextFieldState {
@@ -16,12 +29,34 @@ interface FTextFieldState {
   fun clearText()
 }
 
-@Composable
-fun fTextFieldState(): FTextFieldState {
-  return checkNotNull(LocalTextFieldState.current)
-}
+internal class TextFieldStateImpl(
+  private val state: TextFieldState,
+) : FTextFieldState {
+  private var _enabled by mutableStateOf(true)
+  private var _isError by mutableStateOf(false)
+  private var _focused by mutableStateOf(false)
+  private var _colors by mutableStateOf<FTextFieldColors?>(null)
 
-internal val LocalTextFieldState = staticCompositionLocalOf<FTextFieldState?> { null }
+  override val enabled: Boolean get() = _enabled
+  override val isError: Boolean get() = _isError
+  override val focused: Boolean get() = _focused
+  override val colors: FTextFieldColors get() = checkNotNull(_colors)
+  override val text: CharSequence get() = state.text
+  override val isTextEmpty: Boolean by derivedStateOf { state.text.isEmpty() }
+  override fun clearText() = state.clearText()
+
+  fun setData(
+    enabled: Boolean,
+    isError: Boolean,
+    focused: Boolean,
+    colors: FTextFieldColors,
+  ) {
+    _enabled = enabled
+    _isError = isError
+    _focused = focused
+    _colors = colors
+  }
+}
 
 internal fun FTextFieldState.textColor(): Color {
   return colors.textColor(
