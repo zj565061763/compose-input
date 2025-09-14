@@ -29,6 +29,7 @@
         <activity android:name=".SampleIcon" />
         <activity android:name=".SampleOverlay" />
         <activity android:name=".SampleError" />
+        <activity android:name=".SampleMultiLines" />
         <activity android:name=".SampleMaxLength" />
         <activity android:name=".SampleLightDark" />
 

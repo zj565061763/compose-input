@@ -33,6 +33,7 @@ class MainActivity : ComponentActivity() {
             SampleIcon::class.java,
             SampleOverlay::class.java,
             SampleError::class.java,
+            SampleMultiLines::class.java,
             SampleMaxLength::class.java,
             SampleLightDark::class.java,
           ),
