@@ -18,6 +18,7 @@ import androidx.compose.material3.LocalTextStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.SolidColor
@@ -49,6 +50,7 @@ fun FTextField(
   shape: Shape = RoundedCornerShape(0.dp),
   colors: FTextFieldColors = FTextFieldDefaults.colors(),
   contentPadding: PaddingValues = PaddingValues(horizontal = 12.dp, vertical = 6.dp),
+  verticalAlignment: Alignment.Vertical = Alignment.CenterVertically,
 
   placeholder: @Composable (() -> Unit)? = null,
   leadingIcon: @Composable (() -> Unit)? = null,
@@ -102,6 +104,7 @@ fun FTextField(
             textStyle = safeTextStyle,
             shape = shape,
             contentPadding = contentPadding,
+            verticalAlignment = verticalAlignment,
             innerTextField = innerTextField,
             placeholder = placeholder,
             leadingIcon = leadingIcon,

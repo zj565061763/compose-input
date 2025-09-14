@@ -43,6 +43,7 @@ private fun Content() {
       modifier = Modifier.heightIn(96.dp),
       state = rememberTextFieldState(),
       maxLines = Int.MAX_VALUE,
+      verticalAlignment = Alignment.Top,
       placeholder = {
         Text(text = "placeholder")
       },

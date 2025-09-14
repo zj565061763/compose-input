@@ -3,9 +3,11 @@ package com.sd.lib.compose.input
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.runtime.Composable
@@ -22,6 +24,7 @@ internal fun DecorationBox(
   textStyle: TextStyle,
   shape: Shape,
   contentPadding: PaddingValues,
+  verticalAlignment: Alignment.Vertical,
   innerTextField: @Composable () -> Unit,
   placeholder: @Composable (() -> Unit)?,
   leadingIcon: @Composable (() -> Unit)?,
@@ -29,9 +32,16 @@ internal fun DecorationBox(
   indicator: @Composable (BoxScope.() -> Unit)?,
   overlay: @Composable (BoxScope.() -> Unit)?,
 ) {
-  Box(modifier = Modifier.background(state.containerColor(), shape)) {
+  BoxWithConstraints(modifier = Modifier.background(state.containerColor(), shape)) {
+    val rowAlignment = when (verticalAlignment) {
+      Alignment.Top -> Alignment.TopStart
+      Alignment.Bottom -> Alignment.BottomStart
+      else -> Alignment.CenterStart
+    }
     Row(
-      modifier = Modifier.matchParentSize(),
+      modifier = Modifier
+        .width(minWidth)
+        .align(rowAlignment),
       verticalAlignment = Alignment.CenterVertically,
     ) {
       // Leading
