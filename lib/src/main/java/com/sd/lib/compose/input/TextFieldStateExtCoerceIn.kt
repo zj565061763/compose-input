@@ -13,10 +13,7 @@ fun TextFieldState.fCoerceInAndSetTextFlow(
   min: Int,
   max: Int,
   default: () -> Int = { min },
-  setText: TextFieldState.(Int?) -> Unit = { value ->
-    val text = value?.toString() ?: ""
-    setTextAndPlaceCursorAtEnd(text)
-  },
+  setText: TextFieldState.(Int?) -> Unit = { setTextAndPlaceCursorAtEnd(it?.toString() ?: "") },
 ): Flow<Int?> {
   return fCoerceInFlow(min = min, max = max, default = default)
     .onEach { setText(it) }

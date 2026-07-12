@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.input.rememberTextFieldState
-import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -19,7 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sd.demo.compose_input.ui.theme.AppTheme
 import com.sd.lib.compose.input.FTextField
-import com.sd.lib.compose.input.fLimitMaxLengthFlow
+import com.sd.lib.compose.input.fLimitMaxLengthAndSetTextFlow
 
 class SampleLimitMaxLength : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,8 +37,8 @@ private fun Content() {
   val maxLength = 5
 
   LaunchedEffect(state, maxLength) {
-    state.fLimitMaxLengthFlow(maxLength).collect { text ->
-      state.setTextAndPlaceCursorAtEnd(text.toString())
+    state.fLimitMaxLengthAndSetTextFlow(maxLength).collect { value ->
+      logMsg { value.toString() }
     }
   }
 
