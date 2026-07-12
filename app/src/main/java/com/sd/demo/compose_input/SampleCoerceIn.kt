@@ -20,7 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sd.demo.compose_input.ui.theme.AppTheme
 import com.sd.lib.compose.input.FTextField
-import com.sd.lib.compose.input.fCoerceIn
+import com.sd.lib.compose.input.fCoerceInFlow
 
 class SampleCoerceIn : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +38,7 @@ private fun Content() {
   val state = rememberTextFieldState()
 
   LaunchedEffect(state) {
-    state.fCoerceIn(1, 10).collect { number ->
+    state.fCoerceInFlow(1, 10).collect { number ->
       val text = number?.toString() ?: ""
       state.setTextAndPlaceCursorAtEnd(text)
     }
