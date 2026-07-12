@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
             SampleOverlay::class.java,
             SampleError::class.java,
             SampleMultiLines::class.java,
-            SampleMaxLength::class.java,
+            SampleLimitMaxLength::class.java,
             SampleCoerceIn::class.java,
             SampleLightDark::class.java,
           ),

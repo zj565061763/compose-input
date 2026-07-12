@@ -21,7 +21,7 @@ import com.sd.demo.compose_input.ui.theme.AppTheme
 import com.sd.lib.compose.input.FTextField
 import com.sd.lib.compose.input.fLimitMaxLengthFlow
 
-class SampleMaxLength : ComponentActivity() {
+class SampleLimitMaxLength : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContent {
