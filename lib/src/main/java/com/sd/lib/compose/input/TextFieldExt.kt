@@ -25,7 +25,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 
 /** 限制输入长度 */
@@ -37,7 +36,7 @@ fun TextFieldState.fSetMaxLengthFlow(maxLength: Int): Flow<CharSequence> {
     } else {
       text
     }
-  }.distinctUntilChanged()
+  }
 }
 
 /** 限制输入范围，如果为空字符串则发射null */
@@ -52,7 +51,7 @@ fun TextFieldState.fCoerceInFlow(
     } else {
       null
     }
-  }.distinctUntilChanged()
+  }
 }
 
 //-------------------- Ext --------------------
