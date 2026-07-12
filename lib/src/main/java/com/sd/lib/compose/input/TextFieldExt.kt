@@ -41,10 +41,14 @@ fun TextFieldState.fSetMaxLength(maxLength: Int): Flow<CharSequence> {
 }
 
 /** 限制输入范围，如果为空字符串则发射null */
-fun TextFieldState.fCoerceIn(min: Int, max: Int): Flow<Int?> {
+fun TextFieldState.fCoerceIn(
+  min: Int,
+  max: Int,
+  default: () -> Int = { min },
+): Flow<Int?> {
   return snapshotFlow { text.toString() }.map { text ->
     if (text.isNotEmpty()) {
-      text.toIntOrNull()?.coerceIn(min, max) ?: min
+      text.toIntOrNull()?.coerceIn(min, max) ?: default()
     } else {
       null
     }
