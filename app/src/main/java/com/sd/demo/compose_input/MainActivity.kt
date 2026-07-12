@@ -35,6 +35,7 @@ class MainActivity : ComponentActivity() {
             SampleError::class.java,
             SampleMultiLines::class.java,
             SampleMaxLength::class.java,
+            SampleCoerceIn::class.java,
             SampleLightDark::class.java,
           ),
           onClickActivity = {

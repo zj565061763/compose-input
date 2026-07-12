@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,6 +26,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+/** 限制输入长度 */
 suspend fun TextFieldState.fSetMaxLength(maxLength: Int) {
   require(maxLength > 0)
   snapshotFlow { text }.collect { text ->
@@ -32,6 +34,15 @@ suspend fun TextFieldState.fSetMaxLength(maxLength: Int) {
       val take = text.take(maxLength)
       setTextAndPlaceCursorAtEnd(take.toString())
     }
+  }
+}
+
+/** 限制输入范围 */
+suspend fun TextFieldState.fCoerceIn(min: Int, max: Int) {
+  snapshotFlow { text.toString() }.collect { text ->
+    if (text.isEmpty()) return@collect
+    val value = text.toIntOrNull()?.coerceIn(min, max) ?: min
+    setTextAndPlaceCursorAtEnd(value.toString())
   }
 }
 
@@ -55,6 +66,27 @@ fun BoxScope.FTextFieldIndicatorOutline(
       modifier = modifier
         .matchParentSize()
         .border(width = t, color = c, shape = shape)
+    )
+  }
+}
+
+/** 指示器边框 */
+@Composable
+fun BoxScope.FTextFieldIndicatorUnderline(
+  modifier: Modifier = Modifier,
+  color: Color = Color.Unspecified,
+  unfocusedThickness: Dp = 1.dp,
+  focusedThickness: Dp = unfocusedThickness * 1.2f,
+) {
+  FTextFieldIndicatorContainer(
+    color = color,
+    unfocusedThickness = unfocusedThickness,
+    focusedThickness = focusedThickness,
+  ) { c, t ->
+    HorizontalDivider(
+      modifier = modifier.align(Alignment.BottomCenter),
+      thickness = t,
+      color = c,
     )
   }
 }
