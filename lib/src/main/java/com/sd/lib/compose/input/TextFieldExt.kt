@@ -25,6 +25,9 @@ import androidx.compose.ui.graphics.takeOrElse
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 
 /** 限制输入长度 */
 suspend fun TextFieldState.fSetMaxLength(maxLength: Int) {
@@ -38,12 +41,14 @@ suspend fun TextFieldState.fSetMaxLength(maxLength: Int) {
 }
 
 /** 限制输入范围 */
-suspend fun TextFieldState.fCoerceIn(min: Int, max: Int) {
-  snapshotFlow { text.toString() }.collect { text ->
-    if (text.isEmpty()) return@collect
-    val value = text.toIntOrNull()?.coerceIn(min, max) ?: min
-    setTextAndPlaceCursorAtEnd(value.toString())
-  }
+fun TextFieldState.fCoerceIn(min: Int, max: Int): Flow<Int?> {
+  return snapshotFlow { text.toString() }.map { text ->
+    if (text.isEmpty()) {
+      null
+    } else {
+      text.toIntOrNull()?.coerceIn(min, max) ?: min
+    }
+  }.distinctUntilChanged()
 }
 
 //-------------------- Ext --------------------

@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.input.rememberTextFieldState
+import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -37,7 +38,10 @@ private fun Content() {
   val state = rememberTextFieldState()
 
   LaunchedEffect(state) {
-    state.fCoerceIn(1, 10)
+    state.fCoerceIn(1, 10).collect { number ->
+      val text = number?.toString() ?: ""
+      state.setTextAndPlaceCursorAtEnd(text)
+    }
   }
 
   Column(
