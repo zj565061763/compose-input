@@ -8,14 +8,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.text.input.TextFieldState
-import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -25,54 +22,6 @@ import androidx.compose.ui.graphics.takeOrElse
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
-
-/** 限制输入长度 */
-fun TextFieldState.fSetMaxLengthFlow(maxLength: Int): Flow<CharSequence> {
-  require(maxLength > 0)
-  return snapshotFlow { text }.map { text ->
-    if (text.length > maxLength) {
-      text.take(maxLength)
-    } else {
-      text
-    }
-  }
-}
-
-/** 限制输入范围 */
-fun TextFieldState.fCoerceInAndSetTextFlow(
-  min: Int,
-  max: Int,
-  default: () -> Int = { min },
-  setText: TextFieldState.(Int?) -> Unit = { value ->
-    val text = value?.toString() ?: ""
-    setTextAndPlaceCursorAtEnd(text)
-  },
-): Flow<Int?> {
-  return fCoerceInFlow(min = min, max = max, default = default)
-    .onEach { setText(it) }
-    .distinctUntilChanged()
-}
-
-/** 限制输入范围，如果为空字符串则发射null */
-fun TextFieldState.fCoerceInFlow(
-  min: Int,
-  max: Int,
-  default: () -> Int = { min },
-): Flow<Int?> {
-  return snapshotFlow { text.toString() }.map { text ->
-    if (text.isNotEmpty()) {
-      text.toIntOrNull()?.coerceIn(min, max) ?: default()
-    } else {
-      null
-    }
-  }
-}
-
-//-------------------- Ext --------------------
 
 /** 指示器边框 */
 @Composable
