@@ -8,18 +8,6 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 
-/** 限制输入长度 */
-fun TextFieldState.fSetMaxLengthFlow(maxLength: Int): Flow<CharSequence> {
-  require(maxLength > 0)
-  return snapshotFlow { text }.map { text ->
-    if (text.length > maxLength) {
-      text.take(maxLength)
-    } else {
-      text
-    }
-  }
-}
-
 /** 限制输入范围 */
 fun TextFieldState.fCoerceInAndSetTextFlow(
   min: Int,
