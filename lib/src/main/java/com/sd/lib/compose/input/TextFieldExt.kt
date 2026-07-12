@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.input.TextFieldState
-import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -30,23 +29,24 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 
 /** 限制输入长度 */
-suspend fun TextFieldState.fSetMaxLength(maxLength: Int) {
+fun TextFieldState.fSetMaxLength(maxLength: Int): Flow<CharSequence> {
   require(maxLength > 0)
-  snapshotFlow { text }.collect { text ->
+  return snapshotFlow { text }.map { text ->
     if (text.length > maxLength) {
-      val take = text.take(maxLength)
-      setTextAndPlaceCursorAtEnd(take.toString())
+      text.take(maxLength)
+    } else {
+      text
     }
-  }
+  }.distinctUntilChanged()
 }
 
-/** 限制输入范围 */
+/** 限制输入范围，如果为空字符串则发射null */
 fun TextFieldState.fCoerceIn(min: Int, max: Int): Flow<Int?> {
   return snapshotFlow { text.toString() }.map { text ->
-    if (text.isEmpty()) {
-      null
-    } else {
+    if (text.isNotEmpty()) {
       text.toIntOrNull()?.coerceIn(min, max) ?: min
+    } else {
+      null
     }
   }.distinctUntilChanged()
 }

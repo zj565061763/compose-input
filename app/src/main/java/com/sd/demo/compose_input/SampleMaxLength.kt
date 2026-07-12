@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.input.rememberTextFieldState
+import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -37,7 +38,9 @@ private fun Content() {
   val maxLength = 5
 
   LaunchedEffect(state, maxLength) {
-    state.fSetMaxLength(maxLength)
+    state.fSetMaxLength(maxLength).collect { text ->
+      state.setTextAndPlaceCursorAtEnd(text.toString())
+    }
   }
 
   Column(
