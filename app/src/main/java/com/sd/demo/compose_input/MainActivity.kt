@@ -70,5 +70,5 @@ private fun Content(
 }
 
 inline fun logMsg(block: () -> Any?) {
-  Log.i("compose-input-demo", block().toString())
+  Log.i("sd-demo", block().toString())
 }

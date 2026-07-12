@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.input.rememberTextFieldState
-import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -20,7 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sd.demo.compose_input.ui.theme.AppTheme
 import com.sd.lib.compose.input.FTextField
-import com.sd.lib.compose.input.fCoerceInFlow
+import com.sd.lib.compose.input.fCoerceInAndSetTextFlow
 
 class SampleCoerceIn : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,9 +37,8 @@ private fun Content() {
   val state = rememberTextFieldState()
 
   LaunchedEffect(state) {
-    state.fCoerceInFlow(1, 10).collect { number ->
-      val text = number?.toString() ?: ""
-      state.setTextAndPlaceCursorAtEnd(text)
+    state.fCoerceInAndSetTextFlow(1, 10).collect { value ->
+      logMsg { value.toString() }
     }
   }
 
